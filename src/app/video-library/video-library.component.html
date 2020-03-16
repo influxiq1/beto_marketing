@@ -1,0 +1,189 @@
+<app-adminheader></app-adminheader>
+<h1 class="video_gallery_wrapperh1">Access all of the Beto Paredes Training Videos</h1>
+
+<div class="video_gallery_wrapper">
+<h2>UTA</h2>
+
+<div class="video_con_wrapper">
+
+
+
+<div class="video_con" *ngFor="let item of UTAvideolibrary; let i = index"  >
+
+ 
+    <div class="videoimgblock"  (click)="videoModal.show()">
+    <img src="../../assets/images/video_gallery_playicon.png" alt="" class="playicon">
+   <img src="{{item.image}}"  class="videoimg"  >
+
+</div>
+
+  <label> {{item.subtitle}} </label>
+
+</div>
+ 
+
+</div>
+
+ 
+</div>
+
+
+<div class="video_gallery_wrapper">
+  <h2>ApogeeINVENT  </h2>
+  
+  <div class="video_con_wrapper">
+
+<div class="video_con" *ngFor="let item of Apogeevideolibrary; let i = index">
+
+  <div class="videoimgblock"  (click)="videoModal.show()">
+    <img src="../../assets/images/video_gallery_playicon.png" alt="" class="playicon">
+   <img src="{{item.image}}"  class="videoimg" >
+
+</div>
+
+  <label> {{item.subtitle}} </label>
+
+</div>
+ 
+
+
+  
+  </div>
+  
+   
+  </div>
+
+  <div class="video_gallery_wrapper">
+    <h2>GeoFenceDSP  </h2>
+    
+    <div class="video_con_wrapper">
+
+      <div class="video_con" *ngFor="let item of Geovideolibrary; let i = index">
+
+        <div class="videoimgblock"  (click)="videoModal.show()">
+          <img src="../../assets/images/video_gallery_playicon.png" alt="" class="playicon">
+         <img src="{{item.image}}"  class="videoimg" >
+      
+      </div>
+      
+        <label> {{item.subtitle}} </label>
+      
+      </div>
+       
+
+
+    
+    </div>
+    
+     
+    </div>
+   
+
+    <div class="video_gallery_wrapper">
+      <h2>Helios Medical Marketing  </h2>
+      
+      <div class="video_con_wrapper">
+
+        <div class="video_con" *ngFor="let item of Heliosvideolibrary; let i = index">
+  
+          <div class="videoimgblock"  (click)="videoModal.show()">
+            <img src="../../assets/images/video_gallery_playicon.png" alt="" class="playicon">
+           <img src="{{item.image}}"  class="videoimg"  >
+        
+        </div>
+        
+          <label> {{item.subtitle}} </label>
+        
+        </div>
+         
+  
+  
+      
+      </div>
+      
+       
+      </div>
+
+      <div class="video_gallery_wrapper">
+        <h2>Advanced Wellness Solutions </h2>
+        
+        <div class="video_con_wrapper">
+
+          <div class="video_con" *ngFor="let item of Advancedvideolibrary; let i = index">
+    
+            <div class="videoimgblock"  (click)="videoModal.show()">
+              <img src="../../assets/images/video_gallery_playicon.png" alt="" class="playicon">
+             <img src="{{item.image}}"  class="videoimg"  >
+          
+          </div>
+          
+            <label> {{item.subtitle}} </label>
+          
+          </div>
+           
+    
+    
+        
+        </div>
+        
+         
+        </div>
+
+        <div class="video_gallery_wrapper">
+          <h2>MedworldOne </h2>
+          
+          <div class="video_con_wrapper">
+
+            <div class="video_con" *ngFor="let item of Medworldvideolibrary; let i = index">
+      
+              <div class="videoimgblock"  (click)="videoModal.show()">
+                <img src="../../assets/images/video_gallery_playicon.png" alt="" class="playicon">
+               <img src="{{item.image}}"  class="videoimg" >
+            
+            </div>
+            
+              <label> {{item.subtitle}} </label>
+            
+            </div>
+             
+      
+      
+          
+          </div>
+           
+          </div>
+       
+     
+          <!-- <ng-template #videoModal>
+            <div class="modal-body brandmanagement_modal">
+              <div class="logo_wrapper">
+                <img src="assets/images/logo.png"  (click)="openvideoModal(videoModal)">
+              </div>
+           
+            </div>
+            <div>
+            </div>
+          </ng-template> -->
+
+
+
+          <div bsModal #videoModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+  aria-labelledby="dialog-sizes-name1">
+  <div class="modal-dialog modal-lg commissionsModal_modal_wraapper">
+    <div class="modal-content">
+      <img src="assets/images/betologo.png" alt="#" class="betologo">
+      <h2 style="font-size: 40px; text-align: center; padding:0 0 25px 0;"> Videos will be Available Soon</h2>
+
+      <!-- <div class="video_popupiframe">
+        <div class="videoWrapper">
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/iAHqwbWbxlk?rel=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+    </div> -->
+
+
+    </div>
+  </div>
+</div>
+ 
+
+<app-footer></app-footer>

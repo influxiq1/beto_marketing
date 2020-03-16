@@ -1,0 +1,237 @@
+<app-adminheader></app-adminheader>
+
+<div class="admin_dashboard_container rep_dashboard_wrapper1">
+  <div class="content_text">
+
+    <h2 class="repdashboardhewading1">Welcome to your Rep back office with the Beto Paredes Family of Companies!
+    </h2>
+
+    <p><!--We are glad to have you as a part of a family that creates integrated technical solutions and support systems catering to a host of different industries ranging from Medicare to Music and several others. We take great pride in the companies and the quality of services on offer at our various portals, and we welcome you with open arms to be an integral part of our journey. If you have any questions, please contact your Regional Recruiter below.-->This is where you will find everything you need to train, download decks and keep up to date on everything that we are doing here with the Beto Paredes Family of Companies.
+    </p>
+
+
+    <!--<h2>Lorem Ipsum</h2>-->
+    <!--<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+      quis nostrud exercitation ullamco</p>-->
+  </div>
+
+<div class="avivideowrapper">
+  <h2>Start Your Training Right Away
+
+  </h2>
+  <div class="aviiframewrapper">
+    <!-- <iframe width="100%" height="100%" src="https://www.youtube.com/embed/9o2fI3ui18g" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
+   <span class="aviiframewrapper_newspan">
+    <img src="../../assets/images/repdashboard_video_img.png" alt="#">
+
+    <a class="aviiframewrapper_newbtm"  (click)="gototrainingsectionwithcat()">Training Center</a>
+  </span>
+  </div>
+</div>
+
+</div>
+
+<div class="rep_dashboard_wrapper2_btn_wrapper">
+  <div class="rep_dashboard_wrapper2_btn_wrapper_sub">
+
+  <a (click)="gototrainingsectionwithcat()">Training Portal</a>
+  <a [routerLink]="['/myresource']">Document Library</a>
+  <a *ngIf="calenderaccess!=null && calenderaccess==1" [routerLink]="['/question-and-answer-call/', userId]">Set a 15 Rep minute Q&A Call</a>
+  <!-- <a class="disable" *ngIf="calenderaccess==0" href="javascript:void(0)">Set a 15 Rep minute Q&A Call</a> -->
+  <a *ngIf="calenderaccess!=null && calenderaccess==1"  [routerLink]="['/book-a-closer']">Launch the Discovery Call Calendar</a>
+  <!-- <a class="disable" *ngIf="calenderaccess==0" href="javascript:void(0)">Launch the Discovery Call Calendar</a> -->
+
+  </div>
+
+  <div class="clearfix"></div>
+
+</div>
+<div class="rep_dashboard_wrapper2_btn_wrapper asnewclass" *ngIf="is_consultant!=null && is_consultant==1">
+  <div class="rep_dashboard_wrapper2_btn_wrapper_sub">
+    <div class="sherelinkwrapper">
+      <div class="ascol ascol1">
+        <p>Share Link for Rep Sign Up</p>
+      </div>
+      <div class="ascol ascol2">
+        <div class="urllink">
+          <a style="pointer-events: none;cursor: default;" href="https://www.betoparedes.com/sales-associate.php?affid={{userId}}">https://www.betoparedes.com/sales-associate.php?affid={{userId}}</a>
+        </div>
+          <button class="urlcopybtn" (click)="copyText('https://www.betoparedes.com/sales-associate.php?affid='+userId)"><i class="fa fa-link" aria-hidden="true"></i></button>
+      </div>
+      <div class="ascol ascol3">
+          <a target="_blank" href="https://www.facebook.com/sharer.php?u=https%3A%2F%2Fwww.betoparedes.com%2Fsales-associate.php%3Faffid%3D{{userId}}" class="icon-button facebook"><i class="fa fa-facebook"></i></a>
+          <!-- <a href="#" class="icon-button google-plus"><i class="fa fa-twitter"></i></a>         -->
+          <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fwww.betoparedes.com%2Fsales-associate.php%3Faffid%3D{{userId}}" target="_blank" class="icon-button linkedin"><i class="fa fa-linkedin"></i></a>
+          <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.betoparedes.com%2Fsales-associate.php%3Faffid%3D{{userId}}"  target="_blank" class="icon-button twitter"><i class="fa fa-twitter"></i></a>
+          <a href="https://www.tumblr.com/widgets/share/tool?shareSource=legacy&canonicalUrl=https%3A%2F%2Fwww.betoparedes.com%2Fsales-associate.php%3Faffid%3D{{userId}}" target="_blank" class="icon-button tumblr"><i class="fa fa-tumblr"></i></a>
+      </div>
+     
+    </div>
+  </div>
+</div>
+<div class="rep_dashboard_wrapper2_btn_wrapper asnewclass" *ngIf="awstrainingpercentage!=null && (awstrainingpercentage==100 || awstrainingpercentage>100)">
+  <div class="rep_dashboard_wrapper2_btn_wrapper_sub">
+    <div class="sherelinkwrapper">
+      <div class="ascol ascol1" style="width:52.9% !important">
+        <p>AWS landing page Link for Lead Sign Up</p>
+      </div>
+      <div class="ascol ascol2" style="width:47% !important">
+        <div class="urllink">
+          <a style="pointer-events: none;cursor: default;" href="https://advancedwellness.pro/{{userId}}">https://advancedwellness.pro/{{userId}}</a>
+        </div>
+          <button class="urlcopybtn" (click)="copyText('https://advancedwellness.pro/'+userId)"><i class="fa fa-link" aria-hidden="true"></i></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- this block use for MD Stock sign up link start -->
+
+<div class="rep_dashboard_wrapper2_btn_wrapper asnewclass" *ngIf="mdstocktrainingpercentage!=null && (mdstocktrainingpercentage==100 || mdstocktrainingpercentage>100)">
+  <div class="rep_dashboard_wrapper2_btn_wrapper_sub">
+    <div class="sherelinkwrapper">
+      <div class="ascol ascol1" style="width:52.9% !important">
+        <p>MD Stock landing page Link for Lead Sign Up</p>
+      </div>
+      <div class="ascol ascol2" style="width:47% !important">
+        <div class="urllink">
+          <a style="pointer-events: none;cursor: default;" href="https://www.mdstockint.com/{{userId}}">https://www.mdstockint.com/{{userId}}</a>
+        </div>
+          <button class="urlcopybtn" (click)="copyText('https://www.mdstockint.com/'+userId)"><i class="fa fa-link" aria-hidden="true"></i></button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- this block use for MD Stock sign up link end -->
+
+
+<div class="rep_dashboard_newblock2">
+  <div class="rep_dashboard_newblock2_wrapper">
+  <h2>Prospecting and need a 15-minute game-plan discussion?</h2>
+    <p>If you are prospecting and have income generating activities you would like to discuss quickly, please schedule a 15-minute quick conversation with us. This appointment will be directly with Beto Paredes. Only set this meeting if you are focused on a prospect or business development. Please send all other general questions to <a href="mailto:beto@betoparedes.com " target="_top"> beto@betoparedes.com </a>
+    </p>
+
+
+  </div>
+</div>
+
+
+
+
+
+
+
+<div class="rep_dashboard_newblock3">
+
+  <h2>DOWNLOAD ALL OF OUR SALES DECKS NOW!</h2>
+
+  <p>The following are the Sales Deck Downloads for each of the products that we have. We suggest that you download each of the Decks onto your desktop computer as well as your tablet if you are out visiting companies. </p>
+
+
+  <div class="rep_dashboard_newblock3_sub">
+    <h6>UTA</h6>
+    <img src="../../assets/images/repdashboard_files/UTA/UTA.jpg" alt="#">
+    <a href="https://betoparedesbackendfiles.s3.us-east-2.amazonaws.com/UniversalTechAssociatesPowerPoint+Representation++PPT.pdf
+    " target="_blank">Download in PDF</a>
+    <a href="https://betoparedesbackendfiles.s3.us-east-2.amazonaws.com/UniversalTechAssociatesPowerPoint+Representation++PPT.pptx
+    " target="_blank">Download in PowerPoint</a>
+
+    <a (click)="goToMyResource('Universal_Tech_Associates')">Program Resources </a>
+
+    <a href="https://betoparedesmedia.go.customprintcenter.com/" target="_blank">Print Material</a>
+  </div>
+
+  <div class="rep_dashboard_newblock3_sub">
+    <h6>ApogeeINVENT  </h6>
+    <img src="../../assets/images/Apogee-1.jpg" alt="#">
+    <a href="https://betoparedesbackendfiles.s3.us-east-2.amazonaws.com/Apogee+Deck.pdf
+    " target="_blank">Download in PDF</a>
+    <a href="https://betoparedesbackendfiles.s3.us-east-2.amazonaws.com/Apogee+Deck.pptx" target="_blank">Download in PowerPoint</a>
+    <a (click)="goToMyResource('ApogeeINVENT')">Program Resources </a>
+
+    <a href="https://betoparedesmedia.go.customprintcenter.com/" target="_blank">Print Material</a>
+  </div>
+
+  <div class="rep_dashboard_newblock3_sub">
+    <h6>GeoFenceDSP</h6>
+    <img src="../../assets/images/repdashboard_files/GEOFENCEDSP/GEO.jpg" alt="#">
+    <a href="../../assets/images/repdashboard_files/GEOFENCEDSP/GEO.pdf" target="_blank">Download in PDF</a>
+    <a href="../../assets/images/repdashboard_files/GEOFENCEDSP/GEO.pptx" target="_blank">Download in PowerPoint</a>
+    <a (click)="goToMyResource('GeoFenceDSP')">Program Resources </a>
+
+    <a href="https://betoparedesmedia.go.customprintcenter.com/" target="_blank">Print Material</a>
+  </div>
+
+  
+  <div class="rep_dashboard_newblock3_sub">
+    <h6> Helios Medical Marketing    </h6>
+    <img src="../../assets/images/HMM-1.jpg" alt="#">
+    <a href="https://betoparedesbackendfiles.s3.us-east-2.amazonaws.com/HMM_Helios+Medical+Presentation.pdf" target="_blank">Download in PDF</a>
+    <a href="https://betoparedesbackendfiles.s3.us-east-2.amazonaws.com/HMM_Helios+Medical+Presentation.pptx"  target="_blank">Download in PowerPoint</a>
+    <a (click)="goToMyResource('Helios_Medical_Marketing')">Program Resources </a>
+
+    <a href="https://betoparedesmedia.go.customprintcenter.com/" target="_blank">Print Material</a>
+  </div>
+
+ 
+
+  <div class="rep_dashboard_newblock3_sub">
+    <h6>Advanced Wellness Solutions
+    </h6>
+    <img src="../../assets/images/repdashboard_files/AWS/AWS_New_Version.jpg" alt="#">
+    <a href="https://betoparedesbackendfiles.s3.us-east-2.amazonaws.com/AWS+Diagnostic+Center+Presentation.pdf" target="_blank">Download in PDF</a>
+    <a href="https://betoparedesbackendfiles.s3.us-east-2.amazonaws.com/AWS+Diagnostic+Center+Presentation.pptx" target="_blank">Download in PowerPoint</a>
+    <a (click)="goToMyResource('Advanced_Wellness_Solutions')">Program Resources </a>
+
+    <a href="https://betoparedesmedia.go.customprintcenter.com/" target="_blank">Print Material</a>
+  </div>
+
+
+
+  <div class="rep_dashboard_newblock3_sub">
+    <h6>MedworldOne</h6>
+    <img src="../../assets/images/MWO-1.jpg" alt="#">
+    <a href="https://betoparedesbackendfiles.s3.us-east-2.amazonaws.com/MEDWORLDONE+PPT.pdf" target="_blank">Download in PDF</a>
+    <a href="https://betoparedesbackendfiles.s3.us-east-2.amazonaws.com/MEDWORLDONE+PPT.pptx" target="_blank">Download in PowerPoint</a>
+    <a (click)="goToMyResource('MedWorldOne')">Program Resources </a>
+
+    <a href="https://betoparedesmedia.go.customprintcenter.com/" target="_blank">Print Material</a>
+  </div>
+
+
+</div>
+
+<div class="new_repdashboard_banner1">
+
+  <h2>For the best full review of our programs, you will want to start your training in the training center right away! </h2>
+
+  <a class="new_repdashboard_banner1btn" (click)="gototrainingsectionwithcat()">Training Center</a>
+</div>
+
+
+<div class="new_repdashboard_banner2">
+
+  <h2> <a href="/full_Program_View">Click here to review</a> the comprehensive program we're offering you; this includes commissions amounts, payment schedules, and program information. </h2>
+
+ 
+</div>
+
+<app-footer></app-footer>
+<!--Training Completion modal-->
+<ng-template #trainingCompletedModal>
+    <div class="modal-body brandmanagement_modal successmodal_listing">
+      <div class="logo_wrapper">
+        <img src="assets/images/logo.png">
+      </div>
+      <div class="btn_cnt">
+          <h3>Your Training Has Been Completed!</h3>
+          <h3>You can set discovery call appointment by <a style="display: inline-block; color:#0071bc;" target="_blank" [routerLink]="['/discovery-call',cookeiservice.get('userid')]">clicking here</a>!</h3>
+        
+      </div>
+    </div>
+    <div>
+    </div>
+  </ng-template>
+
+
+  <button style="display: none;" #modalopenlink class="openmodal" (click)="openModal(trainingCompletedModal)">Open Modal</button>

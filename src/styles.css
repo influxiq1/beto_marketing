@@ -1,0 +1,47 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.contactlist .modal-dialog {
+    max-width: 90%;
+    margin: 1.75rem auto;
+}
+
+.contactlist .modal-dialog .brandmanagement_modal label[style]{
+    display: inline-block;
+    font-weight: normal !important;
+    background-color: #00a8ef !important;
+    color: #fff !important;
+    padding: 5px 1%;
+    width: 100%;
+    margin-top: 30px;
+    font-size: 24px;
+    text-transform: uppercase;
+    border-top: 4px solid #000;
+}
+
+.contactlist .modal-dialog .brandmanagement_modal label[style]:first-child{
+    margin-top: 0px;
+}
+
+.paginationnew{margin-top: 10px;}
+.paginationnew .next .page-link{background-color: #00a8ef; color:#fff;border-radius: 0px !important; margin-left: 5px;}
+.paginationnew .next .page-link:hover{color:#fff;}
+.paginationnew .prev .page-link{background-color: #000;color:#fff;border-radius: 0px !important;}
+.paginationnew .prev .page-link:hover{color:#fff;}
+.paginationnew .disable .page-link{background-color: #cccccc;color:#666666; border-radius: 0px !important;cursor: not-allowed;
+        pointer-events: none;}
+.paginationnew .disable .page-link{color:#666666; }
+
+.marketingre_view_body_con_right_bottom_wrapper .span1stloop .booknow_button{ width: 152px; text-align: center; border: none; cursor: pointer; background: #00b2eb; font-size: 16px; color: #ffffff; margin-top: 10px; text-transform: uppercase;
+    line-height: 30px;}
+
+    .marketingre_view_body_con_right_bottom_wrapper    p{ display: inline-block; font-size: 18px; color: #00bdf2; margin: 0; padding: 5px 12px 0 0; }
+
+.marketingre_view_body_con_right_bottom_wrapper   .event_f_name{ display: block; font-size: 18px;     line-height: 24px; color: #434343; font-weight: bold; margin: 0; padding: 0 0 5px 0;}
+
+
+.marketingre_view_body_con_right_bottom_wrapper   .event_f_zone{ display: block; font-size: 16px; color: #2e2e2e; font-weight: normal; margin: 0; padding: 7px 0 0 0;}
+
+.marketingre_view_body_con_right_bottom_wrapper    p strong{ font-weight: normal;}
