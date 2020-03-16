@@ -2806,7 +2806,7 @@ text-align: center;}
         padding: 0 5px!important;
         font-size: 15px;
         border-radius: 0px!important;
-        background: #fff;     font-family: 'RalewaySemiBold';  outline: none; color: #333; margin: 2px;}
+        background: #fff;     font-family: 'RalewaySemiBold';  outline: none; color: #333; margin: 2px 0;}
 
 
         .s_getmyoffer_adminpanel .inner_actionblock form select{height: 38px;
@@ -2850,7 +2850,82 @@ text-align: center;}
  .manageleads .admin_table_wrapper td:nth-of-type(10){ text-align: center;}  */
 
             @media screen  and  (max-width: 1199px){
+
+                .manageleads .user_management_wrapper .user_management_inner .inner_content_wrapper .search_content {
+                    display: block;
+                    justify-content: center;
+                    margin-right: 0;
+                }
+
+                .manageleads .user_management_wrapper .user_management_inner .inner_content_wrapper .search_content:nth-of-type(3){ margin-top: 10px;}
 .s_getmyoffer_adminpanel .inner_search_wrapper form{ width: 250px; margin: 0 auto; margin-top: 10px!important;}
+
+
+.manageleads .user_management_wrapper .user_management_inner .inner_content_wrapper {
+    width: 288px !important;
+    display: block;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.manageleads .user_management_wrapper .user_management_inner .inner_content_wrapper .search_content{ margin-right: 0px!important;}
+
+.manageleads .user_management_wrapper .user_management_inner .inner_content_wrapper .search_content select{ width: 100%;}
+
+.manageleads .user_management_wrapper .user_management_inner .inner_content_wrapper .search_content input {
+    margin-bottom: 10px;
+    width: 90%!important;  float: left;    margin-top: 8px;}
+
+    .manageleads .inner_search_wrapper form {
+        width: auto;
+        margin: 0 auto;
+        margin-top: 0px!important;
+        margin-bottom: 20px!important;
+    }
+
+    .manageleads .user_management_wrapper .user_management_inner .inner_content_wrapper  form input {
+        margin-bottom: 10px;
+        width: 100%!important;
+        margin-top: 0;
+        float: left!important;
+    }
+
+    .manageleads .user_management_wrapper .user_management_inner .inner_content_wrapper  form  button{margin:2px!important}
+
+    .manageleads .user_management_wrapper .user_management_inner .inner_content_wrapper .search_content button {
+        width: auto!important;
+        float: left!important;
+        margin-left: 0;
+        margin-bottom: 0px;
+        margin-top: 8px;
+        min-width: inherit!important;
+    }
+            }
+
+            @media screen  and  (max-width: 992px){
+                .manageleads .user_management_wrapper .user_management_inner .inner_content_wrapper .search_content{ margin-right: 0px!important;}
+
+                .manageleads .user_management_wrapper .user_management_inner .inner_content_wrapper .search_content select{ width: 100%;}
+
+                .manageleads .user_management_wrapper .user_management_inner .inner_content_wrapper .search_content input {
+                    margin-bottom: 10px;
+                    width: 90%!important;     margin-top: 8px;}
+
+                    .manageleads .inner_search_wrapper form {
+                        width: auto;
+                        margin: 0 auto;
+                        margin-top: 0px!important;
+                        margin-bottom: 20px!important;
+                    }
+
+                    .manageleads .user_management_wrapper .user_management_inner .inner_content_wrapper  form input {
+                        margin-bottom: 10px;
+                        width: 100%!important;
+                        margin-top: 0;
+                        float: left!important;
+                    }
+
+                    .manageleads .user_management_wrapper .user_management_inner .inner_content_wrapper  form  button{margin:2px!important}
             }
 
             @media screen  and  (max-width: 900px){
@@ -2874,13 +2949,33 @@ text-align: center;}
  
                     .s_getmyoffer_adminpanel  .user_management_wrapper .user_management_inner .inner_content_wrapper input {
                         margin-bottom: 10px;
-                        width: 78%!important;
-                        margin-top: 7px; float: left;
+                        width: 86%!important;
+                        margin-top: 7px; float: left!important;
                     }
 
                     .s_getmyoffer_adminpanel  .user_management_wrapper .user_management_inner .inner_content_wrapper button {
-                        width:auto!important;   float: left;
+                        width:auto!important;   
                         margin-left: 0; margin-bottom: 0px;     margin-top: 7px;     min-width: inherit!important;
+                    }
+
+                    .manageleads .user_management_wrapper .user_management_inner .inner_content_wrapper .search_content button {
+                        width:auto!important;   float: left!important;
+                        margin-left: 0; margin-bottom: 0px;     margin-top: 8px;     min-width: inherit!important;
+                    }
+
+
+                    .user_management_wrapper .user_management_inner .inner_content_wrapper button {
+                        font-size: 18px;
+                        color: #fff;
+                        font-family: 'RalewaySemiBold';
+                        background: #00c0ff;
+                        border: none;
+                        padding: 0px 30px;
+                        height: 38px;
+                        text-transform: uppercase;
+                        margin-left: 0;
+                        cursor: pointer;
+                        padding: 5px 30px;
                     }
             }
 
