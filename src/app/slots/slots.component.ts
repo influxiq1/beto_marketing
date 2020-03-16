@@ -549,7 +549,12 @@ showformat(stdt){
 
   /* Get user details */
   getUserDetails(id) {
-    const link = this._commonservices.nodesslurl + 'datalist?token=' + this.cookeiservice.get('jwttoken');
+    let link:any;
+    if (this.route.snapshot.routeConfig.path == 'marketingre_view/:product_id' || this.route.snapshot.routeConfig.path == 'marketingre_view/:product_id/:lead_id') {
+     link = this._commonservices.nodesslurl + 'datalistforleaddata';
+    } else {
+      link = this._commonservices.nodesslurl + 'datalist?token=' + this.cookeiservice.get('jwttoken');
+    }
     this._http.post(link, { source:'users', condition: { _id_object: id }})
       .subscribe(res => {
         let result: any = res;

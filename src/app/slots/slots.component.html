@@ -20,8 +20,8 @@
 
 <p class="event_f_time"><b>Time : </b>{{slotvalue}}</p>
 <p class="event_f_zone"><b>Timezone : </b> {{_commonservices.showtimezone(timezoneshow)}}</p>
-<button *ngIf="router.url!= '/appointmentlist'" class="booknow_button" (click)="booknowmodal(bookevent,slotdata,messagemodal)">book now</button>
-<button *ngIf="router.url== '/appointmentlist'" class="booknow_button" (click)="booknowmodal_appointmentlist(slotdata, messagemodal1)">book now</button>
+<button *ngIf="router.url!= '/appointmentlist' || route.snapshot.routeConfig.path != 'marketingre_view/:product_id' || route.snapshot.routeConfig.path != 'marketingre_view/:product_id/:lead_id'" class="booknow_button" (click)="booknowmodal(bookevent,slotdata,messagemodal)">book now</button>
+<button *ngIf="router.url== '/appointmentlist' || route.snapshot.routeConfig.path == 'marketingre_view/:product_id' || route.snapshot.routeConfig.path == 'marketingre_view/:product_id/:lead_id'" class="booknow_button" (click)="booknowmodal_appointmentlist(slotdata, messagemodal1)">book now</button>
 
 
 <!--<ng-template #bookevent1>
