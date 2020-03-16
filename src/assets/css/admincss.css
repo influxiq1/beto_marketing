@@ -251,7 +251,7 @@
 /*change end*/
 .user_management_wrapper .user_management_inner  .inner_content_wrapper h3{ margin-bottom: 0; display: inline; font-family: 'RalewaySemiBold'; font-size: 18px; color: #fff; }
 .user_management_wrapper .user_management_inner .inner_content_wrapper h3:nth-last-of-type(1){ float: right; }
-.user_management_wrapper .user_management_inner  .inner_content_wrapper input{ height: 38px; border: none; padding: 0 5px!important;  font-size: 15px; border-radius: 0px!important;     background: #fff;}
+.user_management_wrapper .user_management_inner  .inner_content_wrapper input{ height: 38px; border: none; padding: 0 5px!important;  font-size: 15px; border-radius: 0px!important;  font-family: 'RalewaySemiBold';    background: #fff;}
 .user_management_wrapper .user_management_inner  .inner_content_wrapper select{ height: 38px; border: none; padding: 0 5px!important;  font-size: 15px; border-radius: 0px!important;     background: #fff;}
 .user_management_wrapper .user_management_inner .inner_content_wrapper select{
     height: 38px; border: none; padding: 0 5px!important; 
@@ -2796,3 +2796,96 @@ text-align: center;}
     .show-scrollTop {opacity: 1; transition: all .2s ease-in-out;}
 
 
+
+    /*----------------*/
+
+
+    .s_getmyoffer_adminpanel .inner_actionblock form br{ display: none;}
+    .s_getmyoffer_adminpanel .inner_actionblock form input{height: 38px;
+        border: solid 1px #ccc;
+        padding: 0 5px!important;
+        font-size: 15px;
+        border-radius: 0px!important;
+        background: #fff;     font-family: 'RalewaySemiBold';  outline: none; color: #333;}
+
+
+        .s_getmyoffer_adminpanel .inner_actionblock form select{height: 38px;
+            border: solid 1px #ccc;
+            padding: 0 5px!important;
+            font-size: 15px;
+            border-radius: 0px!important;
+            background: #fff; margin: 0 10px;  color: #333;  font-family: 'RalewaySemiBold';  outline: none;}
+    
+
+
+            .s_getmyoffer_adminpanel .inner_actionblock form ::-webkit-input-placeholder { /* Edge */
+                color: #333; opacity: inherit;
+              }
+              
+              .s_getmyoffer_adminpanel .inner_actionblock form :-ms-input-placeholder { /* Internet Explorer */
+                color: #333; opacity: inherit;
+              }
+              
+              .s_getmyoffer_adminpanel .inner_actionblock form ::placeholder {
+                color: #333; opacity: inherit;
+              }
+
+              .s_getmyoffer_adminpanel .inner_actionblock form button[type="submit"]{font-size: 18px;
+                color: #fff;
+                font-family: 'RalewaySemiBold';
+                background: #00c0ff;
+                border: none;
+                padding: 0px 30px;
+                height: 38px;
+                text-transform: uppercase;
+                margin-left: 7px;
+                cursor: pointer; 
+            }
+
+
+            .search_content button{    min-width: 50px!important;
+                padding: 0px 0 0 16!important;
+                text-align: center;}
+            @media screen  and  (max-width: 1199px){
+.s_getmyoffer_adminpanel .inner_search_wrapper form{ width: 250px; margin: 0 auto; margin-top: 10px!important;}
+            }
+
+            @media screen  and  (max-width: 900px){
+
+.s_getmyoffer_adminpanel .inner_actionblock form select{ width: 200px; margin: 0px!important;}
+
+.s_getmyoffer_adminpanel .inner_actionblock form input{ width: 200px; margin-right: 10px;}
+
+                .s_getmyoffer_adminpanel .inner_actionblock form{    width: 410px;
+                margin: 0 auto;
+                display: block;
+                margin-bottom: 25px;
+                padding-left: 0;}
+
+                .s_getmyoffer_adminpanel .inner_actionblock form button{       width: auto;
+                    margin-left: auto!important;
+                    margin-right: auto;
+                    display: block;  height: auto!important; padding: 10px!important;}
+ 
+                    .s_getmyoffer_adminpanel  .user_management_wrapper .user_management_inner .inner_content_wrapper input {
+                        margin-bottom: 10px;
+                        width: 100%!important;
+                        margin-top: 7px;
+                    }
+
+                    .s_getmyoffer_adminpanel  .user_management_wrapper .user_management_inner .inner_content_wrapper button {
+                        width:auto!important;  min-width: 50px!important;
+                        margin-left: 0; margin-bottom: 5px;
+                    }
+            }
+
+            @media screen  and  (max-width: 480px){
+
+
+                .s_getmyoffer_adminpanel .search_content{ margin-top: 10px;}
+                .s_getmyoffer_adminpanel .inner_actionblock form select{ width: 100%; margin: 0px!important;}
+
+                .s_getmyoffer_adminpanel .inner_actionblock form input{ width: 100%; margin-right: 0px; margin-bottom: 10px;}
+
+                .s_getmyoffer_adminpanel .inner_actionblock form{    width: 90%;}
+            }
