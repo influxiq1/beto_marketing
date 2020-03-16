@@ -21,6 +21,7 @@ declare var $: any;
 })
 export class ListingComponent implements OnInit {
     public csvHeader: any;
+    sendLeadEmailForm: FormGroup;
     public csvHeaderAllData: any = '';
     public staticHeader = ["FirstName", "LastName", "CompanyName", "Address", "City", "County", "State", "Zip", "Phone","Email", "Web"];
     public start_time: any;
@@ -116,6 +117,7 @@ export class ListingComponent implements OnInit {
     public submit_loaderbar: boolean = false;
     public submit_loaderbar1: boolean = false;
     public leadIsSubmit: any = 0;
+    emailPattern = /^\s*[\w\-\+_]+(\.[\w\-\+_]+)*\@[\w\-\+_]+\.[\w\-\+_]+(\.[\w\-\+_]+)*\s*$/;
     @Input()
     set source(source: string) {
         this.sourceval = (source && source.trim()) || '<no name set>';
@@ -142,7 +144,7 @@ export class ListingComponent implements OnInit {
     }
     
     productForm: FormGroup;
-
+    invalidEmails = [];
     constructor(public _commonservice: Commonservices, public router: Router, public _http: HttpClient, public modal: BsModalService, formgroup: FormBuilder, private cookeiservice: CookieService,public sanitizer: DomSanitizer, public route: ActivatedRoute) {
         
         this.formgroup = formgroup;
@@ -154,6 +156,10 @@ export class ListingComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.sendLeadEmailForm= this.formgroup.group({
+            'email': ['', Validators.compose([Validators.required, Validators.pattern(/^\s*[\w\-\+_]+(\.[\w\-\+_]+)*\@[\w\-\+_]+\.[\w\-\+_]+(\.[\w\-\+_]+)*\s*$/)])],
+            'product_id':['',Validators.required]
+            });
 
          /* Initiate the form structure */
 
@@ -687,23 +693,47 @@ this._http.post(link, source)
             console.log('ok',res)
         })
     }
+    validateEmail(email) {
+        var re = /^\s*[\w\-\+_]+(\.[\w\-\+_]+)*\@[\w\-\+_]+\.[\w\-\+_]+(\.[\w\-\+_]+)*\s*$/;
+        return re.test(email);
+        }
 
-    leadsMarketingEmail(val:any){
+    leadsMarketingEmail(val: any) {
+        var emails = this.sendLeadEmailForm.value.email.split(',');
+        console.log(emails);
+        let x: any;
+        for (x in this.sendLeadEmailForm.controls) {
+            this.sendLeadEmailForm.controls[x].markAsTouched();
+          }
+        // var invalidEmails = [];
+
+        // for (let i = 0; i < emails.length; i++) {
+        //     if (this.validateEmail(emails[i].trim())) {
+        //         invalidEmails.push(emails[i].trim())
+        //     }
+        // }
+        // if (this.sendLeadEmailForm.valid) {
+        console.log(this.invalidEmails)
         if (val.email != null && val.product_id != null) {
             this.leadIsSubmit = 0;
             let link = this._commonservice.nodesslurl + 'newleadformarketingreview';
-            let data = {email:val.email, product_id:val.product_id, created_by:this.cookeiservice.get('userid')};
+            let data = {email:emails, product_id:val.product_id, created_by:this.cookeiservice.get('userid')};
             this._http.post(link, data).subscribe((res:any)=>{
                 console.log(res);
                 if (res.status == 'error') {
                     this.emailexist = res.msg;
                 }
+                this.emailexist = '';
             })
         }else{
             this.leadIsSubmit = 1;
         }
         console.log(val)
+
+    // }
     }
+
+
     editmodal(template: TemplateRef<any>, selecteddata: any) {
         this.selecteditem = selecteddata;
         this.isedit = 1;
