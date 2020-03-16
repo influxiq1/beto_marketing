@@ -37,11 +37,11 @@ export class ManageleadsComponent implements OnInit {
         // { value: 'lastname', name: 'Last Name', role: 0, func: '', class: 'lastname', type: 'text' },
         { value: 'company', name: 'Company ', role: 0, func: '', class: 'company', type: 'text' },
         { value: 'website', name: 'Website ', role: 0, func: '', class: 'website', type: 'text' },
-        // { value: 'only_productname', name: 'Products ', role: 0, func: '', class: 'productname', type: 'text' },
         { value: 'email', name: 'Email Id', role: 0, func: '', class: 'email', type: 'text' },
         { value: 'phoneno', name: 'Phone No', role: 0, func: '', class: 'phone', type: 'phoneno' },
         { value: 'mobile', name: 'Mobile No', role: 0, func: '', class: 'mobile', type: 'phoneno' },
         { value: 'address', name: 'Address', role: 0, func: '', class: 'address', type: 'text' },
+        { value: 'only_productname', name: 'Products ', role: 0, func: '', class: 'productname', type: 'text' },
         { value: 'rep_name', name: 'Rep Details', role: 0, func: '', class: 'fullname', type: 'text' },
         {value: 'status', name: 'Status',defaultchoice:'Pending',optionlist:[{value:'Pending',name:'Pending'},{value:'Closed',name:'Closed'},{value:'No Sale',name:'No Sale'}], role: 0, func: '', class: 'status', type: 'select'},
         
@@ -61,6 +61,7 @@ export class ManageleadsComponent implements OnInit {
         { value: 'phoneno', name: 'Phone No', role: 0, func: '', class: 'phone', type: 'phoneno' },
         { value: 'mobile', name: 'Mobile No', role: 0, func: '', class: 'mobile', type: 'phoneno' },
         { value: 'address', name: 'Address', role: 0, func: '', class: 'address', type: 'text' },
+        { value: 'only_productname', name: 'Products ', role: 0, func: '', class: 'productname', type: 'text' },
         // {value: 'status', name: 'Status',defaultchoice:'Pending',optionlist:[{value:'Pending',name:'Pending'},{value:'Closed',name:'Closed'},{value:'No Sale',name:'No Sale'}], role: 0, func: '', class: 'status', type: 'select'}
       ];
      }else{
@@ -74,6 +75,7 @@ export class ManageleadsComponent implements OnInit {
       { value: 'phoneno', name: 'Phone No', role: 0, func: '', class: 'phone', type: 'phoneno' },
       { value: 'mobile', name: 'Mobile No', role: 0, func: '', class: 'mobile', type: 'phoneno' },
       { value: 'address', name: 'Address', role: 0, func: '', class: 'address', type: 'text' },
+      { value: 'only_productname', name: 'Products ', role: 0, func: '', class: 'productname', type: 'text' },
       // { value: 'status', name: 'Status', role: 0, func: '', class: 'address', type: 'text' }
     ];}
     
