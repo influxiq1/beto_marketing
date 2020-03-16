@@ -73,11 +73,16 @@ export class SlotsComponent implements OnInit {
   @Input()
   set googleevent(item: any) {
     this.googleeventval = (item) || '<no name set>';
-    // console.log(this.googleeventidval,item)
+    console.log(this.googleeventval,item)
   }
 
-
-  constructor(@Inject(WINDOW) private window: Window, public _commonservices:Commonservices,public modal:BsModalService,kp: FormBuilder, private cookeiservice: CookieService,public _http:HttpClient, private route: ActivatedRoute, public router: Router) {
+public bookNowStatus:boolean = false;
+  constructor(@Inject(WINDOW) private window: Window, public _commonservices:Commonservices,public modal:BsModalService,kp: FormBuilder, private cookeiservice: CookieService,public _http:HttpClient, public route: ActivatedRoute, public router: Router) {
+    if (route.snapshot.routeConfig.path =='marketingre_view/:product_id' || route.snapshot.routeConfig.path =='marketingre_view/:product_id/:lead_id') {
+      this.bookNowStatus = true;
+    } else {
+      this.bookNowStatus = false;
+    }
     this.kp = kp;
     this.selectedproduct = this.cookeiservice.get('lead-product');
     this.timezoneval=this.cookeiservice.get('timezone');

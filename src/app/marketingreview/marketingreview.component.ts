@@ -4,6 +4,7 @@ import { Commonservices } from '../app.commonservices';
 import { CookieService } from 'ngx-cookie-service';
 import { BsModalService } from 'ngx-bootstrap';
 import { HttpClient } from '@angular/common/http';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 declare var moment: any;
  
 
@@ -25,7 +26,9 @@ export class MarketingreviewComponent implements OnInit {
   public timezone: any = '';
   public leadData: any = '';
   public lead_id: any = '';
-  constructor(public _commonservice: Commonservices, public modal: BsModalService, public _http: HttpClient, public cookeiservice: CookieService, public activatedroute: ActivatedRoute, public router: Router) {
+  public safeSrc:SafeResourceUrl;
+  constructor(public _commonservice: Commonservices, public modal: BsModalService, public _http: HttpClient, public cookeiservice: CookieService, public activatedroute: ActivatedRoute, public router: Router, private sanitizer: DomSanitizer) {
+    this.safeSrc =  this.sanitizer.bypassSecurityTrustResourceUrl("https://www.youtube.com/embed/8qkgcCBOQM4");
    if (activatedroute.snapshot.params['lead_id'] != null) {
     this.lead_id = activatedroute.snapshot.params['lead_id'];
     this.activatedroute.data.forEach((data:any ) => {
@@ -54,6 +57,11 @@ export class MarketingreviewComponent implements OnInit {
   setdatetonull() {
     this.filterval5 = null;
     this.geteventarr();
+  }
+  startTime(time: any){
+    console.log(time)
+   this.safeSrc = this.sanitizer.bypassSecurityTrustResourceUrl("https://www.youtube.com/embed/8qkgcCBOQM4?start="+time);
+   console.log(this.safeSrc)
   }
 
   geteventarr() {
