@@ -50,6 +50,7 @@ export class ListingComponent implements OnInit {
     public timezone: any = [];
     public leads_list: any = '';
     public tab_header: any ='';
+    public emailexist: any = '';
     public sucessmodalflag: boolean = false;
     daterangepickerOptions = {
         format: 'MM/DD/YYYY',
@@ -694,6 +695,9 @@ this._http.post(link, source)
             let data = {email:val.email, product_id:val.product_id, created_by:this.cookeiservice.get('userid')};
             this._http.post(link, data).subscribe((res:any)=>{
                 console.log(res);
+                if (res.status == 'error') {
+                    this.emailexist = res.msg;
+                }
             })
         }else{
             this.leadIsSubmit = 1;

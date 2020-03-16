@@ -144,6 +144,7 @@
                                     </select>
                                     <span class="error" *ngIf="filterval6.product_id == null && leadIsSubmit == 1">Choice A Product</span>
                                 </h3>
+                                <span class="error" *ngIf="emailexist != ''">{{emailexist}}</span>
                                 <button type="button" (click)="leadsMarketingEmail(filterval6)">SEND MARKETING REVIEW VIDEO</button>
                             </span>
                             <!-- <h3 *ngIf="router.url!='/rep'"> {{menuval}}</h3> -->
