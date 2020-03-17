@@ -76,12 +76,12 @@ export class SlotsComponent implements OnInit {
     console.log(this.googleeventval,item)
   }
 
-public bookNowStatus:boolean = false;
+public bookNowStatus:boolean = true;
   constructor(@Inject(WINDOW) private window: Window, public _commonservices:Commonservices,public modal:BsModalService,kp: FormBuilder, private cookeiservice: CookieService,public _http:HttpClient, public route: ActivatedRoute, public router: Router) {
     if (route.snapshot.routeConfig.path =='marketingre_view/:product_id' || route.snapshot.routeConfig.path =='marketingre_view/:product_id/:lead_id') {
-      this.bookNowStatus = true;
-    } else {
       this.bookNowStatus = false;
+    } else {
+      this.bookNowStatus = true;
     }
     this.kp = kp;
     this.selectedproduct = this.cookeiservice.get('lead-product');
@@ -100,6 +100,7 @@ public bookNowStatus:boolean = false;
   }
 
   getslot(){
+
     this.participantEmail = this.cookeiservice.get('useremail');
     this.participantName = this.cookeiservice.get('fname');
     this.participantPhNumber = this.cookeiservice.get('phone');
