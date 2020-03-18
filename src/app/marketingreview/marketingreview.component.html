@@ -32,12 +32,31 @@
 
   <div class="marketingre_view_body_wrapper">
 
+    <div class="marketingre_view_body_con_top">
 
+
+      <div class="marketingre_view_body_con_top_left">
+
+      <h2>Know your Representative</h2>
+      </div>
+
+      <div class="marketingre_view_body_con_top_right">
+
+        <div class="marketingre_view_body_con_top_right_box">
+
+          <h3>Name - David Lorem  Email - david.lorem9@gmail.com<br/>  
+            Contact number - <span>585 698 6985</span></h3>
+
+          </div>
+
+      </div>
+
+    </div>
 
     <div class="marketingre_view_body_con">
 <ng-container *ngFor="let item of youtube_url">
   <div class="marketingre_view_body_con_left" *ngIf="product_id == item.product_id">
-    <p>{{product_id}}</p>
+    <!-- <p>{{product_id}}</p> -->
     <div class="video-responsive">
       <iframe width="560" height="315" [src]="item.safeSrc" frameborder="0"
         allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -51,7 +70,9 @@
   </div>
 </ng-container>
 
-      <div class="marketingre_view_body_con_right">
+     <div class="marketingre_view_body_con_right">
+
+
 
         <div class="marketingre_view_body_con_right_top">
 
@@ -108,11 +129,57 @@
         </div>
 
 
-      </div>
 
+      
+
+
+
+
+      </div> 
+
+
+      <!-- <div class="marketingre_view_body_con_right_additionBlock">
+        <div class="div_block_wrapper">
+
+        <div class="div_block1">
+
+          <h2>
+            For any addition Information or Inquiry, contact your Representative.
+          </h2>
+        </div>
+
+        <div class="div_block2">
+
+          <h2>
+            Name - David Lorem<br/>  
+            Email - david.lorem9@gmail.com <br/>   
+            Contact number - <span>585 698 6985</span>
+          </h2>
+        </div>
+
+      </div>
+      </div> -->
 
 
     </div>
+
+
+    <!-- <div class="marketingre_view_body_con_top marketingre_view_body_con_top2">
+
+
+      <div class="marketingre_view_body_con_top_left">
+
+      <h2>Please Review your Discovery Call 
+        By clicking on the adjacent button</h2>
+      </div>
+
+      <div class="marketingre_view_body_con_top_right">
+
+        <button>Play Discovery call Recording</button>
+
+      </div>
+
+    </div> -->
 
 
 
