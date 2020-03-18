@@ -131,7 +131,7 @@
                 <div class="nexgen_admin_table">
                     <div class="action_section">
                         <div class="inner_actionblock">
-                            <span>
+                            <span *ngIf="route.snapshot.routeConfig.path == 'marketingre_view/:product_id' || route.snapshot.routeConfig.path == 'marketingre_view/:product_id/:lead_id'">
                                 <form [formGroup]="sendLeadEmailForm" (ngSubmit)="leadsMarketingEmail(sendLeadEmailForm.value)">
                                     <!-- <input type="text" placeholder="Enter Email" [(ngModel)]="filterval6.email">
                                     <span class="error" *ngIf="filterval6.email == null && leadIsSubmit == 1">Email is Required</span> -->

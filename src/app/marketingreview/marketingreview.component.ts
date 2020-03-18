@@ -26,9 +26,20 @@ export class MarketingreviewComponent implements OnInit {
   public timezone: any = '';
   public leadData: any = '';
   public lead_id: any = '';
+  public youtube_url: any = [
+    {'product_id':"5dd68c367b583967f3e57312", 'link':"https://www.youtube.com/embed/8qkgcCBOQM4", 'start':0, 'second_start':75},
+    {'product_id':"5dd68c367b583967f3e573r2", 'link':"https://www.youtube.com/embed/8qkgcCBOQM4", 'start':0, 'second_start':75},
+    {'product_id':"5dd68c367b583967f3e573v2", 'link':"https://www.youtube.com/embed/8qkgcCBOQM4", 'start':0, 'second_start':75},
+    {'product_id':"5dd68c367b583967f3e573x2", 'link':"https://www.youtube.com/embed/8qkgcCBOQM4", 'start':0, 'second_start':75},
+    {'product_id':"5dd68c367b583967f3e573h2", 'link':"https://www.youtube.com/embed/8qkgcCBOQM4", 'start':0, 'second_start':75},
+    {'product_id':"5dd68c367b583967f3e573b2", 'link':"https://www.youtube.com/embed/8qkgcCBOQM4", 'start':0, 'second_start':175},
+  ]
   public safeSrc:SafeResourceUrl;
   constructor(public _commonservice: Commonservices, public modal: BsModalService, public _http: HttpClient, public cookeiservice: CookieService, public activatedroute: ActivatedRoute, public router: Router, private sanitizer: DomSanitizer) {
-    this.safeSrc =  this.sanitizer.bypassSecurityTrustResourceUrl("https://www.youtube.com/embed/8qkgcCBOQM4");
+
+    for (const key in this.youtube_url) {
+      this.youtube_url[key].safeSrc = this.sanitizer.bypassSecurityTrustResourceUrl(this.youtube_url[key].link);
+    }
    if (activatedroute.snapshot.params['lead_id'] != null) {
     this.lead_id = activatedroute.snapshot.params['lead_id'];
     this.activatedroute.data.forEach((data:any ) => {
@@ -58,10 +69,15 @@ export class MarketingreviewComponent implements OnInit {
     this.filterval5 = null;
     this.geteventarr();
   }
-  startTime(time: any){
-    console.log(time)
-   this.safeSrc = this.sanitizer.bypassSecurityTrustResourceUrl("https://www.youtube.com/embed/8qkgcCBOQM4?start="+time);
-   console.log(this.safeSrc)
+  startTime(item: any, flag: any){
+    console.log(item)
+  //   this.youtube_url[key].safeSrc = this.sanitizer.bypassSecurityTrustResourceUrl(this.youtube_url[key].link);
+  if (flag == '1') {
+    item.safeSrc = this.sanitizer.bypassSecurityTrustResourceUrl(item.link+'?start='+item.start+'?autoplay=1');
+  } else {
+    item.safeSrc = this.sanitizer.bypassSecurityTrustResourceUrl(item.link+'?start='+item.second_start+'?autoplay=1');
+  }
+   console.log(item.safeSrc)
   }
 
   geteventarr() {

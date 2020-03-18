@@ -35,19 +35,21 @@
 
 
     <div class="marketingre_view_body_con">
+<ng-container *ngFor="let item of youtube_url">
+  <div class="marketingre_view_body_con_left" *ngIf="product_id == item.product_id">
+    <p>{{product_id}}</p>
+    <div class="video-responsive">
+      <iframe width="560" height="315" [src]="item.safeSrc" frameborder="0"
+        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
 
-      <div class="marketingre_view_body_con_left">
-        <div class="video-responsive">
-          <iframe width="560" height="315" [src]="safeSrc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-      </div>
 
+    <button (click)="startTime(item, '1')">Jump To Marketing Strategies</button>
 
-      <button (click)="startTime(0)">Jump To Marketing Strategies</button>
+    <button (click)="startTime(item,'2')">Jump To Expected Revenues </button>
 
-      <button (click)="startTime(150)">Jump To Expected Revenues </button>
-
-      </div>
-
+  </div>
+</ng-container>
 
       <div class="marketingre_view_body_con_right">
 
