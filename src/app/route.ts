@@ -78,6 +78,8 @@ import { FullProgramViewComponent } from './full-program-view/full-program-view.
 import { MarketingreviewComponent } from './marketingreview/marketingreview.component';
 import { ContractReviewVideoComponent } from './contract-review-video/contract-review-video.component';
 import { VideoLibraryComponent } from './video-library/video-library.component';
+import { CronReportComponent } from './cron-report/cron-report.component';
+import { CommonEventComponent } from './common-event/common-event.component';
 const appRoutes: Routes = [
     { path: '', redirectTo:'/login', pathMatch: 'full' },
     {path: 'contractreviewVideo', component: ContractReviewVideoComponent},
@@ -191,11 +193,13 @@ const appRoutes: Routes = [
 
     {path: 'full_Program_View', component: FullProgramViewComponent},
 
+    {path: 'cron-report', component: CronReportComponent},
+    {path: 'delete-event', component: CommonEventComponent},
     {path: 'marketingre_view/:product_id', component: MarketingreviewComponent},
     {path: 'marketingre_view/:product_id/:lead_id', component: MarketingreviewComponent, resolve : {results: TestresolveService},data: { requestcondition: {condition: {"_id":'lead_id'}}, endpoint: 'datalistfornewlead'}},
 
 
-
+    
 
     
    

@@ -8,7 +8,9 @@ import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { CookieService } from 'ngx-cookie-service';
 import { WINDOW } from '@ng-toolkit/universal';
 
+
 declare var moment:any;
+window['moment-range'].extendMoment(moment);
 
 @Component({
   selector: 'app-slotview',
@@ -23,6 +25,7 @@ export class SlotviewComponent implements OnInit {
   public recid:any;
   public refreshtoken:any;
   public timezone:any=[];
+  public closeremails:any=[];
   public filterval5:any;
   public blockHeaderFooterBlock: boolean = true;
   public daterangepickerOptions = {
@@ -291,7 +294,98 @@ export class SlotviewComponent implements OnInit {
         this._http.post(link,{source:'eventdayarr_events',condition:cond}).subscribe(res => {
             let result:any = res;
             this.allslots = result.res;
-            console.log('allslots',this.allslots,this.allslots.length);
+            // console.log('allslots',this.allslots,this.allslots.length);
+            // for(let ekey in this.allslots){
+
+            //     this.closeremails.push(this.allslots[ekey].useremail);
+            // }
+            // let uniquearrayval = this.closeremails.filter(function(item, i, ar){ return ar.indexOf(item) === i; });
+
+
+
+            // this._http.post(link,{source:'usergoogleevent', condition:{email:{"$in":uniquearrayval}}}).subscribe((res:any)=>{
+            //     let startdate;
+            //     let enddate;
+            //     // console.log(res,'++++++++++++++++');
+            //     for(let ekey in this.allslots){
+
+            //         // console.log({startdate:this.allslots[ekey].startdate,'useremail': this.allslots[ekey].useremail, timezone:this.allslots[ekey].timezone, slots:this.allslots[ekey].slots});
+            //         for (const keycnt in this.allslots[ekey].slots) {
+                        
+            //             for (const key in res.res) {
+            //                 if(this.allslots[ekey].startdate == res.res[key].startdate){
+            //                     // console.log('true',res.res[key].start);
+            //                     let mos=moment(res.res[key].start);
+            //                     let moe=moment(res.res[key].end);
+            //                     // console.log(mos.tz('America/Los_Angeles').format('ha z'),mos.tz('America/New_York').format('ha z'),this.allslots[ekey].timezone);
+            //                     let tz=this.allslots[ekey].timezone.split('|');
+            //                     // console.log(res.res[key].start,'tzs'); 
+            //                     // console.log(this.allslots[ekey].startdate + " " + this.allslots[ekey].slots[keycnt] + " " + tz[0],'tze',res.res[key].start,'tzs',tz[1]);
+
+            //                     startdate = this.allslots[ekey].startdate + "" + this.allslots[ekey].slots[keycnt]+ "" + tz[0];
+
+            //                     // startdata = item.startdate + " " + slot + " " + tz[0];
+            //                     startdate = (moment(startdate).tz(tz[1]).format());
+            //                     console.log(startdate,'startdata');
+            //                     // enddate = moment(startdate).tz(tz[1]).add(this.allslots[ekey].timespan, 'minutes');
+
+            //                     // var dt2 = momenttz(startdata).tz(tz[1]);
+            //                     // dt2 = moment(dt2).format('MM-DD-YYYY HH:mm');
+
+            //                     // var dt3 = momenttz(enddata).tz(tz[1]);
+            //                     // dt3 = moment(dt3).format('MM-DD-YYYY HH:mm');
+            //                     var range = moment.range(res.res[key].start, res.res[key].end);
+            //                     // console.log(range);
+            //                 }
+            //             }
+
+            //         }
+            //     }
+            //     // var tz;
+            //     // var startdata;
+            //     // var enddata;
+            //     // tz = item.timezone;
+            //     // tz = tz.split('|');
+            //     // // console.log(tz,'tz');
+            //     // var dt = momenttz(val.start).tz(tz[1]);
+            //     // dt = moment(dt).format('MM-DD-YYYY HH:mm');
+            //     // // console.log(dt,'dt')
+            //     // var dt1 = momenttz(val.end).tz(tz[1]);
+            //     // dt1 = moment(dt1).format('MM-DD-YYYY HH:mm');
+            //     // // console.log(dt1,'dt1')
+            //     // startdata = item.startdate + " " + slot + " " + tz[0];
+            //     // //console.log(startdata,'startdata');
+            //     // startdata = (moment(startdata).tz(tz[1]).format());
+            //     // enddata = moment(startdata).tz(tz[1]).add(item.timespan, 'minutes');
+
+            //     // var dt2 = momenttz(startdata).tz(tz[1]);
+            //     // dt2 = moment(dt2).format('MM-DD-YYYY HH:mm');
+
+            //     // var dt3 = momenttz(enddata).tz(tz[1]);
+            //     // dt3 = moment(dt3).format('MM-DD-YYYY HH:mm');
+            //     // // console.log(dt2,'dt2');
+            //     // // console.log(dt3,'dt3');
+            //     // // console.log(dt2,dt3,startdata,'+++___------')
+            //     // // console.log(dt,dt1,startdata,'+++______');
+            //     // var range = moment.range(dt, dt1);
+            //     // var range2 = moment.range(dt2, dt3);
+            //     // var coincide = range.overlaps(range2);
+            //     // var coincide2 = range2.overlaps(range);
+            //     // //console.log(range,range2,'+++___++++___')
+            //     // //console.log(range,'range',coincide2,'++++')
+            //     // if (coincide == true || coincide2 == true) { }
+
+
+
+
+
+
+            // })
+            // // cond = { "is_discovery": false, "is_onboarding": false, "is_qna": false, "is_custom": false, "userproducts": { "$in": [ this.closerLeadForm.value.product ] }, slots:{$type:'array'}, startdate:{
+            // //     $lte: moment(this.filterval5[1]).format('YYYY-MM-DD'),
+            // //     $gte: moment(this.filterval5[0]).format('YYYY-MM-DD')
+            // // }};
+            // console.log('dddd.....',uniquearrayval,this.closeremails.length,this.closeremails); 
         });
     }
  /* ngOnInit() {

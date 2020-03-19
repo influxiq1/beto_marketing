@@ -336,62 +336,98 @@ setdatetonull() {
     this.filterval5 = null;
     this.geteventarr();
 }
-geteventarr() {
+    geteventarr() {
 
-    let cond: any = '';
+        let cond: any = '';
 
-    if (this.filterval5 != null && this.filterval5 != '') {
-        this.start_date = moment(this.filterval5[0]).format('YYYY/MM/DD');
-        this.end_date = moment(this.filterval5[1]).format('YYYY/MM/DD');
-        cond = {
-            date: {
-                $lte: this.end_date,
-                $gte: this.start_date
+        if (this.filterval5 != null && this.filterval5 != '') {
+            
+            if (this.router.url == '/delete-event') {
+                console.log('test date');
+                this.start_date = moment(this.filterval5[0]).format('YYYY-MM-DD');
+                this.end_date = moment(this.filterval5[1]).format('YYYY-MM-DD');
+                cond = {
+                    date: {
+                        $lte: this.end_date,
+                        $gte: this.start_date
+                    }
+                };
+                if (this.router.url == '/delete-event') {
+                    const link = this._commonservice.nodesslurl + 'datalist?token=' + this.cookeiservice.get('jwttoken');
+                    this._http.post(link, { source: 'commonevent_view', condition: cond }).subscribe(res => {
+                        let result: any = res;
+                        this.datalist = result.res;
+                    });
+                }
+            } else {
+                this.start_date = moment(this.filterval5[0]).format('YYYY/MM/DD');
+                this.end_date = moment(this.filterval5[1]).format('YYYY/MM/DD');
+                cond = {
+                    date: {
+                        $lte: this.end_date,
+                        $gte: this.start_date
+                    }
+                };
+          
+            if (this.router.url == '/belk-upload') {
+                const link = this._commonservice.nodesslurl + 'datalist?token=' + this.cookeiservice.get('jwttoken');
+                this._http.post(link, { source: 'csv_upload_list', condition: cond }).subscribe(res => {
+                    let result: any = res;
+                    this.datalist = result.res;
+                });
+            } else {
+                console.log('test date leads_view_for_users');
+                const link = this._commonservice.nodesslurl + 'datalist?token=' + this.cookeiservice.get('jwttoken');
+                this._http.post(link, { source: 'leads_view_for_users', condition: cond }).subscribe(res => {
+                    let result: any = res;
+                    this.datalist = result.res;
+                });
             }
-        };
-        if (this.router.url== '/belk-upload') {
-            const link = this._commonservice.nodesslurl + 'datalist?token=' + this.cookeiservice.get('jwttoken');
-        this._http.post(link, { source: 'csv_upload_list', condition: cond }).subscribe(res => {
-            let result: any = res;
-            this.datalist = result.res;
-        });
-        } else{
-        const link = this._commonservice.nodesslurl + 'datalist?token=' + this.cookeiservice.get('jwttoken');
-        this._http.post(link, { source: 'leads_view_for_users', condition: cond }).subscribe(res => {
-            let result: any = res;
-            this.datalist = result.res;
-        });
-    }
-    } else {
+        }
 
-        if (this.router.url== '/belk-upload') {
-        const link = this._commonservice.nodesslurl + 'datalist?token=' + this.cookeiservice.get('jwttoken');
-        this._http.post(link, { source: 'csv_upload_list', condition: cond }).subscribe(res => {
-            let result: any = res;
-            this.datalist = result.res;
-        });
-    } else{
-        const link = this._commonservice.nodesslurl + 'datalist?token=' + this.cookeiservice.get('jwttoken');
-        this._http.post(link, { source: 'leads_view_for_users', condition: cond }).subscribe(res => {
-            let result: any = res;
-            this.datalist = result.res;
-        });
-    }
-    }
+        } else {
 
-}
+
+            if (this.router.url == '/delete-event') {
+                const link = this._commonservice.nodesslurl + 'datalist?token=' + this.cookeiservice.get('jwttoken');
+                this._http.post(link, { source: 'commonevent_view', condition: cond }).subscribe(res => {
+                    let result: any = res;
+                    this.datalist = result.res;
+                });
+            } else if (this.router.url == '/belk-upload') {
+                const link = this._commonservice.nodesslurl + 'datalist?token=' + this.cookeiservice.get('jwttoken');
+                this._http.post(link, { source: 'csv_upload_list', condition: cond }).subscribe(res => {
+                    let result: any = res;
+                    this.datalist = result.res;
+                });
+            } else {
+                const link = this._commonservice.nodesslurl + 'datalist?token=' + this.cookeiservice.get('jwttoken');
+                this._http.post(link, { source: 'leads_view_for_users', condition: cond }).subscribe(res => {
+                    let result: any = res;
+                    this.datalist = result.res;
+                });
+            }
+        }
+
+    }
 
     searchbyval() {
         this.filterval = '';
+        let searchCondition = this.sourceconditionval;
         if (this.filterval1 != '' && this.filterval1 != null) {
             this.filterval = this.filterval1 + '|';
         }
         if (this.filterval2 != '' && this.filterval2 != null) {
-            this.filterval = this.filterval2 + '|';
+            this.filterval = this.filterval2 ;
+            this.sourceconditionval = {email:{$regex:this.filterval}}
+            console.log(this.sourceconditionval,'++++++'); 
+            this.getdatalist();
         }
         if (this.filterval3 != '' && this.filterval3 != null) {
             this.filterval = this.filterval3 + '|';
         }
+        this.sourceconditionval = searchCondition;
+        this.getdatalist();
         console.log(this.filterval);
     }
     gettimezone(val) {
@@ -461,6 +497,7 @@ geteventarr() {
         this.router.navigate(['/lead-list/',val._id]);
     }
     getdatalist() {
+        console.log(this.sourceconditionval,"this.sourceconditionval")
         const link = this._commonservice.nodesslurl + 'datalist?token=' + this.cookeiservice.get('jwttoken');
         this._http.post(link, { source: this.sourceval, condition: this.sourceconditionval })
             .subscribe(res => {

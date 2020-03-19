@@ -23,22 +23,29 @@
         <div class="nexgen_adminlist">
             <div class="user_management_wrapper">
                 <div class="user_management_inner">
-                    <h2 *ngIf="router.url==['/tranningcategory'] || router.url==['/addtrainings']">Add {{sourcetitle}}
+                    <h2 *ngIf="router.url==['/tranningcategory'] || router.url==['/addtrainings']  && router.url != ['/cron-report'] && router.url != ['/delete-event']">Add {{sourcetitle}}
                     </h2>
-                    <h2 *ngIf="router.url!=['/tranningcategory'] && router.url!=['/addtrainings']">manage
+                    <h2 *ngIf="router.url!=['/tranningcategory'] && router.url!=['/addtrainings'] && router.url != ['/cron-report'] && router.url != ['/delete-event']">manage
                         {{sourcetitle}}</h2>
 
                     <div class="inner_search_wrapper"
                         *ngIf="router.url!=['/tranningcategory'] && router.url!=['/addtrainings']">
                         <div class="inner_content_wrapper">
-                            <div class="search_content" *ngIf="router.url!=['/belk-upload']">
-                                <h3> <input type="text" [(ngModel)]="filterval2" (keyup)="searchbyval()"
+                            <div class="search_content" *ngIf="router.url!=['/belk-upload']  && router.url != ['/cron-report']">
+                                <h3> <input type="text" [(ngModel)]="filterval2"
                                         placeholder="Search by Email"><button><i class="fa fa-search"
-                                            aria-hidden="true"></i></button> </h3>
+                                            aria-hidden="true" (click)="searchbyval()"></i></button> </h3>
                             </div>
-                            <div class="search_content" *ngIf="router.url !=['/belk-upload']">
+                            <div class="search_content" *ngIf="router.url !=['/belk-upload'] && router.url !=['/delete-event'] && router.url != ['/cron-report']">
                                 <h3> <input type="text" [(ngModel)]="filterval3" (keyup)="searchbyval()"
                                         placeholder="Search by Name"><button><i class="fa fa-search"
+                                            aria-hidden="true"></i></button> </h3>
+                            </div>
+
+                            <div class="search_content" *ngIf="router.url == ['/cron-report']">
+                                <h3>
+                                    <input type="text" [(ngModel)]="filterval" 
+                                        placeholder="Search..."><button (click)="searchbyval()"><i class="fa fa-search"
                                             aria-hidden="true"></i></button> </h3>
                             </div>
 
@@ -60,7 +67,7 @@
 
                             <!-- added by himadri start Date Range search-->
 
-                            <span *ngIf="router.url== ['/manage-leads'] || router.url== ['/appointmentlist'] || router.url== ['/belk-upload']">
+                            <span *ngIf="router.url== ['/manage-leads'] || router.url== ['/appointmentlist'] || router.url== ['/belk-upload'] || router.url== ['/delete-event']">
                                 <form>
                                     <div class="form-group">
                                         <input type="text" placeholder="Select Date Range" class="form-control"
@@ -165,8 +172,8 @@
                             <li>Dashboard Access</li>
                         </ul>
                     </div> -->
-                            <div class="abcde">
-                                <a *ngIf="hideadd!=null && hideadd!='true' " (click)="openform(formtemplate,0)"
+                            <div class="abcde" >
+                                <a *ngIf="hideadd!=null && hideadd!='true' && router.url!='/cron-report' && router.url!='/delete-event'" (click)="openform(formtemplate,0)"
                                     class="addfrinderbtn s_getmybrand_savebutton"> Add {{sourcetitle}}</a>
                                 <a *ngIf="slotlist=='true' " [routerLink]="['/slotview']"
                                     class="addfrinderbtn s_getmybrand_savebutton slotadd"> Slot View</a>
@@ -194,7 +201,7 @@
                                     <tr>
                                         <th [ngClass]="item.class" *ngFor="let item of tabledatalisval; index as i;"
                                             scope="col">{{item.name}}</th>
-                                        <th *ngIf="hideaction!=null && hideaction!='true' ">Actions</th>
+                                        <th *ngIf="hideaction!=null && hideaction!='true'  && router.url!='/cron-report' && router.url!='/delete-event'">Actions</th>
                                         <th *ngIf="notes!=null && notes=='true' ">Manage Notes</th>
                                     </tr>
                                 </thead>
@@ -224,6 +231,9 @@
                                                 [ngClass]="item1.class"
                                                 (click)="gotorepdetails(item._id)">{{item[item1.value]}}</span>
 
+
+                                                <span *ngIf="item1.type == 'unixTime' && (router.url=='/cron-report' || router.url=='/delete-event')" class="pointerbtn"
+                                                [ngClass]="item1.class">{{item[item1.value] |date:'yyyy-MM-dd HH:mm'}}</span>
                                             <!--<span *ngIf="item1.type=='text1'&& router.url=='/rep'" class="pointerbtn" [ngClass]="item1.class" (click)="updaterecruiter(item._id)">{{item[item1.value]}}</span>
 
                                         <span *ngIf="item1.type=='text1'&& router.url=='/rep'" class="pointerbtn" [ngClass]="item1.class" (click)="updaterecruiter(item._id)">Update</span>-->
@@ -408,12 +418,12 @@
                                                 [ngClass]="item1.class"
                                                 (click)="gotorepdetails(item._id)">{{showrealdate(item[item1.value])}}</span>
                                         </td>
-                                        <td *ngIf="hideaction!=null && hideaction!='true' ">
-                                            <span class=" delete_user" *ngIf="router.url!=['/belk-upload']"
+                                        <td *ngIf="hideaction!=null && hideaction!='true'  && router.url!='/cron-report' && router.url!='/delete-event'">
+                                            <span class=" delete_user" *ngIf="router.url!=['/belk-upload'] && router.url!='/cron-report' && router.url!='/delete-event'"
                                                 (click)="deletdata(item,commonconfirmmodal)">delete</span>
                                             <span class=" delete_user" *ngIf="router.url==['/belk-upload']"
                                                 (click)="deletdata(item,commonconfirmmodal)">delete all</span>
-                                            <span class="edit_user"  *ngIf="router.url!=['/belk-upload']"
+                                            <span class="edit_user"  *ngIf="router.url!=['/belk-upload'] && router.url!='/cron-report' && router.url!='/delete-event'"
                                                 (click)="editmodal(formtemplate,item)">edit</span>
                                             <span class="edit_user"  *ngIf="router.url==['/belk-upload']"
                                                 (click)="go_to_lead_list(item)">View Leads</span>
