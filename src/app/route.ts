@@ -80,7 +80,6 @@ import { ContractReviewVideoComponent } from './contract-review-video/contract-r
 import { VideoLibraryComponent } from './video-library/video-library.component';
 const appRoutes: Routes = [
     { path: '', redirectTo:'/login', pathMatch: 'full' },
-    {path: 'contractreviewVideo', component: ContractReviewVideoComponent},
     {path: 'videolibrary', component: VideoLibraryComponent},
     {path: 'belk-upload', component: CrmBelkUploadComponent},
     {path: 'lead-contract/:_id', component: LeadContractComponent, resolve : {results: TestresolveService},data: { requestcondition: { source: 'send_to_lead', condition: {"_id":"_id"}}, endpoint: 'datalist'}},
@@ -190,6 +189,15 @@ const appRoutes: Routes = [
     {path: 'call', component: GoogleCalendarAutomationReportComponent},
 
     {path: 'full_Program_View', component: FullProgramViewComponent},
+
+    {path: 'contractreviewVideo/:product_id', component: ContractReviewVideoComponent},
+
+    {path: 'contractreviewVideo/:product_id/:lead_id', component: ContractReviewVideoComponent,resolve : {results: TestresolveService},data: { requestcondition: { trainingcategory:{"_id":'product_id'}, userid:{} }, endpoint:'datalistfornewlead'}},
+
+
+
+
+    
 
     {path: 'marketingre_view/:product_id', component: MarketingreviewComponent},
     {path: 'marketingre_view/:product_id/:lead_id', component: MarketingreviewComponent, resolve : {results: TestresolveService},data: { requestcondition: {condition: {"_id":'lead_id'}}, endpoint: 'datalistfornewlead'}},
