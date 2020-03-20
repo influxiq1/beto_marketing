@@ -44,7 +44,13 @@ export class TestresolveService implements Resolve<EndpointComponent> {
                 // console.log(route.data.requestcondition)
             requestData.condition._id =  route.params._id;
             // requestData.userid =this.userid;
-        } else requestData.condition = Object.assign(requestData.condition, route.params);
+        }  else if(route.data.requestcondition.condition!=null && route.data.requestcondition.condition._id == 'product_id'){
+            requestData.condition._id =  route.params.product_id;
+            console.log(route.params.lead_id,'++++')
+        }
+        
+    
+        else requestData.condition = Object.assign(requestData.condition, route.params);
 
 //old code
             /*var result = new Promise((resolve) => {this._http.post(this.commonservices.nodesslurl+'datalist?token='+this.cookie.get('jwttoken'),

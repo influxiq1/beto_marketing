@@ -82,7 +82,6 @@ import { CronReportComponent } from './cron-report/cron-report.component';
 import { CommonEventComponent } from './common-event/common-event.component';
 const appRoutes: Routes = [
     { path: '', redirectTo:'/login', pathMatch: 'full' },
-    {path: 'contractreviewVideo', component: ContractReviewVideoComponent},
     {path: 'videolibrary', component: VideoLibraryComponent},
     {path: 'belk-upload', component: CrmBelkUploadComponent},
     {path: 'lead-contract/:_id', component: LeadContractComponent, resolve : {results: TestresolveService},data: { requestcondition: { source: 'send_to_lead', condition: {"_id":"_id"}}, endpoint: 'datalist'}},
@@ -198,6 +197,10 @@ const appRoutes: Routes = [
     // {path: 'marketingre_view/:product_id/:rep_id', component: MarketingreviewComponent, resolve : {results: TestresolveService},data: { requestcondition: {condition: {"rep_id":'rep_id'}}, endpoint: 'datalistforslot'}},
     {path: 'marketingre_view/:product_id/:rep_id', component: MarketingreviewComponent},
     {path: 'marketingre_view/:product_id/:rep_id/:lead_id', component: MarketingreviewComponent, resolve : {results: TestresolveService},data: { requestcondition: {condition: {"_id":'lead_id'}}, endpoint: 'datalistfornewlead'}},
+
+    {path: 'marketingre_view/:product_id/:rep_id', component: MarketingreviewComponent},
+    {path: 'marketingre_view/:product_id/:rep_id/:lead_id', component: MarketingreviewComponent, resolve : {results: TestresolveService},data: { requestcondition: {condition: {"_id":'lead_id'}}, endpoint: 'datalistfornewlead'}},
+
 
 
     

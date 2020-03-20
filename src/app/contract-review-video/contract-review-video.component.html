@@ -7,7 +7,12 @@
 
 
     <div class="marketingre_view_top_left">
-      <img src="../../assets/images/marketingre_view_awslogo.png" alt="#">
+      <img *ngIf="product_id =='5dd68c367b583967f3e573b2'" src="../../assets/images/marketingre_view_awslogo.png" alt="#">
+      <img  *ngIf="product_id =='5d4d5e8cc9e23d43cc124394'" src="../../assets/images/uta_marketingre_view_logo.png" alt="#">
+      <img  *ngIf="product_id =='5e4e675185f01a4ee4f0ac22'" src="../../assets/images/ami_new_img4.png" alt="#">
+      <img  *ngIf="product_id =='5d4d5eedc9e23d43cc124395'" src="../../assets/images/ApogeeInvent_logo.png" alt="#">
+      <img  *ngIf="product_id =='5d4d5f66c9e23d43cc1243a2'" src="../../assets/images/repdashboard_offer_img7.png" alt="#">
+      <img  *ngIf="product_id =='5e4e634052b7254c601f7559'" src="../../assets/images/MedWorldOne_logo.png" alt="#">
     </div>
    
     <div class="marketingre_view_top_right">
@@ -27,21 +32,45 @@
 
   <div class="marketingre_view_body_wrapper">
 
+    <div class="marketingre_view_body_con_top">
+
+
+      <div class="marketingre_view_body_con_top_left">
+
+      <h2>Know your Representative</h2>
+      </div>
+
+      <div class="marketingre_view_body_con_top_right">
+
+        <div class="marketingre_view_body_con_top_right_box">
+
+          <h3>Name - David Lorem  Email - david.lorem9@gmail.com<br/>  
+            Contact number - <span>585 698 6985</span></h3>
+
+          </div>
+
+      </div>
+
+    </div>
 
 
     <div class="marketingre_view_body_con">
 
-      <div class="marketingre_view_body_con_left">
-        <div class="video-responsive">
-          <iframe width="560" height="315" src="https://www.youtube.com/embed/8qkgcCBOQM4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-      </div>
-
-
-      <button>Jump To Marketing Strategies</button>
-
-      <button>Jump To Expected Revenues </button>
-
-      </div>
+      <ng-container *ngFor="let item of youtube_url">
+        <div class="marketingre_view_body_con_left" *ngIf="product_id == item.product_id">
+          <!-- <p>{{product_id}}</p> -->
+          <div class="video-responsive">
+            <iframe width="560" height="315" [src]="item.safeSrc" frameborder="0"
+              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+      
+      
+          <button (click)="startTime(item, '1')">Jump To Marketing Strategies</button>
+      
+          <button (click)="startTime(item,'2')">Jump To Expected Revenues </button>
+      
+        </div>
+      </ng-container>
 
 
       <div class="marketingre_view_body_con_right">
@@ -59,16 +88,75 @@
 
 
 
- <div class="marketingre_view_body_footer">
+    <div class="marketingre_view_body_footer" *ngIf="product_id =='5dd68c367b583967f3e573b2'">
 
-  <div class="marketingre_view_body_footer_wrapper">
-
-    <h2>There are many variations of passages of Lorem Ipsum available,</h2>
-    <h3>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum,</h3>
-  
-  </div>
-
-</div>
+      <div class="marketingre_view_body_footer_wrapper">
+    
+        <h2>There are many variations of passages of Lorem Ipsum available,</h2>
+        <h3>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum,</h3>
+      
+      </div>
+    
+    </div>
+    
+    
+    <div class="marketingre_view_body_footer marketingre_view_apog" *ngIf="product_id =='5d4d5eedc9e23d43cc124395'">
+    
+      <div class="marketingre_view_body_footer_wrapper">
+    
+        <h2>There are many variations of passages of Lorem Ipsum available,</h2>
+        <h3>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum,</h3>
+      
+      </div>
+    
+    </div>
+    
+    
+    <div class="marketingre_view_body_footer marketingre_view_uta" *ngIf="product_id =='5d4d5e8cc9e23d43cc124394'">
+    
+      <div class="marketingre_view_body_footer_wrapper">
+    
+        <h2>There are many variations of passages of Lorem Ipsum available,</h2>
+        <h3>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum,</h3>
+      
+      </div>
+    
+    </div>
+    
+    <div class="marketingre_view_body_footer marketingre_view_Helios" *ngIf="product_id =='5e4e675185f01a4ee4f0ac22'">
+    
+      <div class="marketingre_view_body_footer_wrapper">
+    
+        <h2>There are many variations of passages of Lorem Ipsum available,</h2>
+        <h3>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum,</h3>
+      
+      </div>
+    
+    </div>
+    
+    
+    <div class="marketingre_view_body_footer marketingre_view_Medworld" *ngIf="product_id =='5e4e634052b7254c601f7559'">
+    
+      <div class="marketingre_view_body_footer_wrapper">
+    
+        <h2>There are many variations of passages of Lorem Ipsum available,</h2>
+        <h3>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum,</h3>
+      
+      </div>
+    
+    </div>
+    
+    <div class="marketingre_view_body_footer marketingre_view_geo" *ngIf="product_id =='5d4d5f66c9e23d43cc1243a2'">
+    
+      <div class="marketingre_view_body_footer_wrapper">
+    
+        <h2>There are many variations of passages of Lorem Ipsum available,</h2>
+        <h3>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum,</h3>
+      
+      </div>
+    
+    </div>
+    
 
   </div>
 
