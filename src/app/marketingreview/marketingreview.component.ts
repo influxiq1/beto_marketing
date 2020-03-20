@@ -26,6 +26,7 @@ export class MarketingreviewComponent implements OnInit {
   public timezone: any = '';
   public leadData: any = '';
   public lead_id: any = '';
+  public rep_data: any = '';
   public youtube_url: any = [
     {'product_id':"5dd68c367b583967f3e57312", 'link':"https://www.youtube.com/embed/8qkgcCBOQM4", 'start':0, 'second_start':75},
     {'product_id':"5dd68c367b583967f3e573r2", 'link':"https://www.youtube.com/embed/8qkgcCBOQM4", 'start':0, 'second_start':75},
@@ -40,13 +41,13 @@ export class MarketingreviewComponent implements OnInit {
     for (const key in this.youtube_url) {
       this.youtube_url[key].safeSrc = this.sanitizer.bypassSecurityTrustResourceUrl(this.youtube_url[key].link);
     }
-   if (activatedroute.snapshot.params['lead_id'] != null) {
-    this.lead_id = activatedroute.snapshot.params['lead_id'];
-    this.activatedroute.data.forEach((data:any ) => {
-      this.leadData = data.results.res;
-      console.log(this.leadData)
-   });
-   }
+    if (activatedroute.snapshot.params['lead_id'] != null) {
+      this.lead_id = activatedroute.snapshot.params['lead_id'];
+      this.activatedroute.data.forEach((data: any) => {
+        this.leadData = data.results.res;
+        console.log(this.leadData)
+      });
+    }
     this.product_id = activatedroute.snapshot.params['product_id'];
     this._http.get("assets/data/timezone.json")
           .subscribe((res:any) => {
@@ -99,9 +100,9 @@ export class MarketingreviewComponent implements OnInit {
       console.log('cond', cond);
     }
     const link = this._commonservice.nodesslurl + 'datalistforslot';
-    this._http.post(link, { condition: cond }).subscribe((res:any) => {
-      this.allslots = res.res;
-      this.allslotslength = res.resc;
+    this._http.post(link, {rep_id: this.activatedroute.snapshot.params['rep_id'], condition: cond }).subscribe((res:any) => {
+      this.allslots = res.data.slots_data;
+      this.allslotslength = res.data.slots_data.length;
       // console.log('allslots', this.allslots, this.allslots.length);
     });
   }
@@ -118,10 +119,11 @@ export class MarketingreviewComponent implements OnInit {
   }};
 
   const link = this._commonservice.nodesslurl + 'datalistforslot';
-        this._http.post(link,{condition:cond}).subscribe((res:any) => {
-            this.allslots = res.res;
-            this.allslotslength = res.resc;
-            // console.log('allslots',this.allslots,this.allslots.length);
+        this._http.post(link,{rep_id: this.activatedroute.snapshot.params['rep_id'], condition:cond}).subscribe((res:any) => {
+            this.allslots = res.data.slots_data;
+            this.allslotslength = res.data.slots_data.length;
+            this.rep_data = res.data.rep_data[0];
+            console.log('allslots',this.rep_data);
         });
   }
 }

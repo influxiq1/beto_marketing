@@ -42,6 +42,7 @@ export class SlotsComponent implements OnInit {
   public selectedproduct:any;
   public specialityarray:any = [];
   public googleeventval:any = '';
+  public slotDataStatus: any = '';
   public doctorspeciality:any = [
     {name:"Family Medicine",value:"Family Medicine"},
     {name:"Neurology",value:"Neurology"},
@@ -497,49 +498,67 @@ showformat(stdt){
         type: this.route.snapshot.url[0].path
       };
       console.log('data--------');
-      console.log(data);
-      this._http.post(link, data)
-        .subscribe(res => {
-          let result: any = res;
-          console.log('result.... for google calendar');
-          console.log(result);
-          this.modalRef.hide();
-          this.message = "Your Booking done successfully !!";
-          //this.modalRef=this.modal.show(this.mymodal, {class: 'successmodal'});
+      console.log(data.end_time+''+tz[0]);
+      this.loader = true;
+      let link1 = 'https://gapi.betoparedes.com/check_ability.php?refresh_token='+this.cookeiservice.get('refreshtoken')+'&start='+data.start_time+''+tz[0] +'&end='+ data.end_time+''+tz[0];
+      console.log(link1)
 
-          this.cookeiservice.delete('leadsId');
-          this.cookeiservice.delete('viewonlyaccess');
-          switch (this.route.snapshot.url[0].path) {
-            case 'on-boarding-call':
-              this.router.navigate(['/on-boarding-call-booked/' + this.route.snapshot.url[1].path + '/' + result.gdata]);
-              break;
-            case 'is_discovery':
-              this.router.navigate(['/on-boarding-call-booked/' + this.route.snapshot.url[1].path + '/' + result.gdata]);
-              break;
-            case 'book-a-closer':
-              this.cookeiservice.delete('lead-product');
-              this.modalRef = this.modal.show(this.mymodal, {class: 'successmodal'});
-              this.route.paramMap.subscribe(params => {
-                if(!params.get("id")) {
-                  let random = Math.floor(Math.random() * (999999 - 100000)) + 100000;
-                  // this.router.navigate(['/book-a-closer/' + random]);
-                  this.router.navigate(['/repdashboard']);
-                } else {
-                  this.router.navigate(['/book-a-closer']);
+      this._http.get(link1)
+      .subscribe((res:any) => {
+        console.log(res);
+        this.slotDataStatus = res;
+        if (res == 0) {
+          this._http.post(link, data)
+          .subscribe(res => {
+            let result: any = res;
+            console.log('result.... for google calendar');
+            console.log(result);
+            this.modalRef.hide();
+            this.message = "Your Booking done successfully !!";
+            //this.modalRef=this.modal.show(this.mymodal, {class: 'successmodal'});
+  
+            this.cookeiservice.delete('leadsId');
+            this.cookeiservice.delete('viewonlyaccess');
+            switch (this.route.snapshot.url[0].path) {
+              case 'on-boarding-call':
+                this.router.navigate(['/on-boarding-call-booked/' + this.route.snapshot.url[1].path + '/' + result.gdata]);
+                break;
+              case 'is_discovery':
+                this.router.navigate(['/on-boarding-call-booked/' + this.route.snapshot.url[1].path + '/' + result.gdata]);
+                break;
+              case 'book-a-closer':
+                this.cookeiservice.delete('lead-product');
+                this.modalRef = this.modal.show(this.mymodal, {class: 'successmodal'});
+                this.route.paramMap.subscribe(params => {
+                  if(!params.get("id")) {
+                    let random = Math.floor(Math.random() * (999999 - 100000)) + 100000;
+                    // this.router.navigate(['/book-a-closer/' + random]);
+                    this.router.navigate(['/repdashboard']);
+                  } else {
+                    this.router.navigate(['/book-a-closer']);
+  
+                  }
+                });
+                break;
+              default:
+                console.log(this.route.snapshot.url[0].path,'+++++++',result.gdata)
+                this.router.navigate(['/on-boarding-call-booked/' + 'us7ag61k4r9306plvmilbot9jk' + '/' + result.gdata]);
+                break;
+            }
+            // setTimeout(() => {
+            //   window.location.reload();
+            // },5000);
+            //this.router.navigate(['/reptrainingcenter'])
+          });
+        } else {
+          // this.modalRef.hide();
+          // this.message = "Sorry, This slot just got occupied ! \n Please select another convenient slot.";
+          // this.modalRef = this.modal.show(this.mymodal, {class: 'successmodal'});
+          this.loader = false;
+        }
+      });
+      // return;
 
-                }
-              });
-              break;
-            default:
-              console.log(this.route.snapshot.url[0].path,'+++++++',result.gdata)
-              this.router.navigate(['/on-boarding-call-booked/' + 'us7ag61k4r9306plvmilbot9jk' + '/' + result.gdata]);
-              break;
-          }
-          // setTimeout(() => {
-          //   window.location.reload();
-          // },5000);
-          //this.router.navigate(['/reptrainingcenter'])
-        });
     }
   }
   // }

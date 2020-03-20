@@ -42,10 +42,11 @@
 
       <div class="marketingre_view_body_con_top_right">
 
-        <div class="marketingre_view_body_con_top_right_box">
+        <div *ngIf="rep_data !=''" class="marketingre_view_body_con_top_right_box">
 
-          <h3>Name - David Lorem  Email - david.lorem9@gmail.com<br/>  
-            Contact number - <span>585 698 6985</span></h3>
+          <h3>Name - {{rep_data.fullname}},  Email - {{rep_data.email}}<br/>
+
+            <ng-container *ngIf="rep_data.telephone != null">Contact number - <span>{{rep_data.telephone}}</span></ng-container></h3>
 
           </div>
 

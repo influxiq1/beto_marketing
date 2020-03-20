@@ -411,6 +411,18 @@ setdatetonull() {
 
     }
 
+    searchbyvalForType() {
+        let searchCondition = this.sourceconditionval;
+        if (this.filterval != '' && this.filterval != null) {
+            this.sourceconditionval = {type:{$regex:this.filterval}}
+            console.log(this.sourceconditionval,'++++++'); 
+            this.getdatalist();
+        } else {
+            this.sourceconditionval = searchCondition;
+            this.getdatalist();
+            console.log(this.filterval);
+        }
+    }
     searchbyval() {
         this.filterval = '';
         let searchCondition = this.sourceconditionval;
@@ -669,7 +681,7 @@ this._http.post(link, source)
                             for (const complete_traning of complete_traning_catagory_by_user_val) {
                                 // console.log(complete_traning);
                                 if (item._id == complete_traning.trainingcategory && item.count >= complete_traning.lessondone && item.product_name != null) {
-                                    // console.log('test success',item)
+                                    console.log('test success',item)
                                     alldata.push(item)
                                 }
                             }
@@ -725,6 +737,7 @@ this._http.post(link, source)
             this.modalRef1.hide();
         }, 2000);
        let link = this._commonservice.nodesslurl + 'marketingreview';
+       val.rep_id = this.cookeiservice.get('userid');
        let data = val;
         this._http.post(link, data).subscribe((res:any) =>{
             console.log('ok',res)
@@ -754,7 +767,7 @@ this._http.post(link, source)
         if (val.email != null && val.product_id != null) {
             this.leadIsSubmit = 0;
             let link = this._commonservice.nodesslurl + 'newleadformarketingreview';
-            let data = {email:emails, product_id:val.product_id, created_by:this.cookeiservice.get('userid')};
+            let data = {email:emails, product_id:val.product_id, rep_id: this.cookeiservice.get('userid'), created_by:this.cookeiservice.get('userid')};
             this._http.post(link, data).subscribe((res:any)=>{
                 console.log(res);
                 if (res.status == 'error') {

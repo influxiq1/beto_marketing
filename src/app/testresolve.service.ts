@@ -28,9 +28,12 @@ export class TestresolveService implements Resolve<EndpointComponent> {
         if(route.data.requestcondition.trainingcategory!=null){
             requestData.trainingcategory =  route.params.cid;
             requestData.userid =this.userid;
+        } else if(route.data.requestcondition.condition!=null && route.data.requestcondition.condition.rep_id == 'rep_id'){
+            requestData.condition.rep_id =  route.params.rep_id;
+            // console.log(route.params.lead_id,'++++');
         } else if(route.data.requestcondition.condition!=null && route.data.requestcondition.condition._id == 'lead_id'){
             requestData.condition._id =  route.params.lead_id;
-            console.log(route.params.lead_id,'++++')
+            // console.log(route.params.lead_id,'++++');
         }
         else if(route.data.requestcondition.condition.id_object == 'id_object'){
             // console.log(route.data.requestcondition)

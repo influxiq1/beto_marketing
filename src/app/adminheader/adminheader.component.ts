@@ -33,6 +33,7 @@ export class AdminheaderComponent implements OnInit {
   public calenderaccess: any;
   private currentUrl: string;
   public initial: any = '';
+  public share_link: any = [];
 
   constructor(@Inject(WINDOW) private window: Window, public cookie: CookieService, public old_cookie: CookieService, public router: Router, private _commonservices: Commonservices, private _http: HttpClient) {
 
@@ -123,13 +124,14 @@ export class AdminheaderComponent implements OnInit {
           for (const complete_traning of complete_traning_catagory_by_user_val) {
             // console.log(complete_traning);
             if (item._id == complete_traning.trainingcategory && item.count >= complete_traning.lessondone && complete_traning.trainingcategory != "5e60865df4a08401e0e00e6c") {
-              console.log('calenderaccess+++++----++++')
+              // this.share_link.push([{trainingcategory:complete_traning.trainingcategory, product_id: item.product[0]}]);
               this.gameplanButton = 1;
               this.calenderaccess = 1;
               this.cookie.set('calenderaccess', '1');
               // return;
             }
           }
+          // console.log('calenderaccess+++++----++++',this.share_link)
         }
       });
   }
