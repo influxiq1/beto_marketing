@@ -1331,8 +1331,34 @@ this._http.post(link, source)
         this.selectedlead = item;
         this.modalRef2 = this.modal.show(template);
     }
-    addYoutubeLink(){
-        console.log(this.videolink,'+++++++',this.selectedproductid);
+    addYoutubeLink(template: TemplateRef<any>) {
+        console.log(this.videolink, '+++++++', this.selectedproductid);
+
+        if (this.videolink != '' && this.videolink != null && this.selectedproductid != '' && this.selectedproductid != null) {
+            const link = this._commonservice.nodesslurl + 'addorupdatedata?token=' + this.cookeiservice.get('jwttoken');
+            let data = {
+                source: 'leads',
+                data: { id: this.selectedlead._id, youtube:{'link': this.videolink,product_id:this.selectedproductid} }
+            };
+            this._http.post(link, data).subscribe((res: any) => {
+                console.log(res);
+                if (res.status == 'success') {
+                    this.modalRef2.hide();
+                    this.selectedproductid='';
+                    this.modalRef1 = this.modal.show(template, { class: 'successmodal' });
+                    setTimeout(() => {
+                        this.modalRef1.hide();
+                    }, 2000);
+                }
+                this.getdatalist();
+            }, error => {
+                this.getdatalist();
+            });
+            console.log(data, '++++')
+        } else {
+
+        }
+
     }
     addPrice(){        
         if(this.pricepoint == '' || this.pricepoint == null ){
