@@ -786,9 +786,21 @@
                 <div class="col-sm-12">    
                  <span matPrefix>https://www.youtube.com/watch?v= &nbsp;</span>
                     <input type="text" [(ngModel)]="videolink">
+                </div>
+                <label class="col-sm-12 col-form-label">Choose A Product</label>
+                <div class="col-sm-12">
+
+                    <select class="form-control" [(ngModel)]="selectedproductid" multiple>
+                        <option value="">Select a Product</option>
+                        <option *ngFor="let i of productlist;" value="{{ i.product_id }}">{{ i.product_name }}
+                        </option>
+                    </select>
+                    <span class="error" *ngIf="productErrorFlag==1 && selectedproductid==''">Product Is
+                        Required</span>
                     <div class="form-group row form-groupbtndiv">
-                        <button (click)="addPrice()">Save price</button>
-                        <button (click)="modalRef2.hide()">cancel</button>
+
+                        <button (click)="addYoutubeLink()">Upload</button>
+                        <button (click)="modalRef2.hide();selectedproductid=''"> cancel</button>
                         <div class="clearfix"></div>
 
                     </div>

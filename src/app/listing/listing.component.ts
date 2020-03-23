@@ -1332,7 +1332,7 @@ this._http.post(link, source)
         this.modalRef2 = this.modal.show(template);
     }
     addYoutubeLink(){
-        
+        console.log(this.videolink,'+++++++',this.selectedproductid);
     }
     addPrice(){        
         if(this.pricepoint == '' || this.pricepoint == null ){
