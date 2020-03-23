@@ -799,7 +799,7 @@
                         Required</span>
                     <div class="form-group row form-groupbtndiv">
 
-                        <button (click)="addYoutubeLink()">Upload</button>
+                        <button (click)="addYoutubeLink(sucessmodalforyoutube)">Upload</button>
                         <button (click)="modalRef2.hide();selectedproductid=''"> cancel</button>
                         <div class="clearfix"></div>
 
@@ -987,6 +987,18 @@
         </div>
         <div class="brand_messagebox">
             <h3>Email Send Successfully</h3>
+        </div>
+    </div>
+    <div>
+    </div>
+</ng-template>
+<ng-template #sucessmodalforyoutube>
+    <div class="modal-body brandmanagement_modal successmodal_listing">
+        <div class="logo_wrapper">
+            <img src="assets/images/logo.png">
+        </div>
+        <div class="brand_messagebox">
+            <h3>Youtube Link Update Successfully</h3>
         </div>
     </div>
     <div>
