@@ -57,9 +57,15 @@
     <div class="marketingre_view_body_con">
 <ng-container *ngFor="let item of youtube_url">
   <div class="marketingre_view_body_con_left" *ngIf="product_id == item.product_id">
-    <!-- <p>{{product_id}}</p> -->
-    <div class="video-responsive">
+    <p>{{item.safeSrc}}</p>
+    <div class="video-responsive" *ngIf="this.discov != true">
+
       <iframe width="560" height="315" [src]="item.safeSrc" frameborder="0"
+        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+    <div class="video-responsive" *ngIf="this.discov == true">
+
+      <iframe width="560" height="315" [src]="safeSrc" frameborder="0"
         allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     </div>
 
@@ -71,7 +77,7 @@
   </div>
 </ng-container>
 
-     <div class="marketingre_view_body_con_right">
+     <div class="marketingre_view_body_con_right" *ngIf="lead_data.emailStatus != 'seen'">
 
 
 
@@ -139,7 +145,7 @@
       </div> 
 
 
-      <!-- <div class="marketingre_view_body_con_right_additionBlock">
+      <div class="marketingre_view_body_con_right_additionBlock" *ngIf="lead_data.emailStatus == 'seen'">
         <div class="div_block_wrapper">
 
         <div class="div_block1">
@@ -159,13 +165,13 @@
         </div>
 
       </div>
-      </div> -->
+      </div>
 
 
     </div>
 
 
-    <!-- <div class="marketingre_view_body_con_top marketingre_view_body_con_top2">
+    <div class="marketingre_view_body_con_top marketingre_view_body_con_top2" *ngIf="lead_data.emailStatus == 'seen' && lead_data.youtube != null">
 
 
       <div class="marketingre_view_body_con_top_left">
@@ -176,11 +182,11 @@
 
       <div class="marketingre_view_body_con_top_right">
 
-        <button>Play Discovery call Recording</button>
+        <button (click)="startTime(lead_data.youtube,'3')">Play Discovery call Recording</button>
 
       </div>
 
-    </div> -->
+    </div>
 
 
 

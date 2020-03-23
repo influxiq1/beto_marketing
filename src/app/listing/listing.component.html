@@ -456,6 +456,10 @@
                                         <td *ngIf="notes!=null && notes=='true' ">
                                             <span class="delete_user"
                                                 (click)="notesdata(item,notesmodal)">Notes({{item.notescount}})</span>
+                                                <br>
+                                                <span *ngIf="cookeiservice.get('usertype') == 'admin' && item.youtube != null">
+                                                    Video Uploaded
+                                                </span>
 
                                         </td>
                                     </tr>
@@ -853,14 +857,21 @@
             <img src="assets/images/logo.png">
         </div>
         <div class="brand_messagebox">
-            <div class="form-group row">
-                <label class="col-sm-12 col-form-label">Put A Closing Price</label>
+            <div class="form-group row" *ngIf="productlist.length > 0">
+                <label class="col-sm-12 col-form-label">Choose A Product</label>
                 <div class="col-sm-12">
-                    <input type="text" [(ngModel)]="pricepoint">
-                    <span *ngIf="pricepoint=='' && issubmitprice==1" class="error">*Closing Price Is Required</span>
+
+                    <select class="form-control" [(ngModel)]="selectedproductid" multiple>
+                        <option value="">Select a Product</option>
+                        <option *ngFor="let i of productlist;" value="{{ i.product_id }}">{{ i.product_name }}
+                        </option>
+                    </select>
+                    <span class="error" *ngIf="productErrorFlag==1 && selectedproductid==''">Product Is
+                        Required</span>
                     <div class="form-group row form-groupbtndiv">
-                        <button (click)="addPrice()">Save price</button>
-                        <button (click)="modalRef2.hide()">cancel</button>
+
+                        <button (click)="contractReview(selectedlead._id, sucessmodalforemail)">Book</button>
+                        <button (click)="modalRef2.hide();selectedproductid=''"> cancel</button>
                         <div class="clearfix"></div>
 
                     </div>

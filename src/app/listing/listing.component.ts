@@ -774,6 +774,14 @@ this._http.post(link, source)
         this._http.post(link, data).subscribe((res:any) =>{
             // console.log('ok',res);
             if (res.stasus =='success') {
+                const link1 = this._commonservice.nodesslurl + 'addorupdatedata?token=' + this.cookeiservice.get('jwttoken');
+                let data = {
+                    source: 'leads',
+                    data: { id: this.selectedlead._id, emailStatus:'send' }
+                };
+                this._http.post(link1, data).subscribe((res1: any) => {
+                    console.log(res1,'+++res1');
+             });
                 this.modalRef2.hide();
                 this.modalRef1 = this.modal.show(template, { class: 'successmodal' });
                 setTimeout(() => {
@@ -785,24 +793,32 @@ this._http.post(link, source)
     }
 
     
-    contractReview(val:any, template:TemplateRef<any>){
+    contractReview(val: any, template: TemplateRef<any>) {
         let link = this._commonservice.nodesslurl + 'contractreview';
         this.selectedlead.rep_id = this.cookeiservice.get('userid');
         this.selectedlead.product_ids = this.selectedproductid;
         let data = this.selectedlead;
         if (this.selectedproductid != '') {
-         this._http.post(link, data).subscribe((res:any) =>{
-             // console.log('ok',res);
-             if (res.stasus =='success') {
-                 this.modalRef2.hide();
-                 this.modalRef1 = this.modal.show(template, { class: 'successmodal' });
-                 setTimeout(() => {
-                     this.modalRef1.hide();
-                 }, 2000);
-             }
-         });
+            this._http.post(link, data).subscribe((res: any) => {
+                // console.log('ok',res);
+                if (res.stasus == 'success') {
+                    const link1 = this._commonservice.nodesslurl + 'addorupdatedata?token=' + this.cookeiservice.get('jwttoken');
+                    let data = {
+                        source: 'leads',
+                        data: { id: this.selectedlead._id, emailStatus: 'send' }
+                    };
+                    this._http.post(link1, data).subscribe((res1: any) => {
+                        console.log(res1, '+++res1');
+                    });
+                    this.modalRef2.hide();
+                    this.modalRef1 = this.modal.show(template, { class: 'successmodal' });
+                    setTimeout(() => {
+                        this.modalRef1.hide();
+                    }, 2000);
+                }
+            });
         }
-     }
+    }
 
     validateEmail(email) {
         var re = /^\s*[\w\-\+_]+(\.[\w\-\+_]+)*\@[\w\-\+_]+\.[\w\-\+_]+(\.[\w\-\+_]+)*\s*$/;
@@ -1332,7 +1348,7 @@ this._http.post(link, source)
         this.modalRef2 = this.modal.show(template);
     }
     addYoutubeLink(template: TemplateRef<any>) {
-        console.log(this.videolink, '+++++++', this.selectedproductid);
+        // console.log(this.videolink, '+++++++', this.selectedproductid);
 
         if (this.videolink != '' && this.videolink != null && this.selectedproductid != '' && this.selectedproductid != null) {
             const link = this._commonservice.nodesslurl + 'addorupdatedata?token=' + this.cookeiservice.get('jwttoken');
@@ -1341,7 +1357,7 @@ this._http.post(link, source)
                 data: { id: this.selectedlead._id, youtube:{'link': this.videolink,product_id:this.selectedproductid} }
             };
             this._http.post(link, data).subscribe((res: any) => {
-                console.log(res);
+                // console.log(res);
                 if (res.status == 'success') {
                     this.modalRef2.hide();
                     this.selectedproductid='';
@@ -1354,7 +1370,7 @@ this._http.post(link, source)
             }, error => {
                 this.getdatalist();
             });
-            console.log(data, '++++')
+            // console.log(data, '++++')
         } else {
 
         }

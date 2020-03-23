@@ -27,6 +27,8 @@ export class MarketingreviewComponent implements OnInit {
   public leadData: any = '';
   public lead_id: any = '';
   public rep_data: any = '';
+  public lead_data: any = '';
+  public discov: boolean = false;
   public youtube_url: any = [
     {'product_id':"5dd68c367b583967f3e57312", 'link':"https://www.youtube.com/embed/8qkgcCBOQM4", 'start':0, 'second_start':75},
     {'product_id':"5dd68c367b583967f3e573r2", 'link':"https://www.youtube.com/embed/8qkgcCBOQM4", 'start':0, 'second_start':75},
@@ -41,13 +43,13 @@ export class MarketingreviewComponent implements OnInit {
     for (const key in this.youtube_url) {
       this.youtube_url[key].safeSrc = this.sanitizer.bypassSecurityTrustResourceUrl(this.youtube_url[key].link);
     }
-    if (activatedroute.snapshot.params['lead_id'] != null) {
-      this.lead_id = activatedroute.snapshot.params['lead_id'];
-      this.activatedroute.data.forEach((data: any) => {
-        this.leadData = data.results.res;
-        console.log(this.leadData)
-      });
-    }
+    // if (activatedroute.snapshot.params['lead_id'] != null) {
+    //   this.lead_id = activatedroute.snapshot.params['lead_id'];
+    //   this.activatedroute.data.forEach((data: any) => {
+    //     this.leadData = data.results.res;
+    //     console.log(this.leadData)
+    //   });
+    // }
     this.product_id = activatedroute.snapshot.params['product_id'];
     this._http.get("assets/data/timezone.json")
           .subscribe((res:any) => {
@@ -57,7 +59,7 @@ export class MarketingreviewComponent implements OnInit {
               console.log('Oooops!');
           });
 
-    console.log(this.product_id)
+    // console.log(this.product_id)
    }
 
    settimezone(){
@@ -73,14 +75,19 @@ export class MarketingreviewComponent implements OnInit {
     this.geteventarr();
   }
   startTime(item: any, flag: any){
-    console.log(item)
+    // console.log(item)
   //   this.youtube_url[key].safeSrc = this.sanitizer.bypassSecurityTrustResourceUrl(this.youtube_url[key].link);
   if (flag == '1') {
-    item.safeSrc = this.sanitizer.bypassSecurityTrustResourceUrl(item.link+'?start='+item.start+'?autoplay=1');
+    this.discov = false;
+    item.safeSrc = this.sanitizer.bypassSecurityTrustResourceUrl(item.link+'?start='+item.start);
+  } else if (flag == '3') {
+    this.safeSrc = this.sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/'+item.link);
+    this.discov = true;
   } else {
-    item.safeSrc = this.sanitizer.bypassSecurityTrustResourceUrl(item.link+'?start='+item.second_start+'?autoplay=1');
+    this.discov = false;
+    item.safeSrc = this.sanitizer.bypassSecurityTrustResourceUrl(item.link+'?start='+item.second_start);
   }
-   console.log(item.safeSrc)
+  //  console.log(item.safeSrc)
   }
 
   geteventarr() {
@@ -102,9 +109,21 @@ export class MarketingreviewComponent implements OnInit {
       console.log('cond', cond);
     }
     const link = this._commonservice.nodesslurl + 'datalistforslot';
-    this._http.post(link, {rep_id: this.activatedroute.snapshot.params['rep_id'], condition: cond }).subscribe((res:any) => {
+    this._http.post(link, {rep_id: this.activatedroute.snapshot.params['rep_id'],lead_id: this.activatedroute.snapshot.params['lead_id'], condition: cond }).subscribe((res:any) => {
       this.allslots = res.data.slots_data;
       this.allslotslength = res.data.slots_data.length;
+      this.lead_data = res.data.lead_data[0].emailStatus;
+      if (this.lead_data.emailStatus == 'send') {
+        console.log('++++++')
+        const link1 = this._commonservice.nodesslurl + 'addorupdatedata?token=' + this.cookeiservice.get('jwttoken');
+              let data = {
+                  source: 'leads',
+                  data: { id: this.lead_data._id, emailStatus: 'seen' }
+              };
+              this._http.post(link1, data).subscribe((res1: any) => {
+                  console.log(res1, '+++res1');
+              });
+      }
       // console.log('allslots', this.allslots, this.allslots.length);
     });
   }
@@ -119,13 +138,24 @@ export class MarketingreviewComponent implements OnInit {
       $lte: moment().add(2, 'weeks').format('YYYY-MM-DD'),
       $gt: moment().subtract(1, 'days').format('YYYY-MM-DD')
   }};
-
   const link = this._commonservice.nodesslurl + 'datalistforslot';
-        this._http.post(link,{rep_id: this.activatedroute.snapshot.params['rep_id'], condition:cond}).subscribe((res:any) => {
+        this._http.post(link,{rep_id: this.activatedroute.snapshot.params['rep_id'],lead_id: this.activatedroute.snapshot.params['lead_id'], condition:cond}).subscribe((res:any) => {
             this.allslots = res.data.slots_data;
             this.allslotslength = res.data.slots_data.length;
             this.rep_data = res.data.rep_data[0];
-            console.log('allslots',this.rep_data);
+            this.lead_data = res.data.lead_data[0];
+            if (this.lead_data.emailStatus == 'send') {
+              const link1 = this._commonservice.nodesslurl + 'addorupdatedata';
+                    let data = {
+                        source: 'leads',
+                        data: { id: this.lead_data._id, emailStatus: 'seen' }
+                    };
+                    this._http.post(link1, data).subscribe((res1: any) => {
+                      if (res1.status == 'success') {
+                        
+                      }
+                    });
+            }
         });
   }
 }
