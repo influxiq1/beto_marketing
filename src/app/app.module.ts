@@ -107,6 +107,7 @@ import { ContractReviewVideoComponent } from './contract-review-video/contract-r
 import { VideoLibraryComponent } from './video-library/video-library.component';
 import { CronReportComponent } from './cron-report/cron-report.component';
 import { CommonEventComponent } from './common-event/common-event.component';
+import { UsergoogleeventComponent } from './usergoogleevent/usergoogleevent.component';
 
 @NgModule({
   declarations: [
@@ -189,7 +190,8 @@ import { CommonEventComponent } from './common-event/common-event.component';
     FullProgramViewComponent,
     MarketingreviewComponent,
     CronReportComponent,
-    CommonEventComponent
+    CommonEventComponent,
+    UsergoogleeventComponent
 
   ],
   imports: [

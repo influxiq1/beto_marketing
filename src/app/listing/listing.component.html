@@ -23,9 +23,9 @@
         <div class="nexgen_adminlist">
             <div class="user_management_wrapper">
                 <div class="user_management_inner">
-                    <h2 *ngIf="router.url==['/tranningcategory'] || router.url==['/addtrainings']  && router.url != ['/cron-report'] && router.url != ['/delete-event']">Add {{sourcetitle}}
+                    <h2 *ngIf="router.url==['/tranningcategory'] || router.url==['/addtrainings']  && router.url != ['/cron-report'] && router.url != ['/delete-event'] && router.url!='/google-event'">Add {{sourcetitle}}
                     </h2>
-                    <h2 *ngIf="router.url!=['/tranningcategory'] && router.url!=['/addtrainings'] && router.url != ['/cron-report'] && router.url != ['/delete-event']">manage
+                    <h2 *ngIf="router.url!=['/tranningcategory'] && router.url!=['/addtrainings'] && router.url != ['/cron-report'] && router.url != ['/delete-event'] && router.url!='/google-event'">manage
                         {{sourcetitle}}</h2>
 
                     <div class="inner_search_wrapper"
@@ -36,7 +36,7 @@
                                         placeholder="Search by Email"><button><i class="fa fa-search"
                                             aria-hidden="true" (click)="searchbyval()"></i></button> </h3>
                             </div>
-                            <div class="search_content" *ngIf="router.url !=['/belk-upload'] && router.url !=['/delete-event'] && router.url != ['/cron-report']">
+                            <div class="search_content" *ngIf="router.url !=['/belk-upload'] && router.url !=['/delete-event'] && router.url != ['/cron-report'] && router.url!='/google-event'">
                                 <h3> <input type="text" [(ngModel)]="filterval3" (keyup)="searchbyval()"
                                         placeholder="Search by Name"><button><i class="fa fa-search"
                                             aria-hidden="true"></i></button> </h3>
@@ -66,7 +66,7 @@
 
                             <!-- added by himadri start Date Range search-->
 
-                            <span *ngIf="router.url== ['/manage-leads'] || router.url== ['/appointmentlist'] || router.url== ['/belk-upload'] || router.url== ['/delete-event']">
+                            <span *ngIf="router.url== ['/manage-leads'] || router.url== ['/appointmentlist'] || router.url== ['/belk-upload'] || router.url== ['/delete-event'] || router.url == ['/google-event']">
                                 <form>
                                     <div class="form-group">
                                         <input type="text" placeholder="Select Date Range" class="form-control"
@@ -137,7 +137,8 @@
                 <div class="nexgen_admin_table">
                     <div class="action_section">
                         <div class="inner_actionblock">
-                            <span *ngIf="route.snapshot.routeConfig.path == 'marketingre_view/:product_id' || route.snapshot.routeConfig.path == 'marketingre_view/:product_id/:lead_id'">
+                            <!-- <span *ngIf="route.snapshot.routeConfig.path == 'marketingre_view/:product_id' || route.snapshot.routeConfig.path == 'marketingre_view/:product_id/:lead_id'"> -->
+                                <span>
                                 <form [formGroup]="sendLeadEmailForm" (ngSubmit)="leadsMarketingEmail(sendLeadEmailForm.value)">
                                     <!-- <input type="text" placeholder="Enter Email" [(ngModel)]="filterval6.email">
                                     <span class="error" *ngIf="filterval6.email == null && leadIsSubmit == 1">Email is Required</span> -->
@@ -172,7 +173,7 @@
                         </ul>
                     </div> -->
                             <div class="abcde" >
-                                <a *ngIf="hideadd!=null && hideadd!='true' && router.url!='/cron-report' && router.url!='/delete-event'" (click)="openform(formtemplate,0)"
+                                <a *ngIf="hideadd!=null && hideadd!='true' && router.url!='/cron-report' && router.url!='/delete-event' && router.url!='/google-event'" (click)="openform(formtemplate,0)"
                                     class="addfrinderbtn s_getmybrand_savebutton"> Add {{sourcetitle}}</a>
                                 <a *ngIf="slotlist=='true' " [routerLink]="['/slotview']"
                                     class="addfrinderbtn s_getmybrand_savebutton slotadd"> Slot View</a>
@@ -200,7 +201,7 @@
                                     <tr>
                                         <th [ngClass]="item.class" *ngFor="let item of tabledatalisval; index as i;"
                                             scope="col">{{item.name}}</th>
-                                        <th *ngIf="hideaction!=null && hideaction!='true'  && router.url!='/cron-report' && router.url!='/delete-event'">Actions</th>
+                                        <th *ngIf="hideaction!=null && hideaction!='true'  && router.url!='/cron-report' && router.url!='/delete-event' && router.url!='/google-event'">Actions</th>
                                         <th *ngIf="notes!=null && notes=='true' ">Manage Notes</th>
                                     </tr>
                                 </thead>
@@ -231,7 +232,7 @@
                                                 (click)="gotorepdetails(item._id)">{{item[item1.value]}}</span>
 
 
-                                                <span *ngIf="item1.type == 'unixTime' && (router.url=='/cron-report' || router.url=='/delete-event')" class="pointerbtn"
+                                                <span *ngIf="item1.type == 'unixTime' && (router.url=='/cron-report' || router.url=='/delete-event' || router.url=='/google-event')" class="pointerbtn"
                                                 [ngClass]="item1.class">{{item[item1.value] |date:'yyyy-MM-dd HH:mm'}}</span>
                                             <!--<span *ngIf="item1.type=='text1'&& router.url=='/rep'" class="pointerbtn" [ngClass]="item1.class" (click)="updaterecruiter(item._id)">{{item[item1.value]}}</span>
 
@@ -417,21 +418,24 @@
                                                 [ngClass]="item1.class"
                                                 (click)="gotorepdetails(item._id)">{{showrealdate(item[item1.value])}}</span>
                                         </td>
-                                        <td *ngIf="hideaction!=null && hideaction!='true'  && router.url!='/cron-report' && router.url!='/delete-event'">
-                                            <span class=" delete_user" *ngIf="router.url!=['/belk-upload'] && router.url!='/cron-report' && router.url!='/delete-event'"
+                                        <td *ngIf="hideaction!=null && hideaction!='true'  && router.url!='/cron-report' && router.url!='/delete-event' && router.url!='/google-event'">
+                                            <span class=" delete_user" *ngIf="router.url!=['/belk-upload'] && router.url!='/cron-report' && router.url!='/delete-event' && router.url!='/google-event'"
                                                 (click)="deletdata(item,commonconfirmmodal)">delete</span>
                                             <span class=" delete_user" *ngIf="router.url==['/belk-upload']"
                                                 (click)="deletdata(item,commonconfirmmodal)">delete all</span>
-                                            <span class="edit_user"  *ngIf="router.url!=['/belk-upload'] && router.url!='/cron-report' && router.url!='/delete-event'"
+                                            <span class="edit_user"  *ngIf="router.url!=['/belk-upload'] && router.url!='/cron-report' && router.url!='/delete-event' && router.url!='/google-event'"
                                                 (click)="editmodal(formtemplate,item)">edit</span>
                                             <span class="edit_user"  *ngIf="router.url==['/belk-upload']"
                                                 (click)="go_to_lead_list(item)">View Leads</span>
-                                            <span class="delete_user" *ngIf="router.url==['/manage-leads']"
+                                            <span class="delete_user" *ngIf="cookeiservice.get('usertype') != 'admin' && router.url==['/manage-leads']"
                                                 (click)="openDiscoverCallModal(item,item.productname,discoverycallmodal)">Discovery
                                                 Call</span>
-                                                <span class="delete_user" *ngIf="router.url==['/manage-leads']" (click)="marketingreview(item,sucessmodalforemail)"
+                                                <span class="delete_user" *ngIf="cookeiservice.get('usertype') == 'admin' && router.url==['/manage-leads']"
+                                                (click)="openDiscoverCallModal(item,item.productname,discoveryVideomodal)">Discovery
+                                                Video</span>
+                                                <span class="delete_user" *ngIf="router.url==['/manage-leads']" (click)="openDiscoverCallModal(item,item.productname,contractProducMmodal)"
                                                >Send Contract Review Video</span>
-                                                <span class="delete_user" *ngIf="router.url==['/manage-leads']" (click)="marketingreview(item,sucessmodalforemail)"
+                                                <span class="delete_user" *ngIf="router.url==['/manage-leads']" (click)="openDiscoverCallModal(item,item.productname,marktingProducMmodal)"
                                                >Send Marketing Review Video</span>
                                             <span
                                                 *ngIf="router.url==['/manage-leads'] && usertype=='rep' && item.appointment_count>0"><a
@@ -769,6 +773,94 @@
     <div>
     </div>
 </ng-template>
+
+<!--Discovery Call modal-->
+<ng-template #discoveryVideomodal>
+    <div class="modal-body brandmanagement_modal discoverycall">
+        <div class="logo_wrapper">
+            <img src="assets/images/logo.png">
+        </div>
+        <div class="brand_messagebox">
+            <div class="form-group row">
+                <label class="col-sm-12 col-form-label">Paste Youtube Video Link</label>
+                <div class="col-sm-12">    
+                 <span matPrefix>https://www.youtube.com/watch?v= &nbsp;</span>
+                    <input type="text" [(ngModel)]="videolink">
+                    <div class="form-group row form-groupbtndiv">
+                        <button (click)="addPrice()">Save price</button>
+                        <button (click)="modalRef2.hide()">cancel</button>
+                        <div class="clearfix"></div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+    </div>
+</ng-template>
+
+<!-- Makrting product list -->
+<ng-template #marktingProducMmodal>
+    <div class="modal-body brandmanagement_modal discoverycall">
+        <div class="logo_wrapper">
+            <img src="assets/images/logo.png">
+        </div>
+        <div class="brand_messagebox">
+            <div class="form-group row" *ngIf="productlist.length > 0">
+                <label class="col-sm-12 col-form-label">Choose A Product</label>
+                <div class="col-sm-12">
+
+                    <select class="form-control" [(ngModel)]="selectedproductid" multiple>
+                        <option value="">Select a Product</option>
+                        <option *ngFor="let i of productlist;" value="{{ i.product_id }}">{{ i.product_name }}
+                        </option>
+                    </select>
+                    <span class="error" *ngIf="productErrorFlag==1 && selectedproductid==''">Product Is
+                        Required</span>
+                    <div class="form-group row form-groupbtndiv">
+
+                        <button (click)="marketingreview(selectedlead._id, sucessmodalforemail)">Book</button>
+                        <button (click)="modalRef2.hide();selectedproductid=''"> cancel</button>
+                        <div class="clearfix"></div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+    </div>
+</ng-template>
+
+
+<!-- Contract product list -->
+<ng-template #contractProducMmodal>
+    <div class="modal-body brandmanagement_modal discoverycall">
+        <div class="logo_wrapper">
+            <img src="assets/images/logo.png">
+        </div>
+        <div class="brand_messagebox">
+            <div class="form-group row">
+                <label class="col-sm-12 col-form-label">Put A Closing Price</label>
+                <div class="col-sm-12">
+                    <input type="text" [(ngModel)]="pricepoint">
+                    <span *ngIf="pricepoint=='' && issubmitprice==1" class="error">*Closing Price Is Required</span>
+                    <div class="form-group row form-groupbtndiv">
+                        <button (click)="addPrice()">Save price</button>
+                        <button (click)="modalRef2.hide()">cancel</button>
+                        <div class="clearfix"></div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+    </div>
+</ng-template>
+
+
 
 <!--Put Price Point modal-->
 <ng-template #pricepointmodal>

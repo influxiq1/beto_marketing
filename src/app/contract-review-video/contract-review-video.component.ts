@@ -89,7 +89,7 @@ export class ContractReviewVideoComponent implements OnInit {
       console.log('cond', cond);
     }
     const link = this._commonservice.nodesslurl + 'datalistforslot';
-    this._http.post(link, { condition: cond }).subscribe((res:any) => {
+    this._http.post(link, {rep_id: this.activatedroute.snapshot.params['rep_id'], condition: cond }).subscribe((res:any) => {
       this.allslots = res.res;
       this.allslotslength = res.resc;
       // console.log('allslots', this.allslots, this.allslots.length);
@@ -109,7 +109,7 @@ export class ContractReviewVideoComponent implements OnInit {
   }};
 
   const link = this._commonservice.nodesslurl + 'datalistforslot';
-        this._http.post(link,{condition:cond}).subscribe((res:any) => {
+        this._http.post(link,{rep_id: this.activatedroute.snapshot.params['rep_id'],condition:cond}).subscribe((res:any) => {
             this.allslots = res.res;
             this.allslotslength = res.resc;
             // console.log('allslots',this.allslots,this.allslots.length);

@@ -56,6 +56,8 @@ export class MarketingreviewComponent implements OnInit {
           }, error => {
               console.log('Oooops!');
           });
+
+    console.log(this.product_id)
    }
 
    settimezone(){

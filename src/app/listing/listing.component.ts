@@ -117,6 +117,7 @@ export class ListingComponent implements OnInit {
     public submit_loaderbar: boolean = false;
     public submit_loaderbar1: boolean = false;
     public leadIsSubmit: any = 0;
+    public videolink:any = '';
     emailPattern = /^\s*[\w\-\+_]+(\.[\w\-\+_]+)*\@[\w\-\+_]+\.[\w\-\+_]+(\.[\w\-\+_]+)*\s*$/;
     @Input()
     set source(source: string) {
@@ -352,14 +353,32 @@ setdatetonull() {
                         $gte: this.start_date
                     }
                 };
-                if (this.router.url == '/delete-event') {
+                // if (this.router.url == '/delete-event') {
                     const link = this._commonservice.nodesslurl + 'datalist?token=' + this.cookeiservice.get('jwttoken');
                     this._http.post(link, { source: 'commonevent_view', condition: cond }).subscribe(res => {
                         let result: any = res;
                         this.datalist = result.res;
                     });
-                }
-            } else {
+                // }
+            } else if (this.router.url == '/google-event') {
+                console.log('test date');
+                this.start_date = moment(this.filterval5[0]).format('YYYY-MM-DD');
+                this.end_date = moment(this.filterval5[1]).format('YYYY-MM-DD');
+                cond = {
+                    date: {
+                        $lte: this.end_date,
+                        $gte: this.start_date
+                    }
+                };
+                // if (this.router.url == '/delete-event') {
+                    const link = this._commonservice.nodesslurl + 'datalist?token=' + this.cookeiservice.get('jwttoken');
+                    this._http.post(link, { source: 'usergoogleevent_view', condition: cond }).subscribe(res => {
+                        let result: any = res;
+                        this.datalist = result.res;
+                    });
+                // }
+            }
+            else{
                 this.start_date = moment(this.filterval5[0]).format('YYYY/MM/DD');
                 this.end_date = moment(this.filterval5[1]).format('YYYY/MM/DD');
                 cond = {
@@ -391,6 +410,12 @@ setdatetonull() {
             if (this.router.url == '/delete-event') {
                 const link = this._commonservice.nodesslurl + 'datalist?token=' + this.cookeiservice.get('jwttoken');
                 this._http.post(link, { source: 'commonevent_view', condition: cond }).subscribe(res => {
+                    let result: any = res;
+                    this.datalist = result.res;
+                });
+            } else if (this.router.url == '/google-event') {
+                const link = this._commonservice.nodesslurl + 'datalist?token=' + this.cookeiservice.get('jwttoken');
+                this._http.post(link, { source: 'usergoogleevent_view', condition: cond }).subscribe(res => {
                     let result: any = res;
                     this.datalist = result.res;
                 });
@@ -429,18 +454,27 @@ setdatetonull() {
         if (this.filterval1 != '' && this.filterval1 != null) {
             this.filterval = this.filterval1 + '|';
         }
-        if (this.filterval2 != '' && this.filterval2 != null) {
+        if (this.router.url=='/manage-leads' && this.filterval2 != '' && this.filterval2 != null) {
             this.filterval = this.filterval2 ;
-            this.sourceconditionval = {email:{$regex:this.filterval}}
+            this.sourceconditionval.email = {$regex:this.filterval};
             console.log(this.sourceconditionval,'++++++'); 
             this.getdatalist();
+        }else if(this.router.url !='/manage-leads' && this.filterval2 != '' && this.filterval2 != null){
+            this.filterval = this.filterval2 ;
+            this.filterval = this.filterval2 + '|';
         }
-        if (this.filterval3 != '' && this.filterval3 != null) {
+        if (this.router.url=='/manage-leads' && this.filterval3 != '' && this.filterval3 != null) {
+            // this.filterval = this.filterval3 + '|';
+            this.filterval = this.filterval3;
+            this.sourceconditionval.fullname = {$regex:this.filterval};
+            console.log(this.sourceconditionval,'++++++'); 
+            this.getdatalist();
+        }else if(this.router.url !='/manage-leads' && this.filterval3 != '' && this.filterval3 != null){
+            this.filterval = this.filterval3 ;
             this.filterval = this.filterval3 + '|';
         }
-        this.sourceconditionval = searchCondition;
-        this.getdatalist();
-        console.log(this.filterval);
+        if (this.filterval1 == '' || this.filterval1 == null){} else if(this.filterval2 == '' || this.filterval2 == null){delete this.sourceconditionval.email;this.getdatalist();} else if(this.filterval3 == '' || this.filterval3 == null) {delete this.sourceconditionval.fullname;       
+        console.log(this.filterval);this.getdatalist();}
     }
     gettimezone(val) {
         for (let v in this.timezone) {
@@ -730,19 +764,46 @@ this._http.post(link, source)
     nodelete() {
         this.modalRef1.hide();
     }
+
     marketingreview(val:any, template:TemplateRef<any>){
-        console.log(val);
-        this.modalRef1 = this.modal.show(template, { class: 'successmodal' });
-        setTimeout(() => {
-            this.modalRef1.hide();
-        }, 2000);
        let link = this._commonservice.nodesslurl + 'marketingreview';
-       val.rep_id = this.cookeiservice.get('userid');
-       let data = val;
+       this.selectedlead.rep_id = this.cookeiservice.get('userid');
+       this.selectedlead.product_ids = this.selectedproductid;
+       let data = this.selectedlead;
+       if (this.selectedproductid != '') {
         this._http.post(link, data).subscribe((res:any) =>{
-            console.log('ok',res)
-        })
+            // console.log('ok',res);
+            if (res.stasus =='success') {
+                this.modalRef2.hide();
+                this.modalRef1 = this.modal.show(template, { class: 'successmodal' });
+                setTimeout(() => {
+                    this.modalRef1.hide();
+                }, 2000);
+            }
+        });
+       }
     }
+
+    
+    contractReview(val:any, template:TemplateRef<any>){
+        let link = this._commonservice.nodesslurl + 'contractreview';
+        this.selectedlead.rep_id = this.cookeiservice.get('userid');
+        this.selectedlead.product_ids = this.selectedproductid;
+        let data = this.selectedlead;
+        if (this.selectedproductid != '') {
+         this._http.post(link, data).subscribe((res:any) =>{
+             // console.log('ok',res);
+             if (res.stasus =='success') {
+                 this.modalRef2.hide();
+                 this.modalRef1 = this.modal.show(template, { class: 'successmodal' });
+                 setTimeout(() => {
+                     this.modalRef1.hide();
+                 }, 2000);
+             }
+         });
+        }
+     }
+
     validateEmail(email) {
         var re = /^\s*[\w\-\+_]+(\.[\w\-\+_]+)*\@[\w\-\+_]+\.[\w\-\+_]+(\.[\w\-\+_]+)*\s*$/;
         return re.test(email);
@@ -1269,6 +1330,9 @@ this._http.post(link, source)
     openPricepointModal(item:any,template:TemplateRef<any>){
         this.selectedlead = item;
         this.modalRef2 = this.modal.show(template);
+    }
+    addYoutubeLink(){
+        
     }
     addPrice(){        
         if(this.pricepoint == '' || this.pricepoint == null ){

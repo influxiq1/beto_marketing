@@ -33,11 +33,11 @@ export class ManageleadsComponent implements OnInit {
       this.hideaddval = true;
       this.tabledatalist = [
         { value: 'id', name: 'Id', role: 0, func: '', class: 'id', type: '#' },
-        { value: 'fullname', name: 'Full Name', role: 0, func: '', class: 'fullname', type: 'text' },
+        { value: 'fullname', name: 'Full Name', role: 0, func: '', class: 'fullname', type: 'text', searchval:true },
         // { value: 'lastname', name: 'Last Name', role: 0, func: '', class: 'lastname', type: 'text' },
         { value: 'company', name: 'Company ', role: 0, func: '', class: 'company', type: 'text' },
         { value: 'website', name: 'Website ', role: 0, func: '', class: 'website', type: 'text' },
-        { value: 'email', name: 'Email Id', role: 0, func: '', class: 'email', type: 'text' },
+        { value: 'email', name: 'Email Id', role: 0, func: '', class: 'email', type: 'text', searchval:true },
         { value: 'phoneno', name: 'Phone No', role: 0, func: '', class: 'phone', type: 'phoneno' },
         { value: 'mobile', name: 'Mobile No', role: 0, func: '', class: 'mobile', type: 'phoneno' },
         { value: 'address', name: 'Address', role: 0, func: '', class: 'address', type: 'text' },

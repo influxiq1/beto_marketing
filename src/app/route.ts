@@ -80,6 +80,7 @@ import { ContractReviewVideoComponent } from './contract-review-video/contract-r
 import { VideoLibraryComponent } from './video-library/video-library.component';
 import { CronReportComponent } from './cron-report/cron-report.component';
 import { CommonEventComponent } from './common-event/common-event.component';
+import { UsergoogleeventComponent } from './usergoogleevent/usergoogleevent.component';
 const appRoutes: Routes = [
     { path: '', redirectTo:'/login', pathMatch: 'full' },
     {path: 'videolibrary', component: VideoLibraryComponent},
@@ -194,9 +195,10 @@ const appRoutes: Routes = [
 
     {path: 'cron-report', component: CronReportComponent},
     {path: 'delete-event', component: CommonEventComponent},
+    {path: 'google-event', component: UsergoogleeventComponent},
     // {path: 'marketingre_view/:product_id/:rep_id', component: MarketingreviewComponent, resolve : {results: TestresolveService},data: { requestcondition: {condition: {"rep_id":'rep_id'}}, endpoint: 'datalistforslot'}},
-    {path: 'marketingre_view/:product_id/:rep_id', component: MarketingreviewComponent},
-    {path: 'marketingre_view/:product_id/:rep_id/:lead_id', component: MarketingreviewComponent, resolve : {results: TestresolveService},data: { requestcondition: {condition: {"_id":'lead_id'}}, endpoint: 'datalistfornewlead'}},
+    {path: 'contractreviewVideo/:product_id/:rep_id', component: MarketingreviewComponent},
+    {path: 'contractreviewVideo/:product_id/:rep_id/:lead_id', component: MarketingreviewComponent, resolve : {results: TestresolveService},data: { requestcondition: {condition: {"_id":'lead_id'}}, endpoint: 'datalistfornewlead'}},
 
     {path: 'marketingre_view/:product_id/:rep_id', component: MarketingreviewComponent},
     {path: 'marketingre_view/:product_id/:rep_id/:lead_id', component: MarketingreviewComponent, resolve : {results: TestresolveService},data: { requestcondition: {condition: {"_id":'lead_id'}}, endpoint: 'datalistfornewlead'}},
