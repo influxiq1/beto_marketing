@@ -23,6 +23,8 @@ export class ContractReviewVideoComponent implements OnInit {
   public timezone: any = '';
   public leadData: any = '';
   public lead_id: any = '';
+  public rep_data: any = '';
+  public lead_data: any = '';
   public youtube_url: any = [
     {'product_id':"5dd68c367b583967f3e57312", 'link':"https://www.youtube.com/embed/8qkgcCBOQM4", 'start':0, 'second_start':75},
     {'product_id':"5dd68c367b583967f3e573r2", 'link':"https://www.youtube.com/embed/8qkgcCBOQM4", 'start':0, 'second_start':75},
@@ -33,9 +35,6 @@ export class ContractReviewVideoComponent implements OnInit {
   ]
   public safeSrc:SafeResourceUrl;
   constructor(public _commonservice: Commonservices, public modal: BsModalService, public _http: HttpClient, public cookeiservice: CookieService, public activatedroute: ActivatedRoute, public router: Router, private sanitizer: DomSanitizer) { 
-
-
-   
     for (const key in this.youtube_url) {
       this.youtube_url[key].safeSrc = this.sanitizer.bypassSecurityTrustResourceUrl(this.youtube_url[key].link);
     }
@@ -89,9 +88,21 @@ export class ContractReviewVideoComponent implements OnInit {
       console.log('cond', cond);
     }
     const link = this._commonservice.nodesslurl + 'datalistforslot';
-    this._http.post(link, {rep_id: this.activatedroute.snapshot.params['rep_id'], condition: cond }).subscribe((res:any) => {
+    this._http.post(link, {rep_id: this.activatedroute.snapshot.params['rep_id'],lead_id: this.activatedroute.snapshot.params['lead_id'], condition: cond }).subscribe((res:any) => {
       this.allslots = res.res;
-      this.allslotslength = res.resc;
+      this.allslotslength = res.data.slots_data.length;
+      this.lead_data = res.data.lead_data[0].emailStatus;
+      if (this.lead_data.emailStatus == 'send') {
+        console.log('++++++')
+        const link1 = this._commonservice.nodesslurl + 'addorupdatedata?token=' + this.cookeiservice.get('jwttoken');
+              let data = {
+                  source: 'leads',
+                  data: { id: this.lead_data._id, emailStatus: 'seen' }
+              };
+              this._http.post(link1, data).subscribe((res1: any) => {
+                  console.log(res1, '+++res1');
+              });
+      }
       // console.log('allslots', this.allslots, this.allslots.length);
     });
   }
@@ -109,9 +120,23 @@ export class ContractReviewVideoComponent implements OnInit {
   }};
 
   const link = this._commonservice.nodesslurl + 'datalistforslot';
-        this._http.post(link,{rep_id: this.activatedroute.snapshot.params['rep_id'],condition:cond}).subscribe((res:any) => {
+        this._http.post(link,{rep_id: this.activatedroute.snapshot.params['rep_id'],lead_id: this.activatedroute.snapshot.params['lead_id'],condition:cond}).subscribe((res:any) => {
             this.allslots = res.res;
             this.allslotslength = res.resc;
+            this.rep_data = res.data.rep_data[0];
+            this.lead_data = res.data.lead_data[0];
+            if (this.lead_data.emailStatus == 'send') {
+              const link1 = this._commonservice.nodesslurl + 'addorupdatedata';
+                    let data = {
+                        source: 'leads',
+                        data: { id: this.lead_data._id, emailStatus: 'seen' }
+                    };
+                    this._http.post(link1, data).subscribe((res1: any) => {
+                      if (res1.status == 'success') {
+                        
+                      }
+                    });
+            }
             // console.log('allslots',this.allslots,this.allslots.length);
         });
   }

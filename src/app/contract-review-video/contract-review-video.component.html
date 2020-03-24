@@ -1,4 +1,4 @@
-<app-adminheader></app-adminheader>
+<!-- <app-adminheader></app-adminheader> -->
 
 <div class="marketingre_view_top">
 
@@ -42,10 +42,11 @@
 
       <div class="marketingre_view_body_con_top_right">
 
-        <div class="marketingre_view_body_con_top_right_box">
+        <div *ngIf="rep_data !=''" class="marketingre_view_body_con_top_right_box">
 
-          <h3>Name - David Lorem  Email - david.lorem9@gmail.com<br/>  
-            Contact number - <span>585 698 6985</span></h3>
+          <h3>Name - {{rep_data.fullname}},  Email - {{rep_data.email}}<br/>
+
+            <ng-container *ngIf="rep_data.telephone != null">Contact number - <span>{{rep_data.telephone}}</span></ng-container></h3>
 
           </div>
 
@@ -59,8 +60,14 @@
       <ng-container *ngFor="let item of youtube_url">
         <div class="marketingre_view_body_con_left" *ngIf="product_id == item.product_id">
           <!-- <p>{{product_id}}</p> -->
-          <div class="video-responsive">
+          <div class="video-responsive" *ngIf="this.discov != true">
+
             <iframe width="560" height="315" [src]="item.safeSrc" frameborder="0"
+              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+          <div class="video-responsive" *ngIf="this.discov == true">
+      
+            <iframe width="560" height="315" [src]="safeSrc" frameborder="0"
               allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
           </div>
       
@@ -163,4 +170,4 @@
 
 </div>
   
-<app-footer></app-footer>
+<!-- <app-footer></app-footer> -->

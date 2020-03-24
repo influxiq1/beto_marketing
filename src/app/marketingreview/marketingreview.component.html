@@ -32,7 +32,7 @@
 
   <div class="marketingre_view_body_wrapper">
 
-    <div class="marketingre_view_body_con_top">
+    <div class="marketingre_view_body_con_top" *ngIf="lead_data.emailStatus != 'seen'">
 
 
       <div class="marketingre_view_body_con_top_left">
@@ -57,7 +57,7 @@
     <div class="marketingre_view_body_con">
 <ng-container *ngFor="let item of youtube_url">
   <div class="marketingre_view_body_con_left" *ngIf="product_id == item.product_id">
-    <p>{{item.safeSrc}}</p>
+    <!-- <p>{{item.safeSrc}}</p> -->
     <div class="video-responsive" *ngIf="this.discov != true">
 
       <iframe width="560" height="315" [src]="item.safeSrc" frameborder="0"
@@ -158,9 +158,9 @@
         <div class="div_block2">
 
           <h2>
-            Name - David Lorem<br/>  
-            Email - david.lorem9@gmail.com <br/>   
-            Contact number - <span>585 698 6985</span>
+            Name - {{rep_data.fullname}}<br/>  
+            Email - {{rep_data.email}}<br/>   
+            <ng-container *ngIf="rep_data.telephone != null">Contact number - <span>{{rep_data.telephone}}</span></ng-container>
           </h2>
         </div>
 

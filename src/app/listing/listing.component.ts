@@ -106,8 +106,10 @@ export class ListingComponent implements OnInit {
     public issubmitprice:any = 0;
     public viewonlyaccess:any = '';
     public prodSelect = 0;
+    public repSelect = 0;
     public leadsMarkting = 0;
     public productval:any = '';
+    public repnameval:any = '';
     public filterval5: any = '';
     public start_date: any = '';
     public end_date: any = '';
@@ -170,8 +172,9 @@ export class ListingComponent implements OnInit {
         this._http.post(link, { source: 'tranningcategory' , condition:{'status':true}}).subscribe((res:any) => {
             this.productval = res.res;
         });
-
-
+         this._http.post(link, { source: 'for_rep'}).subscribe((res1:any) => {
+            this.repnameval = res1.res;
+        });
 
 
         this.usertype = this.cookeiservice.get('usertype');
@@ -298,6 +301,14 @@ discoveryYoutubeVideoPlay(val: any, template: TemplateRef<any>){
     this.youtubeVideoUrl = this.sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/'+val);
     this.modalRef3 = this.modal.show(template);
 }
+// added by Himadri Using for rep search
+    repNameSearchbyval(val){
+        if (val != null && val != '') {
+            this.sourceconditionval = {rep_name:val}
+            console.log(this.sourceconditionval,'++++++'); 
+            this.getdatalist();
+        }
+    }
 //  added by Himadri Using for product search
     productSearchbyval(filterValue: any) {
         if (filterValue != '' && filterValue != null) {
@@ -836,7 +847,7 @@ this._http.post(link, source)
         // return;
         var emails = this.sendLeadEmailForm.value.email.split(',');
         console.log(emails);
-        return;
+        // return;
         let x: any;
         for (x in this.sendLeadEmailForm.controls) {
             this.sendLeadEmailForm.controls[x].markAsTouched();
@@ -855,8 +866,8 @@ this._http.post(link, source)
             let link = this._commonservice.nodesslurl + 'newleadformarketingreview';
             let data = {email:emails, product_id:val.product_id, rep_id: this.cookeiservice.get('userid'), created_by:this.cookeiservice.get('userid')};
             this._http.post(link, data).subscribe((res:any)=>{
-                console.log(res);
                 if (res.status == 'error') {
+                console.log(res);
                     this.emailexist = res.msg;
                 }
                 this.emailexist = '';

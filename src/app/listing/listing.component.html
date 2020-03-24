@@ -37,8 +37,8 @@
                                             aria-hidden="true" (click)="searchbyval()"></i></button> </h3>
                             </div>
                             <div class="search_content" *ngIf="router.url !=['/belk-upload'] && router.url !=['/delete-event'] && router.url != ['/cron-report'] && router.url!='/google-event'">
-                                <h3> <input type="text" [(ngModel)]="filterval3" (keyup)="searchbyval()"
-                                        placeholder="Search by Name"><button><i class="fa fa-search"
+                                <h3> <input type="text" [(ngModel)]="filterval3" 
+                                        placeholder="Search by Name"><button (click)="searchbyval()"><i class="fa fa-search"
                                             aria-hidden="true"></i></button> </h3>
                             </div>
 
@@ -47,6 +47,23 @@
                                     <input type="text" [(ngModel)]="filterval" 
                                         placeholder="Search..."><button  (click)="searchbyvalForType()"><i class="fa fa-search"></i></button> </h3>
                             </div>
+
+                            <!-- added by himadri start rep search-->
+
+                            <div class="search_content"
+                                *ngIf="repnameval != '' && router.url== ['/manage-leads'] && cookeiservice.get('usertype') == 'admin'">
+                                <h3>
+                                    <select [(ngModel)]='repSelect' (click)="repNameSearchbyval(filtervalForRep)"
+                                        [(ngModel)]="filtervalForRep" required>
+                                        <option value="0" disabled>Select Rep Name</option>
+                                        <option *ngFor="let searchval of repnameval" value="{{searchval.fullname}}">
+                                            {{searchval.fullname}}</option>
+                                    </select>
+                                </h3>
+                            </div>
+                            
+
+                            <!-- added by himadri end rep search-->
 
                             <!-- added by himadri start product search-->
 
@@ -61,6 +78,7 @@
                                     </select>
                                 </h3>
                             </div>
+
 
                             <!-- added by himadri end product search-->
 
@@ -151,7 +169,7 @@
                                                 {{searchval.categoryname}}</option>
                                         </select>
                                     </h3>
-                                    <span class="error" *ngIf="emailexist != ''">{{emailexist}}</span>
+                                    <span class="error" style="color: red;" *ngIf="emailexist != ''">{{emailexist}}</span>
 
   <button type="submit"> SEND MARKETING REVIEW VIDEO</button>
                                     <!-- <br> -->
