@@ -102,14 +102,26 @@ modal-container .modal-content {
     margin-right: 8px;
   } */
 
-  .inner_actionblock_wrapper{   width: 300px;   display: block;}
+  /* .inner_actionblock_wrapper{   width: 300px;   display: block;} */
 
-  .emailfill1{  width: 300px;}
+  .emailfill1{  float: left;    }
 
-  .productselect{      width: 300px;
-    margin: 2px 0!important;
+  .productselect{  float: left;  
+    margin: 2px 5px!important;
     height: 78px!important;
 }
+
+
+.openclosereview{font-size: 16px;
+    color: #fff;
+    font-family: 'RalewaySemiBold';
+    background: #00c0ff;
+    border: none;
+    padding: 0px 10px;
+    height: 38px;
+    text-transform: uppercase;
+    margin: 0px auto;
+    cursor: pointer; outline: none; display: block;  }
 
 .s_getmyoffer_adminpanel .inner_actionblock form .markatingviewbtn {
     font-size: 16px;

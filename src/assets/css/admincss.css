@@ -2839,7 +2839,7 @@ text-align: center;}
                 height: 38px;
                 text-transform: uppercase;
                 margin:2px 0;
-                cursor: pointer; 
+                cursor: pointer; float: left;
             }
 
 
@@ -2864,6 +2864,8 @@ text-align: center;}
  .manageleads .admin_table_wrapper td:nth-of-type(10){ text-align: center;}  */
 
             @media screen  and  (max-width: 1199px){
+
+                .inner_actionblock_wrapper{ margin-bottom: 20px;}
 
                 .manageleads .user_management_wrapper .user_management_inner .inner_content_wrapper .search_content {
                     display: block;
@@ -2944,16 +2946,21 @@ text-align: center;}
 
             @media screen  and  (max-width: 900px){
 
+                .s_getmyoffer_adminpanel .inner_actionblock form button[type="submit"]{ float: none;}
+
 .s_getmyoffer_adminpanel .inner_actionblock form select{ width: 100%; margin: 0px!important;}
 
 .s_getmyoffer_adminpanel .inner_actionblock form input{ width: 100%; margin-right: 10px;}
 
 .nextGen_admin_mainwrapper .nexgen_admin_table .action_section h3{ display: block;}
 
+.openclosereview{    margin: 0 auto;
+    display: block;}
+
                 .s_getmyoffer_adminpanel .inner_actionblock form{    width: 410px;
                 margin: 0 auto;
                 display: block;
-                margin-bottom: 25px;
+                margin-bottom: 12px;
                 padding-left: 0;}
 
                 .s_getmyoffer_adminpanel .inner_actionblock form button{       width: auto;

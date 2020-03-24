@@ -716,7 +716,7 @@
     }
 
     .dashboard_block2 .col-md-4{ padding: 0px;}
-    .nextGen_admin_mainwrapper .nexgen_admin_table .action_section .inner_actionblock .abcde a:first-child{margin-right: 10px;}
+    .nextGen_admin_mainwrapper .nexgen_admin_table .action_section .inner_actionblock .abcde a:first-child{margin-right: 0px;}
     .nextGen_admin_mainwrapper .nexgen_admin_table .action_section .inner_actionblock .abcde a{ margin-bottom: 0;}
     .nextGen_admin_mainwrapper .nexgen_admin_table .action_section .inner_actionblock .abcde{
         display: flex;
