@@ -2898,7 +2898,7 @@ text-align: center;}
         margin-left: 0;
         margin-bottom: 0px;
         margin-top: 8px;
-        min-width: inherit!important;
+        min-width: 27px!important;
     }
             }
 
@@ -2960,7 +2960,7 @@ text-align: center;}
 
                     .manageleads .user_management_wrapper .user_management_inner .inner_content_wrapper .search_content button {
                         width:auto!important;   float: left!important;
-                        margin-left: 0; margin-bottom: 0px;     margin-top: 8px;     min-width: inherit!important;
+                        margin-left: 0; margin-bottom: 0px;     margin-top: 8px;    
                     }
 
 

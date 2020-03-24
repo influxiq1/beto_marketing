@@ -96,7 +96,7 @@
 
                     <div class="inner_search_wrapper single_content"
                         *ngIf="router.url==['/tranningcategory'] || router.url==['/addtrainings']">
-                        <div class="inner_content_wrapper">
+                        <div class="inner_content_wrapper inner_content_wrapperinner">
                             <div class="search_content">
                                 <h3> <span>Search by Training Name : </span> <input type="text" [(ngModel)]="filterval1"
                                         (keyup)="searchbyval()"><button>search</button> </h3>
@@ -142,15 +142,14 @@
                                 <form [formGroup]="sendLeadEmailForm" (ngSubmit)="leadsMarketingEmail(sendLeadEmailForm.value)">
                                     <!-- <input type="text" placeholder="Enter Email" [(ngModel)]="filterval6.email">
                                     <span class="error" *ngIf="filterval6.email == null && leadIsSubmit == 1">Email is Required</span> -->
-                                    <input formControlName="email" placeholder="Email Address">
-                                    <br>
-                                    <h3>
-                                        <select [(ngModel)]='leadsMarkting' formControlName="product_id" multiple>
+                                    <input formControlName="email" placeholder="Email Address" class="emailfill1">
+                                     
+                                        <select [(ngModel)]='leadsMarkting' formControlName="product_id" multiple class="productselect">
                                             <option value="0" disabled>Select Product</option>
                                             <option *ngFor="let searchval of productval" value="{{searchval._id}}">
                                                 {{searchval.categoryname}}</option>
                                         </select>
-                                    </h3>
+                                     
                                     <span class="error" *ngIf="emailexist != ''">{{emailexist}}</span>
 
   <button type="submit"> SEND MARKETING REVIEW VIDEO</button>

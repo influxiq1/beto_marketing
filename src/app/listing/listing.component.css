@@ -4,7 +4,7 @@
     background-color: #333;
     border: 0;
 }
-
+  
 .youtubevideocls .closebtn{
     position: absolute;
     width: 30px;
@@ -101,3 +101,64 @@ modal-container .modal-content {
     margin-left: -12px;
     margin-right: 8px;
   } */
+
+
+  .emailfill1{ float: left;}
+
+  .productselect{ float: left;}
+
+  .search_content button {
+    min-width: 50px!important;
+    padding: 0px 0 0 0!important;
+    text-align: center;
+}
+  @media screen and (max-width: 1199px){
+
+.manageleads .user_management_wrapper .user_management_inner .inner_content_wrapper .search_content button {
+    width: 40px!important;
+    padding: 0px!important;
+    float: left!important;
+    margin-left: 0;
+    margin-bottom: 18px;
+    margin-top: 0;
+    min-width: inherit!important;
+}
+.manageleads .user_management_wrapper .user_management_inner .inner_content_wrapper .search_content input {
+    margin-bottom: 0;
+    width: 90%!important;
+    float: left;
+    margin-top: 8px;
+}
+
+.manageleads .user_management_wrapper .user_management_inner .inner_content_wrapperinner .search_content button {
+    width: 28px!important;
+    float: left!important;
+    margin-left: 0;
+    margin-bottom: 0px;
+    margin-top: 8px;
+    min-width: inherit!important;
+}
+}
+
+@media screen and (max-width: 900px){
+
+    .productselect  {
+        float: none;
+        margin-bottom: 10px!important;
+    }
+
+    .emailfill1  {
+        float: none;
+    }
+
+    .s_getmyoffer_adminpanel .inner_actionblock form button {
+        width: auto;
+        margin-left: auto!important;
+        margin-right: auto!important;
+        display: block;
+        height: auto!important;
+        padding: 10px!important;
+        margin-top: 10px!important;
+    }
+
+}
