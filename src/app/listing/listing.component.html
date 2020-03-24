@@ -215,6 +215,9 @@
 
                     <div class="table-responsive admin_table_wrapper">
                         <div *ngIf="templatetype=='table'">
+                            <span *ngIf="sourcelimitval != null">
+                                <input type="text" [(ngModel)]="sourcelimitval.skip" >
+                            </span>
                             <table class="table" *ngIf="datalist.length>0">
                                 <thead>
                                     <tr>
@@ -494,6 +497,16 @@
                                 </tbody>
                             </table>
                         </div>
+                        <span *ngIf="sourcelimitval != null">
+                        <ul class="pagination paginationnew justify-content-center">
+                            <li [ngClass]="{disable: 25 <= sourcelimitval.skip}" class="page-item prev">
+                              <a class="page-link" (click)="previouspage()">Previous</a>
+                            </li>
+                            <li class="page-item next">
+                              <a class="page-link" (click)="nextpage()">Next</a>
+                            </li>
+                          </ul>
+                        </span>
                     </div>
                 </div>
 

@@ -48,6 +48,7 @@ export class ListingComponent implements OnInit {
     public formgroup: FormBuilder;
     public dataForm: FormGroup;
     public sourceconditionval: any;
+    public sourcelimitval: any = {};
     public timezone: any = [];
     public leads_list: any = '';
     public tab_header: any ='';
@@ -121,6 +122,7 @@ export class ListingComponent implements OnInit {
     public leadIsSubmit: any = 0;
     public videolink:any = '';
     public openFlag = 0;
+    public dataListCount: any = '';
     emailPattern = /^\s*[\w\-\+_]+(\.[\w\-\+_]+)*\@[\w\-\+_]+\.[\w\-\+_]+(\.[\w\-\+_]+)*\s*$/;
     @Input()
     set source(source: string) {
@@ -129,6 +131,10 @@ export class ListingComponent implements OnInit {
     @Input()
     set sourcecondition(sourcecondition: string) {
         this.sourceconditionval = (sourcecondition) || '<no name set>';
+    }
+    @Input()
+    set sourcelimit(sourcelimit: string) {
+        this.sourcelimitval = (sourcelimit) || '<no name set>';
     }
     @Input()
     set formsource(formsource: string) {
@@ -180,6 +186,7 @@ export class ListingComponent implements OnInit {
 
         this.usertype = this.cookeiservice.get('usertype');
         this.getdatalist();
+        this.getDataListCount();
 
         this._http.get("assets/data/timezone.json")
             .subscribe(res => {
@@ -562,10 +569,40 @@ setdatetonull() {
         console.log(val)
         this.router.navigate(['/lead-list/',val._id]);
     }
+    getDataListCount(){
+        console.log(this.sourceconditionval,"this.sourceconditionval")
+        const link = this._commonservice.nodesslurl + 'datalistcouct?token=' + this.cookeiservice.get('jwttoken');
+        this._http.post(link, { source: this.sourceval, condition: this.sourceconditionval})
+            .subscribe((res:any) => {
+                this.dataListCount = res.resc;
+                // console.log(res);
+            });
+
+    }
+    nextpage(){
+        let count = this.sourcelimitval.skip + 25;
+        this.sourcelimitval.skip = count;
+        console.log(count,'+');
+        if (count<= 0) {
+            this.sourcelimitval.skip = 25;
+            this.getdatalist();
+          } else {
+            this.getdatalist();  
+          }
+      }
+      previouspage(){
+
+        let count = this.sourcelimitval.skip - 25;
+        this.sourcelimitval.skip = count;
+        console.log(count,'-');
+    if (count>= 0) {
+        this.getdatalist();
+      }
+    }
     getdatalist() {
         console.log(this.sourceconditionval,"this.sourceconditionval")
         const link = this._commonservice.nodesslurl + 'datalist?token=' + this.cookeiservice.get('jwttoken');
-        this._http.post(link, { source: this.sourceval, condition: this.sourceconditionval })
+        this._http.post(link, { source: this.sourceval, condition: this.sourceconditionval, sourcelimit:this.sourcelimitval })
             .subscribe(res => {
                 let result;
                 result = res;

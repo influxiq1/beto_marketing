@@ -11,6 +11,7 @@ export class ManageleadsComponent implements OnInit {
   public datasource: any;
   public tabledatalist: any[];
   public sourcecondition: any = {};
+  public sourcelimit: any = {};
   public hideaddval: any = false;
   constructor(public cookieservice: CookieService) {
     this.formdata = [
@@ -48,6 +49,7 @@ export class ManageleadsComponent implements OnInit {
       ];
     } else {
       this.sourcecondition = { 'created_by_object': this.cookieservice.get('userid') };
+      this.sourcelimit = { 'skip':0, 'limit':25};
       this.hideaddval = false;
 
      if(this.cookieservice.get('usertype') ==  'regional_recruiter'){
