@@ -17,7 +17,10 @@
     z-index: 999;
     top: -10px;
     right: -8px;
-    padding: 5px 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* padding: 5px 8px; */
 }
 
 .youtubevideocls iframe{
@@ -94,7 +97,7 @@ modal-container .modal-content {
   }
   
   /* Add a right margin to each icon */
-  .fa {
+  /* .fa {
     margin-left: -12px;
     margin-right: 8px;
-  }
+  } */

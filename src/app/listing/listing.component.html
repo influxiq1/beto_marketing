@@ -138,14 +138,14 @@
                     <div class="action_section">
                         <div class="inner_actionblock">
                             <!-- <span *ngIf="route.snapshot.routeConfig.path == 'marketingre_view/:product_id' || route.snapshot.routeConfig.path == 'marketingre_view/:product_id/:lead_id'"> -->
-                                <span>
+                                <span *ngIf="router.url=='/manage-leads' && cookeiservice.get('usertype') == 'rep'">
                                 <form [formGroup]="sendLeadEmailForm" (ngSubmit)="leadsMarketingEmail(sendLeadEmailForm.value)">
                                     <!-- <input type="text" placeholder="Enter Email" [(ngModel)]="filterval6.email">
                                     <span class="error" *ngIf="filterval6.email == null && leadIsSubmit == 1">Email is Required</span> -->
                                     <input formControlName="email" placeholder="Email Address">
                                     <br>
                                     <h3>
-                                        <select [(ngModel)]='leadsMarkting' formControlName="product_id" required>
+                                        <select [(ngModel)]='leadsMarkting' formControlName="product_id" multiple>
                                             <option value="0" disabled>Select Product</option>
                                             <option *ngFor="let searchval of productval" value="{{searchval._id}}">
                                                 {{searchval.categoryname}}</option>
@@ -332,6 +332,8 @@
                                                 <span class="delete_user"
                                                     *ngIf="item.appointment_count!= null &&item.appointment_count ==0">Appointment
                                                     Not Added</span>
+                                                <span class="delete_user"
+                                                *ngIf="cookeiservice.get('usertype') == 'admin' && item.youtube != null" (click)="discoveryYoutubeVideoPlay(item.youtube.link, youtubemodal)">Show Discovery Call Video</span>
                                                 <!-- added by Himadri end Appointment Added-->
 
 
@@ -431,8 +433,7 @@
                                                 (click)="openDiscoverCallModal(item,item.productname,discoverycallmodal)">Discovery
                                                 Call</span>
                                                 <span class="delete_user" *ngIf="cookeiservice.get('usertype') == 'admin' && router.url==['/manage-leads']"
-                                                (click)="openDiscoverCallModal(item,item.productname,discoveryVideomodal)">Discovery
-                                                Video</span>
+                                                (click)="openDiscoverCallModal(item,item.productname,discoveryVideomodal)">Add Discovery Call Video</span>
                                                 <span class="delete_user" *ngIf="router.url==['/manage-leads']" (click)="openDiscoverCallModal(item,item.productname,contractProducMmodal)"
                                                >Send Contract Review Video</span>
                                                 <span class="delete_user" *ngIf="router.url==['/manage-leads']" (click)="openDiscoverCallModal(item,item.productname,marktingProducMmodal)"
@@ -457,8 +458,16 @@
                                             <span class="delete_user"
                                                 (click)="notesdata(item,notesmodal)">Notes({{item.notescount}})</span>
                                                 <br>
-                                                <span *ngIf="cookeiservice.get('usertype') == 'admin' && item.youtube != null">
+                                                <!-- <span *ngIf="cookeiservice.get('usertype') == 'admin' && item.youtube != null">
                                                     Video Uploaded
+                                                </span> -->
+                                                
+                                                <span *ngIf="cookeiservice.get('usertype') == 'admin' && item.emailStatus != null && item.emailStatus != 'seen'"><br>
+                                                    Seen
+                                                </span>
+                                                <span *ngIf="cookeiservice.get('usertype') == 'admin' && item.emailStatus != null && item.emailStatus != 'send'">
+                                                    <br>
+                                                    Email Send
                                                 </span>
 
                                         </td>
@@ -792,7 +801,7 @@
                  <input type="text" [(ngModel)]="videolink" style="width: 148px;">
                  <div class="clear"></div>
                 </div>
-                <label class="col-sm-12 col-form-label" style="color: #00c0ff; font-size: 20px;">Choose A Product</label>
+                <!-- <label class="col-sm-12 col-form-label" style="color: #00c0ff; font-size: 20px;">Choose A Product</label>
                 <div class="col-sm-12">
 
                     <select class="form-control" [(ngModel)]="selectedproductid" multiple>
@@ -809,7 +818,7 @@
                         <div class="clearfix"></div>
 
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>

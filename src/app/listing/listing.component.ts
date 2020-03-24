@@ -146,7 +146,7 @@ export class ListingComponent implements OnInit {
     
     productForm: FormGroup;
     invalidEmails = [];
-    constructor(public _commonservice: Commonservices, public router: Router, public _http: HttpClient, public modal: BsModalService, formgroup: FormBuilder, private cookeiservice: CookieService,public sanitizer: DomSanitizer, public route: ActivatedRoute) {
+    constructor(public _commonservice: Commonservices, public router: Router, public _http: HttpClient, public modal: BsModalService, formgroup: FormBuilder, public cookeiservice: CookieService,public sanitizer: DomSanitizer, public route: ActivatedRoute) {
         
         this.formgroup = formgroup;
         this._commonservice = _commonservice;
@@ -290,6 +290,12 @@ youtubeVideoPlay(val: any, template: TemplateRef<any>){
     let id: any = value.split("be/")[1].substring(0, 11);
    
     this.youtubeVideoUrl = this.sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/'+id);
+    this.modalRef3 = this.modal.show(template);
+}
+
+discoveryYoutubeVideoPlay(val: any, template: TemplateRef<any>){
+   
+    this.youtubeVideoUrl = this.sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/'+val);
     this.modalRef3 = this.modal.show(template);
 }
 //  added by Himadri Using for product search
@@ -826,8 +832,11 @@ this._http.post(link, source)
         }
 
     leadsMarketingEmail(val: any) {
+        // console.log(this.sendLeadEmailForm.value);
+        // return;
         var emails = this.sendLeadEmailForm.value.email.split(',');
         console.log(emails);
+        return;
         let x: any;
         for (x in this.sendLeadEmailForm.controls) {
             this.sendLeadEmailForm.controls[x].markAsTouched();
@@ -1350,11 +1359,12 @@ this._http.post(link, source)
     addYoutubeLink(template: TemplateRef<any>) {
         // console.log(this.videolink, '+++++++', this.selectedproductid);
 
-        if (this.videolink != '' && this.videolink != null && this.selectedproductid != '' && this.selectedproductid != null) {
+        if (this.videolink != '' && this.videolink != null ) {
             const link = this._commonservice.nodesslurl + 'addorupdatedata?token=' + this.cookeiservice.get('jwttoken');
             let data = {
                 source: 'leads',
-                data: { id: this.selectedlead._id, youtube:{'link': this.videolink,product_id:this.selectedproductid} }
+                // data: { id: this.selectedlead._id, youtube:{'link': this.videolink,product_id:this.selectedproductid} }
+                data: { id: this.selectedlead._id, youtube:{'link': this.videolink} }
             };
             this._http.post(link, data).subscribe((res: any) => {
                 // console.log(res);
