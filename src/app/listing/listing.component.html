@@ -156,8 +156,9 @@
                     <div class="action_section">
                         <div class="inner_actionblock">
                             <!-- <span *ngIf="route.snapshot.routeConfig.path == 'marketingre_view/:product_id' || route.snapshot.routeConfig.path == 'marketingre_view/:product_id/:lead_id'"> -->
+                                <span class="inner_actionblock_wrapper">
                                 <ng-container *ngIf="openFlag == 1">
-                                <span class="inner_actionblock_wrapper" *ngIf="router.url=='/manage-leads' && cookeiservice.get('usertype') == 'rep'">
+                                <span   *ngIf="router.url=='/manage-leads' && cookeiservice.get('usertype') == 'rep'">
                                 <form [formGroup]="sendLeadEmailForm" (ngSubmit)="leadsMarketingEmail(sendLeadEmailForm.value)">
                                     <!-- <input type="text" placeholder="Enter Email" [(ngModel)]="filterval6.email">
                                     <span class="error" *ngIf="filterval6.email == null && leadIsSubmit == 1">Email is Required</span> -->
@@ -177,8 +178,11 @@
                                     <button type="button" (click)="leadsMarketingEmail(filterval6)">SEND MARKETING REVIEW VIDEO</button> -->
                                 </form>
                             </span>
-                        </ng-container>
-                        <button (click)=openModal()><ng-container *ngIf="openFlag == 0">Open</ng-container><ng-container *ngIf="openFlag == 1">Close</ng-container> Review</button>
+                            </ng-container>
+                                <button class="openclosereview" (click)=openModal()><ng-container *ngIf="openFlag == 0">Open</ng-container><ng-container *ngIf="openFlag == 1">Close</ng-container> Review</button>
+                            </span>
+                       
+                       
                             <!-- <h3 *ngIf="router.url!='/rep'"> {{menuval}}</h3> -->
                             <!-- <div class="legend_status" *ngIf="router.url=='/rep'">
                        <h2> STATUS LEGEND:</h2>
