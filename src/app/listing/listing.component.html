@@ -138,7 +138,7 @@
                     <div class="action_section">
                         <div class="inner_actionblock">
                             <!-- <span *ngIf="route.snapshot.routeConfig.path == 'marketingre_view/:product_id' || route.snapshot.routeConfig.path == 'marketingre_view/:product_id/:lead_id'"> -->
-                                <span *ngIf="router.url=='/manage-leads' && cookeiservice.get('usertype') == 'rep'">
+                                <span class="inner_actionblock_wrapper" *ngIf="router.url=='/manage-leads' && cookeiservice.get('usertype') == 'rep'">
                                 <form [formGroup]="sendLeadEmailForm" (ngSubmit)="leadsMarketingEmail(sendLeadEmailForm.value)">
                                     <!-- <input type="text" placeholder="Enter Email" [(ngModel)]="filterval6.email">
                                     <span class="error" *ngIf="filterval6.email == null && leadIsSubmit == 1">Email is Required</span> -->
@@ -152,7 +152,7 @@
                                      
                                     <span class="error" *ngIf="emailexist != ''">{{emailexist}}</span>
 
-  <button type="submit"> SEND MARKETING REVIEW VIDEO</button>
+  <button type="submit" class="markatingviewbtn"> SEND MARKETING REVIEW VIDEO</button>
                                     <!-- <br> -->
 <!--                                    
                                     <span class="error" *ngIf="emailexist != ''">{{emailexist}}</span>

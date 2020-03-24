@@ -2830,15 +2830,15 @@ text-align: center;}
                 color: #333; opacity: inherit;
               }
 
-              .s_getmyoffer_adminpanel .inner_actionblock form button[type="submit"]{font-size: 18px;
+              .s_getmyoffer_adminpanel .inner_actionblock form button[type="submit"]{font-size: 16px;
                 color: #fff;
                 font-family: 'RalewaySemiBold';
                 background: #00c0ff;
                 border: none;
-                padding: 0px 30px;
+                padding: 0px 20px;
                 height: 38px;
                 text-transform: uppercase;
-                margin:2px;
+                margin:2px 0;
                 cursor: pointer; 
             }
 
@@ -2846,6 +2846,20 @@ text-align: center;}
             .search_content button{    min-width: 50px!important;
                 padding: 0px 0 0 16!important;
                 text-align: center;}
+
+
+                /* .s_getmyoffer_adminpanel .inner_actionblock form .markatingviewbtn {
+                    font-size: 16px;
+                    color: #fff;
+                    font-family: 'RalewaySemiBold';
+                    background: #00c0ff;
+                    border: none;
+                    padding: 0px 10px;
+                    height: 38px;
+                    text-transform: uppercase;
+                    margin: 0px;
+                    cursor: pointer;   width: 300px;
+                } */
 /* 
  .manageleads .admin_table_wrapper td:nth-of-type(10){ text-align: center;}  */
 
