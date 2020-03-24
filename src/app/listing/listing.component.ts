@@ -120,6 +120,7 @@ export class ListingComponent implements OnInit {
     public submit_loaderbar1: boolean = false;
     public leadIsSubmit: any = 0;
     public videolink:any = '';
+    public openFlag = 0;
     emailPattern = /^\s*[\w\-\+_]+(\.[\w\-\+_]+)*\@[\w\-\+_]+\.[\w\-\+_]+(\.[\w\-\+_]+)*\s*$/;
     @Input()
     set source(source: string) {
@@ -193,7 +194,9 @@ export class ListingComponent implements OnInit {
         clearInterval(this.interv);
     }
 
- 
+    openModal(){
+        this.openFlag =1- this.openFlag;
+    }
         
 
     openCsvMach(template: TemplateRef<any>){
@@ -798,6 +801,7 @@ this._http.post(link, source)
                 };
                 this._http.post(link1, data).subscribe((res1: any) => {
                     console.log(res1,'+++res1');
+                    this.getdatalist();
              });
                 this.modalRef2.hide();
                 this.modalRef1 = this.modal.show(template, { class: 'successmodal' });
