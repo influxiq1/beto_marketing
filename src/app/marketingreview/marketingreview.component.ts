@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Commonservices } from '../app.commonservices';
 import { CookieService } from 'ngx-cookie-service';
-import { BsModalService } from 'ngx-bootstrap';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap';
 import { HttpClient } from '@angular/common/http';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 declare var moment: any;
@@ -17,7 +17,7 @@ declare var moment: any;
   providers: [Commonservices]
 })
 export class MarketingreviewComponent implements OnInit {
-
+  public today = new Date();
   public timezoneval:any;
   public filterval5:any;
   public product_id: any = '';
@@ -29,6 +29,9 @@ export class MarketingreviewComponent implements OnInit {
   public rep_data: any = '';
   public lead_data: any = '';
   public discov: boolean = false;
+  public youtubeVideoUrl: any = '';
+  modalRef3: BsModalRef;
+  public loading:boolean = false;
   public youtube_url: any = [
     {'product_id':"5dd68c367b583967f3e57312", 'link':"https://www.youtube.com/embed/8qkgcCBOQM4", 'start':0, 'second_start':75},
     {'product_id':"5dd68c367b583967f3e573r2", 'link':"https://www.youtube.com/embed/8qkgcCBOQM4", 'start':0, 'second_start':75},
@@ -63,6 +66,7 @@ export class MarketingreviewComponent implements OnInit {
    }
 
    settimezone(){
+     this.loading = true;
     this.cookeiservice.set('timezone',this.timezoneval);
     setTimeout(()=>{
       this.geteventarr();
@@ -91,6 +95,7 @@ export class MarketingreviewComponent implements OnInit {
   }
 
   geteventarr() {
+    this.loading = true;
     let cond: any;
     if (this.filterval5 != null && this.filterval5 != '') {
       cond = {
@@ -110,6 +115,7 @@ export class MarketingreviewComponent implements OnInit {
     }
     const link = this._commonservice.nodesslurl + 'datalistforslot';
     this._http.post(link, {rep_id: this.activatedroute.snapshot.params['rep_id'],lead_id: this.activatedroute.snapshot.params['lead_id'], condition: cond }).subscribe((res:any) => {
+      this.loading = false;
       this.allslots = res.data.slots_data;
       this.allslotslength = res.data.slots_data.length;
       this.lead_data = res.data.lead_data[0].emailStatus;
@@ -132,6 +138,12 @@ export class MarketingreviewComponent implements OnInit {
   ngOnInit() {
     this.slotview();
   }
+  discoveryYoutubeVideoPlay(val: any, template: TemplateRef<any>){
+   console.log(val)
+    this.youtubeVideoUrl = this.sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/'+val.link+'?autoplay=1');
+    console.log(this.youtubeVideoUrl)
+    this.modalRef3 = this.modal.show(template);
+}
 
   slotview(){
     let cond = { "is_discovery": false, "is_onboarding": false, "is_qna": false, "is_custom": false, "userproducts": { "$in": [this.product_id]}, slots:{$type:'array'}, startdate:{
@@ -142,6 +154,12 @@ export class MarketingreviewComponent implements OnInit {
         this._http.post(link,{rep_id: this.activatedroute.snapshot.params['rep_id'],lead_id: this.activatedroute.snapshot.params['lead_id'], condition:cond}).subscribe((res:any) => {
             this.allslots = res.data.slots_data;
             this.allslotslength = res.data.slots_data.length;
+            // this.timezoneval = this.allslots[0].timezone;
+            // this.cookeiservice.set('timezone',this.allslots[0].timezone);
+            console.log(this.timezoneval,'this.timezoneval')
+            if (this.lead_data.youtube == null && (this.timezoneval == '' || this.timezoneval == null || typeof(this.timezoneval) == 'undefined')) {
+              this.timezoneval = this.allslots[0].timezone;
+            }
             this.rep_data = res.data.rep_data[0];
             this.lead_data = res.data.lead_data[0];
             if (this.lead_data.emailStatus == 'send') {

@@ -21,7 +21,7 @@ export class EventmanagementComponent implements OnInit {
   public accesstoken: any;
   public rt: any;
   public slotlist :any='true';
-  
+  public sourcelimit: any = {};
 
   constructor(public _commonservices:Commonservices,public cookieservice:CookieService,public route:ActivatedRoute, public _http:HttpClient) {
     // if(this.cookieservice.get('viewonlyaccess')== null || this.cookieservice.get('viewonlyaccess')== 'false'){
@@ -72,6 +72,7 @@ export class EventmanagementComponent implements OnInit {
       {inputtype:'hidden',name:'userid',label:"userid",placeholder:"Enter userid",value:this.cookieservice.get('userid')}
     ];
     this.datasource={table:'events',objarr:['userid']};
+    this.sourcelimit = { 'skip':0, 'limit':25, 'page_count': 1};
   }
 
   ngOnInit() {

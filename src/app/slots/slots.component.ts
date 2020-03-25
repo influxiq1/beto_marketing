@@ -303,6 +303,18 @@ public bookNowStatus:boolean = true;
           }, 2000);
         });
         break;
+        case 'marketingre_view':
+          const link1 = this._commonservices.nodesslurl + 'datalistforleaddata';
+          this._http.post(link1, { source:'leads_view', condition: { _id_object: this.route.snapshot.params['lead_id'] }}).subscribe(res => {
+            let result: any = res;
+              this.dataForm = this.kp.group({
+                meeting_with: [ slotdata.meetingwith ],
+                participant: [ result.res[0].email, Validators.required ],
+                participantName: [ result.res[0].fullname, Validators.required ],
+                participantPhNumber: [ result.res[0].phoneno, Validators.required ],
+                repsmsg: ['']
+              });
+            });
       default:
         setTimeout(() => {
           this.modalRef = this.modal.show(template, config);

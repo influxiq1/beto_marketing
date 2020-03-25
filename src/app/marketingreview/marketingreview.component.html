@@ -84,14 +84,14 @@
         <div class="marketingre_view_body_con_right_top">
 
           <h2 *ngIf="allslotslength == 0">No Result Found</h2>
-          <h2 *ngIf="allslotslength != 0">PLEASE CHOOSE DAY</h2>
+          <h2 *ngIf="allslotslength != 0">PLEASE CHOOSE A SLOT</h2>
         <form *ngIf="allslotslength != 0">
 
             <div class="form-group">
               <select class="form-control select_inpu2"  style="height: 36px;"  (change)="settimezone()"
               [(ngModel)]="timezoneval" [ngModelOptions]="{standalone: true}">
               <option value="">Select a Timezone</option>
-              <option *ngFor="let item of timezone" value="{{item.value}}">{{item.show}} </option>
+              <option *ngFor="let item of timezone" value="{{item.value}}">{{item.show}}</option>
           </select>
           </div>
           
@@ -101,13 +101,13 @@
                 <input type="text" placeholder="Select Date Range" class="form-control form-controlDate"
                     [(ngModel)]="filterval5" [ngModelOptions]="{standalone: true}"
                     [bsConfig]="{ dateInputFormat: 'MM-DD-YYYY',  selectFromOtherMonth: false }"
-                    #drp="bsDaterangepicker" bsDaterangepicker>
+                    #drp="bsDaterangepicker" bsDaterangepicker [minDate]="today">
 
             </div>
 
             <div class="form-group">
 
-            <button (click)="geteventarr()">Update</button>
+            <button (click)="geteventarr()" [ngClass]="{disabled: loading}">Update <i class="fa fa-spinner fa-spin" *ngIf="loading"></i></button>
 
             <button (click)="setdatetonull()">reset</button>
             </div>
@@ -151,7 +151,7 @@
         <div class="div_block1">
 
           <h2>
-            For any addition Information or Inquiry, contact your Representative.
+            For any additional Information or Inquiry, contact your Representative.
           </h2>
         </div>
 
@@ -182,7 +182,7 @@
 
       <div class="marketingre_view_body_con_top_right">
 
-        <button (click)="startTime(lead_data.youtube,'3')">Play Discovery call Recording</button>
+        <button (click)="discoveryYoutubeVideoPlay(lead_data.youtube, youtubemodal)">Play Discovery call Recording</button>
 
       </div>
 
@@ -267,3 +267,17 @@
 </div>
   
 <!-- <app-footer></app-footer> -->
+
+
+
+<!--Youtub video modal-->
+<ng-template #youtubemodal>
+  <div class="youtubevideocls">
+      <span class="closebtn">
+          <i class="fa fa-times" (click)="modalRef3.hide()"></i>
+      </span>
+
+      <iframe width="560" height="315" [attr.src]="youtubeVideoUrl" frameborder="0"
+          allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </div>
+</ng-template>

@@ -181,9 +181,11 @@ export class ListingComponent implements OnInit {
         this._http.post(link, { source: 'tranningcategory' , condition:{'status':true}}).subscribe((res:any) => {
             this.productval = res.res;
         });
-         this._http.post(link, { source: 'for_rep'}).subscribe((res1:any) => {
-            this.repnameval = res1.res;
-        });
+        if (this.router.url== '/manage-leads' && this.cookeiservice.get('usertype') == 'admin') {
+            this._http.post(link, { source: 'for_rep'}).subscribe((res1:any) => {
+               this.repnameval = res1.res;
+           });
+        };
 
 
         this.usertype = this.cookeiservice.get('usertype');
