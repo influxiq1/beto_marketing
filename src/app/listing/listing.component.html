@@ -156,9 +156,9 @@
                     <div class="action_section">
                         <div class="inner_actionblock">
                             <!-- <span *ngIf="route.snapshot.routeConfig.path == 'marketingre_view/:product_id' || route.snapshot.routeConfig.path == 'marketingre_view/:product_id/:lead_id'"> -->
-                                <span class="inner_actionblock_wrapper">
+                                <span class="inner_actionblock_wrapper" *ngIf="router.url=='/manage-leads' && cookeiservice.get('usertype') == 'rep'">
                                 <ng-container *ngIf="openFlag == 1">
-                                <span   *ngIf="router.url=='/manage-leads' && cookeiservice.get('usertype') == 'rep'">
+                                <span>
                                 <form [formGroup]="sendLeadEmailForm" (ngSubmit)="leadsMarketingEmail(sendLeadEmailForm.value)">
                                     <!-- <input type="text" placeholder="Enter Email" [(ngModel)]="filterval6.email">
                                     <span class="error" *ngIf="filterval6.email == null && leadIsSubmit == 1">Email is Required</span> -->
@@ -219,8 +219,36 @@
 
                     <div class="table-responsive admin_table_wrapper">
                         <div *ngIf="templatetype=='table'">
-                            <span *ngIf="sourcelimitval != null">
-                                <input type="text" [(ngModel)]="sourcelimitval.skip" >
+                            <span *ngIf="sourcelimitval != null && sourcelimitval != ''">
+                                <div class="pagecountblock">
+                                    <span role="listitem">Showing {{sourcelimitval.limit}} result from
+                                        <ng-container *ngIf="total_count == 0">Many.</ng-container>
+                                        <ng-container *ngIf="total_count > 0">{{ total_count }}.</ng-container>
+                                    </span>
+                                
+                                    
+                                  </div>
+                                  <div class="pagecountblockcls">
+                                    <span class="example-full-width">
+                                      <label> Current page {{ sourcelimitval.page_count }} Total page {{ dataListPageCount }}</label>
+                                      <input type="number" placeholder="Total page {{ dataListPageCount }}"
+                                          (keyup)="getPageData();" [(ngModel)]="sourcelimitval.page_count">
+                                    </span>
+                              
+                                  <span class="example-full-width">
+                                      <label>Page Count</label>
+                                      <input type="number" placeholder="Page data {{ sourcelimitval.limit }}" (keyup)="getPageData();"
+                                          [(ngModel)]="sourcelimitval.limit">
+                                  </span>
+                                  </div>
+                            <ul class="pagination paginationnew justify-content-center">
+                                <li class="page-item prev">
+                                  <a class="page-link" (click)="nextPage('prev')">Previous</a>
+                                </li>
+                                <li class="page-item next">
+                                  <a class="page-link" (click)="nextPage()">Next</a>
+                                </li>
+                              </ul>
                             </span>
                             <table class="table" *ngIf="datalist.length>0">
                                 <thead>
@@ -501,13 +529,34 @@
                                 </tbody>
                             </table>
                         </div>
-                        <span *ngIf="sourcelimitval != null">
+                        <span *ngIf="sourcelimitval != null && sourcelimitval != ''">
+                            <div class="pagecountblock">
+                                <span role="listitem">Showing {{sourcelimitval.limit}} result from
+                                    <ng-container *ngIf="total_count == 0">Many.</ng-container>
+                                    <ng-container *ngIf="total_count > 0">{{ total_count }}.</ng-container>
+                                </span>
+                            
+                                
+                              </div>
+                              <div class="pagecountblockcls">
+                                <span class="example-full-width">
+                                  <label> Current page {{ sourcelimitval.page_count }} Total page {{ dataListPageCount }}</label>
+                                  <input type="number" placeholder="Total page {{ dataListPageCount }}"
+                                      (keyup)="getPageData();" [(ngModel)]="sourcelimitval.page_count">
+                                </span>
+                          
+                              <span class="example-full-width">
+                                  <label>Page Count</label>
+                                  <input type="number" placeholder="Page data {{ sourcelimitval.limit }}" (keyup)="getPageData();"
+                                      [(ngModel)]="sourcelimitval.limit">
+                              </span>
+                              </div>
                         <ul class="pagination paginationnew justify-content-center">
-                            <li [ngClass]="{disable: 25 <= sourcelimitval.skip}" class="page-item prev">
-                              <a class="page-link" (click)="previouspage()">Previous</a>
+                            <li class="page-item prev">
+                              <a class="page-link" (click)="nextPage('prev')">Previous</a>
                             </li>
                             <li class="page-item next">
-                              <a class="page-link" (click)="nextpage()">Next</a>
+                              <a class="page-link" (click)="nextPage()">Next</a>
                             </li>
                           </ul>
                         </span>

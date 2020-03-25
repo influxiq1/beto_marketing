@@ -8,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class CronReportComponent implements OnInit {
 public sourcecondition: any;
 public tabledatalist: any;
+public sourcelimit: any = {};
   constructor() {
       this.sourcecondition = {};
       this.tabledatalist = [
@@ -15,6 +16,7 @@ public tabledatalist: any;
         { value: 'type', name: 'Type', role: 0, func: '', class: 'type', type: 'text' },
         { value: 'insertedon', name: 'Insertedon ', role: 0, func: '', class: 'insertedon', type: 'unixTime' }
       ];
+    this.sourcelimit = { 'skip':0, 'limit':25, 'page_count': 1};
    }
 
   ngOnInit() {

@@ -48,7 +48,7 @@ export class ListingComponent implements OnInit {
     public formgroup: FormBuilder;
     public dataForm: FormGroup;
     public sourceconditionval: any;
-    public sourcelimitval: any = {};
+    public sourcelimitval: any;
     public timezone: any = [];
     public leads_list: any = '';
     public tab_header: any ='';
@@ -123,6 +123,7 @@ export class ListingComponent implements OnInit {
     public videolink:any = '';
     public openFlag = 0;
     public dataListCount: any = '';
+    public dataListPageCount: any = '';
     emailPattern = /^\s*[\w\-\+_]+(\.[\w\-\+_]+)*\@[\w\-\+_]+\.[\w\-\+_]+(\.[\w\-\+_]+)*\s*$/;
     @Input()
     set source(source: string) {
@@ -135,6 +136,7 @@ export class ListingComponent implements OnInit {
     @Input()
     set sourcelimit(sourcelimit: string) {
         this.sourcelimitval = (sourcelimit) || '<no name set>';
+        console.log(this.sourcelimitval)
     }
     @Input()
     set formsource(formsource: string) {
@@ -186,7 +188,10 @@ export class ListingComponent implements OnInit {
 
         this.usertype = this.cookeiservice.get('usertype');
         this.getdatalist();
-        this.getDataListCount();
+
+        if (this.sourcelimitval != null && typeof (this.sourcelimitval) != 'undefined' && typeof (this.sourcelimitval.skip) != 'undefined') {
+            this.getDataListCount();
+        }
 
         this._http.get("assets/data/timezone.json")
             .subscribe(res => {
@@ -571,37 +576,60 @@ setdatetonull() {
     }
     getDataListCount(){
         console.log(this.sourceconditionval,"this.sourceconditionval")
-        const link = this._commonservice.nodesslurl + 'datalistcouct?token=' + this.cookeiservice.get('jwttoken');
+        const link = this._commonservice.nodesslurl + 'datalistcount?token=' + this.cookeiservice.get('jwttoken');
         this._http.post(link, { source: this.sourceval, condition: this.sourceconditionval})
             .subscribe((res:any) => {
                 this.dataListCount = res.resc;
+                this.dataListPageCount = Math.round(this.dataListCount / this.sourcelimitval.limit)
                 // console.log(res);
             });
 
     }
-    nextpage(){
-        let count = this.sourcelimitval.skip + 25;
-        this.sourcelimitval.skip = count;
-        console.log(count,'+');
-        if (count<= 0) {
-            this.sourcelimitval.skip = 25;
-            this.getdatalist();
-          } else {
-            this.getdatalist();  
-          }
-      }
-      previouspage(){
+    nextPage(flag: string = null) {
+        if(flag == 'prev' && this.sourcelimitval.page_count > 1) {
+            this.sourcelimitval.page_count--;
+            console.log(this.sourcelimitval.page_count);
+        } 
+    
+        if(flag == null && this.sourcelimitval.page_count < this.dataListCount / this.sourcelimitval.page_count) {
+            this.sourcelimitval.page_count++;
+            console.log(this.sourcelimitval.page_count)
+        }
 
-        let count = this.sourcelimitval.skip - 25;
-        this.sourcelimitval.skip = count;
-        console.log(count,'-');
-    if (count>= 0) {
         this.getdatalist();
       }
-    }
+      getPageData(){
+          if (this.sourcelimitval.limit != 0 && this.sourcelimitval.page_count != 0) {
+            this.getdatalist();
+            this.getDataListCount();
+          }
+      }
+    // nextpage(){
+    //     let count = this.sourcelimitval.skip + 25;
+    //     this.sourcelimitval.skip = count;
+    //     console.log(count,'+');
+    //     if (count<= 0) {
+    //         this.sourcelimitval.skip = 25;
+    //         this.getdatalist();
+    //       } else {
+    //         this.getdatalist();  
+    //       }
+    //   }
+    //   previouspage(){
+
+    //     let count = this.sourcelimitval.skip - 25;
+    //     this.sourcelimitval.skip = count;
+    //     console.log(count,'-');
+    // if (count>= 0) {
+    //     this.getdatalist();
+    //   }
+    // }
     getdatalist() {
         console.log(this.sourceconditionval,"this.sourceconditionval")
         const link = this._commonservice.nodesslurl + 'datalist?token=' + this.cookeiservice.get('jwttoken');
+        if (this.sourcelimitval != null && typeof (this.sourcelimitval) != 'undefined' && typeof (this.sourcelimitval.skip) != 'undefined') {
+            this.sourcelimitval.skip = (parseInt(this.sourcelimitval.page_count)-1) * parseInt(this.sourcelimitval.limit);
+        }
         this._http.post(link, { source: this.sourceval, condition: this.sourceconditionval, sourcelimit:this.sourcelimitval })
             .subscribe(res => {
                 let result;

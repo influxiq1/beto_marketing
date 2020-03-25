@@ -8,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class CommonEventComponent implements OnInit {
   public sourcecondition: any;
   public tabledatalist: any;
+  public sourcelimit: any = {};
     constructor() {
         this.sourcecondition = {};
         this.tabledatalist = [
@@ -17,6 +18,7 @@ export class CommonEventComponent implements OnInit {
           { value: 'slot', name: 'Slot', role: 0, func: '', class: 'slot', type: 'text' },
           { value: 'insertedon', name: 'Insertedon ', role: 0, func: '', class: 'insertedon', type: 'unixTime' }
         ];
+    this.sourcelimit = { 'skip':0, 'limit':25, 'page_count': 1};
      }
   ngOnInit() {
   }

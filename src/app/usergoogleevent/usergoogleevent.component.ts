@@ -8,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class UsergoogleeventComponent implements OnInit {
   public sourcecondition: any;
   public tabledatalist: any;
+  public sourcelimit: any = {};
     constructor() {
         this.sourcecondition = {};
         this.tabledatalist = [
@@ -18,6 +19,7 @@ export class UsergoogleeventComponent implements OnInit {
           { value: 'end', name: 'End', role: 0, func: '', class: 'type', type: 'text' },
           { value: 'insertedon', name: 'Insertedon ', role: 0, func: '', class: 'insertedon', type: 'unixTime' }
         ];
+        this.sourcelimit = { 'skip':0, 'limit':25, 'page_count': 1};
      }
   
   ngOnInit() {
