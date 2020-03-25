@@ -2863,6 +2863,29 @@ text-align: center;}
 /* 
  .manageleads .admin_table_wrapper td:nth-of-type(10){ text-align: center;}  */
 
+ .pagecountblockclsbody {
+    display: block;
+    text-align: center;
+}
+
+.pagecountblock{ text-align: center; color: #00a8ef!important; display: block; padding-bottom: 10px;     font-size: 16px; 
+    text-transform: capitalize;}
+.pagecountblock .listitem{ display: block; padding-bottom: 10px;     font-size: 14px; 
+    text-transform: capitalize; color: #00a8ef;}
+
+    .pagecountblock .label{ display: block; padding-bottom: 10px;     font-size: 14px; 
+        text-transform: capitalize; color: #333;}
+    .pagecountblockclsbody .example-full-width{ display: inline-block;}
+
+    .pagecountblockclsbody input{
+        width: 50px;
+        padding: 0 0 0 5px;
+        text-align: center;
+        margin: 0 10px;
+        font-size: 14px;
+        background: #efefef;
+        border: solid 1px #ccc;
+    }
             @media screen  and  (max-width: 1199px){
 
                 .inner_actionblock_wrapper{ margin-bottom: 20px;}
