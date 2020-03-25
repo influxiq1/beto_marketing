@@ -575,7 +575,7 @@ showformat(stdt){
   /* Get user details */
   getUserDetails(id) {
     let link:any;
-    if (this.route.snapshot.routeConfig.path == 'marketingre_view/:product_id' || this.route.snapshot.routeConfig.path == 'marketingre_view/:product_id/:lead_id') {
+    if (this.route.snapshot.routeConfig.path == 'marketingre_view/:product_id/:rep_id/:lead_id') {
      link = this._commonservices.nodesslurl + 'datalistforleaddata';
     } else {
       link = this._commonservices.nodesslurl + 'datalist?token=' + this.cookeiservice.get('jwttoken');

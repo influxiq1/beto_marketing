@@ -32,7 +32,7 @@
 
   <div class="marketingre_view_body_wrapper">
 
-    <div class="marketingre_view_body_con_top" *ngIf="lead_data.emailStatus != 'seen'">
+    <div class="marketingre_view_body_con_top" *ngIf="lead_data.emailStatus != 'seen' || lead_data.youtube == null">
 
 
       <div class="marketingre_view_body_con_top_left">
@@ -77,7 +77,7 @@
   </div>
 </ng-container>
 
-     <div class="marketingre_view_body_con_right" *ngIf="lead_data.emailStatus != 'seen'">
+     <div class="marketingre_view_body_con_right" *ngIf="lead_data.emailStatus != 'seen' || lead_data.youtube == null">
 
 
 
@@ -145,7 +145,7 @@
       </div> 
 
 
-      <div class="marketingre_view_body_con_right_additionBlock" *ngIf="lead_data.emailStatus == 'seen'">
+      <div class="marketingre_view_body_con_right_additionBlock" *ngIf="lead_data.emailStatus == 'seen' && lead_data.youtube != null">
         <div class="div_block_wrapper">
 
         <div class="div_block1">
