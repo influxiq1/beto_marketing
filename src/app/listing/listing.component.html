@@ -228,7 +228,7 @@
                                 
                                     
                                   </div>
-                                  <div class="pagecountblockcls">
+                                  <div class="pagecountblockcls pagecountblockclsbody">
                                     <span class="example-full-width">
                                       <label> Current page {{ sourcelimitval.page_count }} Total page {{ dataListPageCount }}</label>
                                       <input type="number" placeholder="Total page {{ dataListPageCount }}"
@@ -529,40 +529,41 @@
                                 </tbody>
                             </table>
                         </div>
-                        <span *ngIf="sourcelimitval != null && sourcelimitval != ''">
-                            <div class="pagecountblock">
-                                <span role="listitem">Showing {{sourcelimitval.limit}} result from
-                                    <ng-container *ngIf="total_count == 0">Many.</ng-container>
-                                    <ng-container *ngIf="total_count > 0">{{ total_count }}.</ng-container>
-                                </span>
-                            
-                                
-                              </div>
-                              <div class="pagecountblockcls">
-                                <span class="example-full-width">
-                                  <label> Current page {{ sourcelimitval.page_count }} Total page {{ dataListPageCount }}</label>
-                                  <input type="number" placeholder="Total page {{ dataListPageCount }}"
-                                      (keyup)="getPageData();" [(ngModel)]="sourcelimitval.page_count">
-                                </span>
-                          
-                              <span class="example-full-width">
-                                  <label>Page Count</label>
-                                  <input type="number" placeholder="Page data {{ sourcelimitval.limit }}" (keyup)="getPageData();"
-                                      [(ngModel)]="sourcelimitval.limit">
-                              </span>
-                              </div>
-                        <ul class="pagination paginationnew justify-content-center">
-                            <li class="page-item prev">
-                              <a class="page-link" (click)="nextPage('prev')">Previous</a>
-                            </li>
-                            <li class="page-item next">
-                              <a class="page-link" (click)="nextPage()">Next</a>
-                            </li>
-                          </ul>
-                        </span>
+                       
                     </div>
                 </div>
-
+                <span *ngIf="sourcelimitval != null && sourcelimitval != ''" style="margin-top:20px; display:block;">
+                    <div class="pagecountblock">
+                        <span role="listitem">Showing {{sourcelimitval.limit}} result from
+                            <ng-container *ngIf="total_count == 0">Many.</ng-container>
+                            <ng-container *ngIf="total_count > 0">{{ total_count }}.</ng-container>
+                        </span>
+                    
+                        
+                      </div>
+                    
+                </span>
+                <div class="pagecountblockcls pagecountblockclsbody" >
+                    <span class="example-full-width">
+                      <label> Current page {{ sourcelimitval.page_count }} Total page {{ dataListPageCount }}</label>
+                      <input type="number" placeholder="Total page {{ dataListPageCount }}"
+                          (keyup)="getPageData();" [(ngModel)]="sourcelimitval.page_count">
+                    </span>
+              
+                  <span class="example-full-width">
+                      <label>Page Count</label>
+                      <input type="number" placeholder="Page data {{ sourcelimitval.limit }}" (keyup)="getPageData();"
+                          [(ngModel)]="sourcelimitval.limit">
+                  </span>
+                  </div>
+            <ul class="pagination paginationnew justify-content-center">
+                <li class="page-item prev">
+                  <a class="page-link" (click)="nextPage('prev')">Previous</a>
+                </li>
+                <li class="page-item next">
+                  <a class="page-link" (click)="nextPage()">Next</a>
+                </li>
+              </ul>
 
                 <!--Pagination-->
 
