@@ -599,7 +599,8 @@ setdatetonull() {
         this.getdatalist();
       }
       getPageData(){
-          if (this.sourcelimitval.limit != 0 && this.sourcelimitval.page_count != 0) {
+          console.log(this.sourcelimitval.limit, this.sourcelimitval.page_count)
+          if (this.sourcelimitval.limit != 0 && this.sourcelimitval.limit != null && this.sourcelimitval.page_count != 0 && this.sourcelimitval.page_count != null) {
             this.getdatalist();
             this.getDataListCount();
           }
