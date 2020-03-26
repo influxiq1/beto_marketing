@@ -1440,17 +1440,15 @@ this._http.post(link, source)
         this.modalRef2 = this.modal.show(template);
     }
     addYoutubeLink(template: TemplateRef<any>) {
-        // console.log(this.videolink, '+++++++', this.selectedproductid);
-
         if (this.videolink != '' && this.videolink != null ) {
-            const link = this._commonservice.nodesslurl + 'addorupdatedata?token=' + this.cookeiservice.get('jwttoken');
+            const link = this._commonservice.nodesslurl + 'adddiscoverycall';
             let data = {
                 source: 'leads',
-                // data: { id: this.selectedlead._id, youtube:{'link': this.videolink,product_id:this.selectedproductid} }
-                data: { id: this.selectedlead._id, youtube:{'link': this.videolink} }
+                data: { id: this.selectedlead._id, fullname:this.selectedlead.fullname,email: this.selectedlead.email, rep_name: this.selectedlead.rep_name, rep_id:this.selectedlead.created_by, youtube:{'link': this.videolink,product_id:this.selectedproductid} }
+                // data: { id: this.selectedlead._id, youtube:{'link': this.videolink} }
             };
             this._http.post(link, data).subscribe((res: any) => {
-                // console.log(res);
+                console.log(res);
                 if (res.status == 'success') {
                     this.modalRef2.hide();
                     this.selectedproductid='';
