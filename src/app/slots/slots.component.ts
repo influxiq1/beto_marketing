@@ -79,7 +79,7 @@ export class SlotsComponent implements OnInit {
 
 public bookNowStatus:boolean = true;
   constructor(@Inject(WINDOW) private window: Window, public _commonservices:Commonservices,public modal:BsModalService,kp: FormBuilder, private cookeiservice: CookieService,public _http:HttpClient, public route: ActivatedRoute, public router: Router) {
-    if (route.snapshot.routeConfig.path =='marketingre_view/:product_id' || route.snapshot.routeConfig.path =='marketingre_view/:product_id/:lead_id') {
+    if (route.snapshot.routeConfig.path =='marketing-review/:product_id' || route.snapshot.routeConfig.path =='marketing-review/:product_id/:lead_id') {
       this.bookNowStatus = false;
     } else {
       this.bookNowStatus = true;
@@ -303,7 +303,7 @@ public bookNowStatus:boolean = true;
           }, 2000);
         });
         break;
-        case 'marketingre_view':
+        case 'marketing-review':
           const link1 = this._commonservices.nodesslurl + 'datalistforleaddata';
           this._http.post(link1, { source:'leads_view', condition: { _id_object: this.route.snapshot.params['lead_id'] }}).subscribe(res => {
             let result: any = res;
@@ -587,7 +587,7 @@ showformat(stdt){
   /* Get user details */
   getUserDetails(id) {
     let link:any;
-    if (this.route.snapshot.routeConfig.path == 'marketingre_view/:product_id/:rep_id/:lead_id') {
+    if (this.route.snapshot.routeConfig.path == 'marketing-review/:product_id/:rep_id/:lead_id') {
      link = this._commonservices.nodesslurl + 'datalistforleaddata';
     } else {
       link = this._commonservices.nodesslurl + 'datalist?token=' + this.cookeiservice.get('jwttoken');

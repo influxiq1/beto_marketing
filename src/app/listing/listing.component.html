@@ -532,7 +532,8 @@
                        
                     </div>
                 </div>
-                <span *ngIf="sourcelimitval != null && sourcelimitval != ''" style="margin-top:20px; display:block;">
+                <ng-container *ngIf="sourcelimitval != null && sourcelimitval != ''" >
+                <span style="margin-top:20px; display:block;">
                     <div class="pagecountblock">
                         <span role="listitem">Showing {{sourcelimitval.limit}} result from
                             <ng-container *ngIf="total_count == 0">Many.</ng-container>
@@ -564,7 +565,7 @@
                   <a class="page-link" (click)="nextPage()">Next</a>
                 </li>
               </ul>
-
+            </ng-container>
                 <!--Pagination-->
 
                 <div class="admin_table_pagination hide">

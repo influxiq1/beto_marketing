@@ -197,13 +197,13 @@ const appRoutes: Routes = [
     {path: 'delete-event', component: CommonEventComponent},
     {path: 'google-event', component: UsergoogleeventComponent},
     // {path: 'marketingre_view/:product_id/:rep_id', component: MarketingreviewComponent, resolve : {results: TestresolveService},data: { requestcondition: {condition: {"rep_id":'rep_id'}}, endpoint: 'datalistforslot'}},
-    {path: 'contractreviewVideo/:product_id/:rep_id/:lead_id', component: ContractReviewVideoComponent},
-    {path: 'contractreviewVideo/:product_id/:rep_id/:lead_id/:flag', component: ContractReviewVideoComponent},
-    {path: 'contractreviewVideo/:product_id/:rep_id/:lead_id', component: ContractReviewVideoComponent, resolve : {results: TestresolveService},data: { requestcondition: {condition: {"_id":'lead_id'}}, endpoint: 'datalistfornewlead'}},
+    {path: 'contract-review/:product_id/:rep_id/:lead_id', component: ContractReviewVideoComponent},
+    {path: 'contract-review/:product_id/:rep_id/:lead_id/:flag', component: ContractReviewVideoComponent},
+    {path: 'contract-review/:product_id/:rep_id/:lead_id', component: ContractReviewVideoComponent, resolve : {results: TestresolveService},data: { requestcondition: {condition: {"_id":'lead_id'}}, endpoint: 'datalistfornewlead'}},
 
-    {path: 'marketingre_view/:product_id/:rep_id/:lead_id', component: MarketingreviewComponent},
-    {path: 'marketingre_view/:product_id/:rep_id/:lead_id/:flag', component: MarketingreviewComponent},
-    {path: 'marketingre_view/:product_id/:rep_id/:lead_id', component: MarketingreviewComponent, resolve : {results: TestresolveService},data: { requestcondition: {condition: {"_id":'lead_id'}}, endpoint: 'datalistfornewlead'}},
+    {path: 'marketing-review/:product_id/:rep_id/:lead_id', component: MarketingreviewComponent},
+    {path: 'marketing-review/:product_id/:rep_id/:lead_id/:flag', component: MarketingreviewComponent},
+    {path: 'marketing-review/:product_id/:rep_id/:lead_id', component: MarketingreviewComponent, resolve : {results: TestresolveService},data: { requestcondition: {condition: {"_id":'lead_id'}}, endpoint: 'datalistfornewlead'}},
 
 
 
