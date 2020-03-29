@@ -152,7 +152,8 @@
          <span class="span1stloop" *ngFor="let item of allslots;let i=index;">
           <span   *ngIf="item.slots!=null && item.slots.length>0">
             <span  class="span1stloopSUB" *ngFor="let eachslots of item.slots;let j=index;">
-             <app-slots [itemdata]="item" [itemid]="j" ></app-slots>
+             <app-slots [itemdata]="item" [itemid]="j" [isflag]="leadflag" ></app-slots>
+             <!-- <p>{{leadflag}}</p> -->
             </span>
           </span>
   

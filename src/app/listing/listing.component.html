@@ -610,16 +610,15 @@
             <div class="form-group row rownew1" [formGroup]="dataForm" *ngFor="let item of formdataval; let i=index;">
                 <div *ngIf="(isedit==0 || (item.isaddonly==null && item.isaddonly!=true))" class="form_floating_div">
                     <!--[ngClass]="addeventclass()"-->
-                    <label *ngIf="item.inputtype!='hidden'  && (item.name!='multiple_emails' && item.name!='tempemail')"
+                    <label *ngIf="item.inputtype!='hidden'  && (item.name!='multiple_emails' && item.name!='tempemail' && item.name!='launch_date')"
                         class="  col-form-label col-form-label-sm">{{item.label}}</label>
                     <label
-                        *ngIf="item.inputtype!='hidden' && (item.name=='multiple_emails' || item.name=='tempemail') && inputflag==1"
+                        *ngIf="item.inputtype!='hidden' && (item.name=='multiple_emails' || item.name=='tempemail' || item.name=='launch_date') && inputflag==1"
                         class="col-form-label col-form-label-sm">{{item.label}}</label>
                     <div class="col-sm-8">
 
-
                         <input
-                            *ngIf="(item.inputtype=='text'  || item.inputtype=='password' || item.inputtype=='hidden') && (item.name!='multiple_emails' && item.name!='tempemail')"
+                            *ngIf="(item.inputtype=='text'  || item.inputtype=='password' || item.inputtype=='hidden') && (item.name!='multiple_emails' && item.name!='tempemail' && item.name!='launch_date')"
                             [name]="item.name" [formControl]="dataForm.controls[item.name]" [type]="item.inputtype"
                             class="form-control" [placeholder]="item.placeholder" (keyup)="issubmit=0">
 
@@ -641,6 +640,14 @@
                             <input type="checkbox" *ngIf="item.inputtype=='checkbox' && item.name=='verification_need'"
                                 [name]="item.name" [formControl]="dataForm.controls[item.name]" class="form-control"
                                 (keyup)="issubmit=0" (change)="showInputText($event)" [ngClass]="item.class">
+
+                                
+                            <!-- <input type="checkbox" *ngIf="item.inputtype=='checkbox' && item.name=='launch'"
+                            [name]="item.name" [formControl]="dataForm.controls[item.name]" class="form-control"
+                            (keyup)="issubmit=0" (change)="showInputText1($event)" [ngClass]="item.class"> -->
+
+
+
                             <input type="checkbox" *ngIf="item.inputtype=='checkbox' && item.name=='viewonlyaccess'"
                                 [name]="item.name" [formControl]="dataForm.controls[item.name]" class="form-control"
                                 (keyup)="issubmit=0" (change)="showInputText($event)" [ngClass]="item.class">
@@ -688,6 +695,14 @@
                             [placeholder]="item.placeholder"
                             [bsConfig]="{ dateInputFormat: 'MM-DD-YYYY',  selectFromOtherMonth: false }"
                             #drp="bsDaterangepicker" bsDaterangepicker [minDate]="minDate" (keyup)="issubmit=0">
+
+                            
+                        <!-- <input *ngIf="item.inputtype=='dateis1' && inputflag_launch_date == 1" id="inputdateis1{{item.name}}" [name]="item.name"
+                        [formControl]="dataForm.controls[item.name]" type="text" class="form-control"
+                        [placeholder]="item.placeholder"
+                        [bsConfig]="{ dateInputFormat: 'MM-DD-YYYY',  selectFromOtherMonth: false }"
+                        #drp="bsDatepicker" bsDatepicker [minDate]="minDate" (keyup)="issubmit=0">
+                         -->
                         <input *ngIf="item.inputtype=='dateis' " id="inputdateis{{item.name}}" [name]="item.name"
                             [formControl]="dataForm.controls[item.name]" type="text" class="form-control"
                             [placeholder]="item.placeholder"

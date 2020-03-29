@@ -21,6 +21,7 @@ export class SlotsComponent implements OnInit {
   public slotdata:any;
   modalRef: BsModalRef;
   public dataForm: FormGroup;
+  public dataFormForLead: FormGroup;
   public medicalform:FormGroup;
   public kp;
   public leaddata:any='';
@@ -33,6 +34,7 @@ export class SlotsComponent implements OnInit {
   public itemidval:any;
   public mymodal:any;
   public modalRef2: BsModalRef;
+  public modalRef1: BsModalRef;
   public message:any;
   public timezoneval:any='';
   public participantPhNumber: any;
@@ -43,6 +45,7 @@ export class SlotsComponent implements OnInit {
   public specialityarray:any = [];
   public googleeventval:any = '';
   public slotDataStatus: any = '';
+  public isflagval: any;
   public doctorspeciality:any = [
     {name:"Family Medicine",value:"Family Medicine"},
     {name:"Neurology",value:"Neurology"},
@@ -67,6 +70,14 @@ export class SlotsComponent implements OnInit {
   set itemid(item: any) {
     this.itemidval = (item) || 0;
   }
+
+
+  @Input()
+  set isflag(item: any) {
+    this.isflagval = (item) || '<no name set>';
+    console.log(item,'++++')
+  }
+  
   @Input()
   set itemdata(item: any) {
     this.slotdata = (item) || '<no name set>';
@@ -79,7 +90,7 @@ export class SlotsComponent implements OnInit {
 
 public bookNowStatus:boolean = true;
   constructor(@Inject(WINDOW) private window: Window, public _commonservices:Commonservices,public modal:BsModalService,kp: FormBuilder, private cookeiservice: CookieService,public _http:HttpClient, public route: ActivatedRoute, public router: Router) {
-    if (route.snapshot.routeConfig.path =='marketing-review/:product_id' || route.snapshot.routeConfig.path =='marketing-review/:product_id/:lead_id') {
+    if (this.route.snapshot.routeConfig.path =='marketing-review/:product_id' || this.route.snapshot.routeConfig.path =='marketing-review/:product_id/:rep_id/:lead_id') {
       this.bookNowStatus = false;
     } else {
       this.bookNowStatus = true;
@@ -314,6 +325,8 @@ public bookNowStatus:boolean = true;
                 participantPhNumber: [ result.res[0].phoneno, Validators.required ],
                 repsmsg: ['']
               });
+
+
             });
       default:
         setTimeout(() => {
@@ -339,6 +352,50 @@ public bookNowStatus:boolean = true;
 
         break;
     }
+  }
+  booknowmodal_appointmentlist1(val: any = {}, template2:TemplateRef<any>){
+          // setTimeout(() => {
+          //   this.modalRef2.hide();
+          // }, 1000);
+          this.slotdata = val;
+
+    this.modalRef2 = this.modal.show(template2);
+    console.log('pkoklk',this.leaddata ,'+++++++', val);
+    const link1 = this._commonservices.nodesslurl + 'datalistforleaddata';
+    this._http.post(link1, { source:'leads_view', condition: { _id_object: this.route.snapshot.params['lead_id'] }}).subscribe((res:any) => {
+      this.leaddata = res.res[0];
+    this.dataFormForLead = this.kp.group({
+      firstname: [ '', Validators.required ],
+      lastname: [ '', Validators.required ],
+      company: [ '', Validators.required ],
+      email: [ res.res[0].email, Validators.required ],
+      address: [ '', Validators.required ],
+      phoneno: [ '', Validators.required ],
+      product:[res.res[0].product]
+    });
+
+    });
+ 
+  }
+
+  dosubmitForLead(template:TemplateRef<any>,template1:TemplateRef<any>){
+      console.log(this.dataFormForLead.value);
+      let y: any;
+        for (y in this.dataFormForLead.controls) {
+            this.dataFormForLead.controls[y].markAsTouched();
+        }
+        const link = this._commonservices.nodesslurl + 'addorupdatedata';
+        this.dataFormForLead.value.id = this.leaddata._id;
+            this._http.post(link, { source: 'leads', data: this.dataFormForLead.value, sourceobj: ['created_by']  })
+                .subscribe((res:any) => {
+                  if(res.status == 'success'){
+                    this.modalRef2.hide();
+                    setTimeout(() => {
+                      this.booknowmodal(template, this.slotdata,template1);
+                    }, 500);
+                  }
+                });
+
   }
   booknowmodal_appointmentlist(val: any = {}, template2:TemplateRef<any>){
     console.log(this.googleeventval);

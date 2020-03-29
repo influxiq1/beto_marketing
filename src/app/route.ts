@@ -81,6 +81,7 @@ import { VideoLibraryComponent } from './video-library/video-library.component';
 import { CronReportComponent } from './cron-report/cron-report.component';
 import { CommonEventComponent } from './common-event/common-event.component';
 import { UsergoogleeventComponent } from './usergoogleevent/usergoogleevent.component';
+import { SalesDecksComponent } from './sales-decks/sales-decks.component';
 const appRoutes: Routes = [
     { path: '', redirectTo:'/login', pathMatch: 'full' },
     {path: 'videolibrary', component: VideoLibraryComponent},
@@ -149,6 +150,7 @@ const appRoutes: Routes = [
     { path:'calendar/:at/:val/:rt', component: EventmanagementComponent},
     { path:'repevent/:id', component: RepeventlistComponent},
     { path:'resourcecategory', component: ResourcecategoryComponent},
+    { path: 'sales-decks', component:SalesDecksComponent},
     { path:'resources', component: ResourcesComponent},
     { path:'myresource', component: MyresourceComponent},
     { path:'myresource/:catid', component: MyresourceComponent},

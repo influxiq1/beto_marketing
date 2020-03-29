@@ -97,6 +97,7 @@ export class ListingComponent implements OnInit {
     public loaderdiv = false;
     public selectedlead:any={};
     public inputflag:any=0;
+    public inputflag_launch_date: any = 0;
     public productlist:any = [];
     public selectedproductid:any="";
     public productSubmitFlag:any =0; 
@@ -1234,6 +1235,7 @@ this._http.post(link, source)
         }
     }
     addtodataform(control: any, i) {
+        console.log(control, i,'+++++')
         this.nameis[i] = this.files[0].name;
         if (this.files[0].response !=undefined && this.router.url == '/belk-upload') {
             this.csvHeaderAllData = this.files[0].response;
@@ -1371,6 +1373,15 @@ this._http.post(link, source)
         if(event.target.checked == true){
             this.inputflag = 1;
         }else this.inputflag = 0;
+        
+    }
+
+    
+    showInputText1(event:any){
+        if(event.target.checked == true){
+            console.log('okokok')
+            this.inputflag_launch_date = 1;
+        }else this.inputflag_launch_date = 0;
         
     }
 

@@ -24,6 +24,7 @@ export class AppComponent {
   constructor(private router: Router) {
     /* Universal Loader for Reslove */
     this.router.events.subscribe((event: Event) => {
+      // console.log(event ,event instanceof NavigationEnd,'+++++++++++++++');
       switch (true) {
         case event instanceof NavigationStart: {
           this.loading = true;

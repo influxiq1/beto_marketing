@@ -31,6 +31,7 @@ export class MarketingreviewComponent implements OnInit {
   public discov: boolean = false;
   public youtubeVideoUrl: any = '';
   modalRef3: BsModalRef;
+  public leadflag: any = 0;
   public loading:boolean = false;
   public youtube_url: any = [
     {'product_id':"5dd68c367b583967f3e57312", 'link':"https://www.youtube.com/embed/8qkgcCBOQM4", 'start':0, 'second_start':75},
@@ -119,6 +120,11 @@ export class MarketingreviewComponent implements OnInit {
       this.allslots = res.data.slots_data;
       this.allslotslength = res.data.slots_data.length;
       this.lead_data = res.data.lead_data[0].emailStatus;
+      if (typeof(res.data.lead_data[0].firstname) == 'undefined' || res.data.lead_data[0].firstname == null) {
+        this.leadflag = 1;
+      } else{
+        this.leadflag = 0;
+      }
       if (this.lead_data.emailStatus == 'send') {
         console.log('++++++')
         const link1 = this._commonservice.nodesslurl + 'addorupdatedata?token=' + this.cookeiservice.get('jwttoken');
@@ -162,6 +168,11 @@ export class MarketingreviewComponent implements OnInit {
             }
             this.rep_data = res.data.rep_data[0];
             this.lead_data = res.data.lead_data[0];
+            if (typeof(res.data.lead_data[0].firstname) == 'undefined' || res.data.lead_data[0].firstname == null) {
+              this.leadflag = 1;
+            } else {
+              this.leadflag = 0;
+            }
             if (this.lead_data.emailStatus == 'send') {
               const link1 = this._commonservice.nodesslurl + 'addorupdatedata';
                     let data = {

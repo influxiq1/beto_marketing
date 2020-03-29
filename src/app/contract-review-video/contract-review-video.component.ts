@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Commonservices } from '../app.commonservices';
 import { CookieService } from 'ngx-cookie-service';
-import { BsModalService } from 'ngx-bootstrap';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap';
 import { HttpClient } from '@angular/common/http';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 declare var moment: any;
@@ -15,6 +15,7 @@ declare var moment: any;
 })
 export class ContractReviewVideoComponent implements OnInit {
 
+  public modalRef: BsModalRef;
   public timezoneval:any;
   public filterval5:any;
   public product_id: any = '';
@@ -41,10 +42,10 @@ export class ContractReviewVideoComponent implements OnInit {
 
   if (activatedroute.snapshot.params['lead_id'] != null) {
     this.lead_id = activatedroute.snapshot.params['lead_id'];
-    this.activatedroute.data.forEach((data:any ) => {
-      this.leadData = data.results.res;
-      console.log(this.leadData)
-   });
+  //   this.activatedroute.data.forEach((data:any ) => {
+  //     this.leadData = data.results.res;
+  //     console.log(this.leadData)
+  //  });
    }
 
     this.product_id = activatedroute.snapshot.params['product_id'];
@@ -112,7 +113,23 @@ export class ContractReviewVideoComponent implements OnInit {
     this.slotview();
   }
 
-
+  sendToCM(template:TemplateRef<any>){
+    console.log(this.activatedroute.snapshot.params['rep_id'], this.activatedroute.snapshot.params['product_id'], this.activatedroute.snapshot.params['lead_id']);
+    const link1 = this._commonservice.nodesslurl + 'addorupdatedata?token=' + this.cookeiservice.get('jwttoken');
+    let data = {
+        source: 'contract_repote',
+        data: { status: 'request', rep_id: this.activatedroute.snapshot.params['rep_id'], product_id: this.activatedroute.snapshot.params['product_id'], lead_id:this.activatedroute.snapshot.params['lead_id'], created_by: this.activatedroute.snapshot.params['lead_id']}
+    };
+    this._http.post(link1, data).subscribe((res: any) => {
+        // console.log(res);
+        if (res.status == 'success') {
+          this.modalRef = this.modal.show(template);
+          setTimeout(() => {
+            this.modalRef.hide();
+          }, 100000);
+        }
+    });
+  }
   slotview(){
     let cond = { "is_discovery": false, "is_onboarding": false, "is_qna": false, "is_custom": false, "userproducts": { "$in": [this.product_id]}, slots:{$type:'array'}, startdate:{
       $lte: moment().add(2, 'weeks').format('YYYY-MM-DD'),

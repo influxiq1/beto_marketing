@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Commonservices} from '../app.commonservices' ;
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-resources',
@@ -12,8 +13,9 @@ export class ResourcesComponent implements OnInit {
   public formdata:any;
   public datasource:any;
   public sourcecondition:any={};
+  public sourcelimit: any = {};
 
-  constructor(public _commonservices:Commonservices) {
+  constructor(public _commonservices:Commonservices, public cookieservice: CookieService) {
     this.tabledatalis=[
       {value:'id',name:'ID',role:0,func:'',class:'id',type:'#'},
       {value:'resourcename',name:'Resource Title',role:0,func:'',class:'recourcename',type:'text'},
@@ -28,6 +30,7 @@ export class ResourcesComponent implements OnInit {
       {inputtype:'textarea',name:'description',label:'Description',placeholder:'Description',validationrule:{required:true},validationerrormsg:'is required'},
      /* {inputtype:'select',name:'categoryname',label:'Category Name',defaultchoice:'Select Category',sourceview:'resourcecategory',sourcetype:'static',selectvalue:'categoryname',selectid:'_id',validationrule:{required:true},validationerrormsg:'is required'},*/
 
+     {inputtype:'select',name:'product',label:'Products',defaultchoice:'Select a Product',sourceview:{source:'null','condition':{'userid':this.cookieservice.get('userid')}},multiple:true,selectvalue:'product_name',selectid:'product',validationrule:{required:true},validationerrormsg:'is required'},
       {inputtype:'select',name:'category',label:'Category Name',placeholder:'Select Category',validationrule:{required:true},validationerrormsg:'is required',sourceview:{source:'resourcecategory','condition':{'status':true}},defaultchoice:'Select a category',selectvalue:'categoryname',multiple:null,selectid:'_id'},
 
 
@@ -37,6 +40,7 @@ export class ResourcesComponent implements OnInit {
       {inputtype:'checkbox',name:'status',label:'Status',value:false}
     ];
     this.datasource={table:'resource',objarr:['category']};
+    this.sourcelimit = { 'skip':0, 'limit':25, 'page_count': 1};
   }
   ngOnInit() {
   }
