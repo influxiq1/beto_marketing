@@ -7,6 +7,19 @@ import {provideModuleMap} from '@nguniversal/module-map-ngfactory-loader';
 
 import * as express from 'express';
 import {join} from 'path';
+// const domino = require('domino');
+// const fs = require('fs');
+// const path = require('path');
+// const template = fs.readFileSync('dist/browser/index.html').toString();
+// const win = domino.createWindow(template);
+
+// global['window'] = win;
+// global['document'] = win.document;
+// global['DOMTokenList'] = win.DOMTokenList;
+// global['Node'] = win.Node;
+// global['Text'] = win.Text;
+// global['HTMLElement'] = win.HTMLElement;
+// global['navigator'] = win.navigator;
 
 // Faster server renders w/ Prod mode (dev mode never needed)
 enableProdMode();

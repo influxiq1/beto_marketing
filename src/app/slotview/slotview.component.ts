@@ -10,7 +10,7 @@ import { WINDOW } from '@ng-toolkit/universal';
 
 
 declare var moment:any;
-window['moment-range'].extendMoment(moment);
+// window['moment-range'].extendMoment(moment);
 
 @Component({
   selector: 'app-slotview',

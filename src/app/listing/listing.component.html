@@ -166,7 +166,7 @@
                                      
                                         <select [(ngModel)]='leadsMarkting' formControlName="product_id" multiple class="productselect">
                                             <option value="0" disabled>Select Product</option>
-                                            <option *ngFor="let searchval of productval" value="{{searchval._id}}">
+                                            <option *ngFor="let searchval of productval" value="{{searchval.product[0]}}">
                                                 {{searchval.categoryname}}</option>
                                         </select>
                                     <!-- </h3> -->
@@ -305,6 +305,15 @@
                                                     Required</span>
 
                                             </span>
+                                            <!-- added by himadri -->
+
+                                            <span *ngIf="item1.value=='not_launch' && item1.type=='checkbox' "
+                                                [ngClass]="item1.class">
+                                                <span class="statusactive" *ngIf="item[item1.value]==true" style="color: orange;">
+                                                    Launch Date:-<br>  {{item.launch_date | date}}</span>
+                                                <span class="statusinactive" *ngIf="item[item1.value]!=true" style="color: green;"> Launched</span>
+
+                                            </span>
 
 
 
@@ -335,8 +344,8 @@
                                                     [attr.src]="item[thumbnail_youtube]">
                                             </span>
                                             <!------------------------------------------------------------------------------------------------>
-
-                                            <span *ngIf="item1.type=='checkbox' && item1.value!='verification_need'"
+<!-- added by himadri -->
+                                            <span *ngIf="item1.type=='checkbox' && item1.value!='verification_need' && item1.value!='not_launch'"
                                                 [ngClass]="item1.class">
                                                 <span class="statusactive" *ngIf="item[item1.value]==true"> Active
                                                     &nbsp;&nbsp; <span
@@ -613,7 +622,11 @@
                     <label *ngIf="item.inputtype!='hidden'  && (item.name!='multiple_emails' && item.name!='tempemail' && item.name!='launch_date')"
                         class="  col-form-label col-form-label-sm">{{item.label}}</label>
                     <label
-                        *ngIf="item.inputtype!='hidden' && (item.name=='multiple_emails' || item.name=='tempemail' || item.name=='launch_date') && inputflag==1"
+                        *ngIf="item.inputtype!='hidden' && (item.name=='multiple_emails' || item.name=='tempemail') && inputflag==1"
+                        class="col-form-label col-form-label-sm">{{item.label}}</label>
+
+                        <label
+                        *ngIf="item.inputtype!='hidden' &&  item.name=='launch_date' && inputflag_launch_date==1"
                         class="col-form-label col-form-label-sm">{{item.label}}</label>
                     <div class="col-sm-8">
 
@@ -632,19 +645,25 @@
                             class="form-control" [placeholder]="item.placeholder" (keyup)="issubmit=0">
                         <div class="checkboxclass" *ngIf="item.inputtype=='checkbox'">
 
-                            <input type="checkbox"
-                                *ngIf="item.inputtype=='checkbox' && (item.name!='verification_need' && item.name!='viewonlyaccess')"
+
+                                <!-- added by himadri -->
+                                <input type="checkbox"
+                                *ngIf="item.inputtype=='checkbox' && (item.name!='verification_need' && item.name!='viewonlyaccess' && item.name!= 'not_launch')"
                                 [name]="item.name" [formControl]="dataForm.controls[item.name]" class="form-control"
                                 (keyup)="issubmit=0" [ngClass]="item.class">
+
+
 
                             <input type="checkbox" *ngIf="item.inputtype=='checkbox' && item.name=='verification_need'"
                                 [name]="item.name" [formControl]="dataForm.controls[item.name]" class="form-control"
                                 (keyup)="issubmit=0" (change)="showInputText($event)" [ngClass]="item.class">
 
+                                <!-- added by himadri -->
+
                                 
-                            <!-- <input type="checkbox" *ngIf="item.inputtype=='checkbox' && item.name=='launch'"
+                            <input type="checkbox" *ngIf="item.inputtype=='checkbox' && item.name=='not_launch'"
                             [name]="item.name" [formControl]="dataForm.controls[item.name]" class="form-control"
-                            (keyup)="issubmit=0" (change)="showInputText1($event)" [ngClass]="item.class"> -->
+                            (keyup)="issubmit=0" (change)="showInputText1($event)" [ngClass]="item.class">
 
 
 
@@ -703,13 +722,18 @@
                         [bsConfig]="{ dateInputFormat: 'MM-DD-YYYY',  selectFromOtherMonth: false }"
                         #drp="bsDatepicker" bsDatepicker [minDate]="minDate" (keyup)="issubmit=0">
                          -->
-                        <input *ngIf="item.inputtype=='dateis' " id="inputdateis{{item.name}}" [name]="item.name"
+                        <input *ngIf="item.inputtype=='dateis' && router.url!=['/products'] && inputflag_launch_date != 1" id="inputdateis{{item.name}}" [name]="item.name"
                             [formControl]="dataForm.controls[item.name]" type="text" class="form-control"
                             [placeholder]="item.placeholder"
                             [bsConfig]="{ dateInputFormat: 'MM-DD-YYYY',  selectFromOtherMonth: false }"
                             #drp="bsDatepicker" bsDatepicker [minDate]="minDate" (keyup)="issubmit=0">
                         <!--[minDate]="minDate"-->
-
+<!-- added by himadri -->
+                            <input *ngIf="item.inputtype=='dateis' && router.url==['/products'] && inputflag_launch_date == 1 " id="inputdateis{{item.name}}" [name]="item.name"
+                            [formControl]="dataForm.controls[item.name]" type="text" class="form-control"
+                            [placeholder]="item.placeholder"
+                            [bsConfig]="{ dateInputFormat: 'MM-DD-YYYY',  selectFromOtherMonth: false }"
+                            #drp="bsDatepicker" bsDatepicker [minDate]="minDate" (keyup)="issubmit=0">
 
 
                         <timepicker *ngIf="item.inputtype=='timeis' && item.name=='start_time'" [(ngModel)]="start_time"

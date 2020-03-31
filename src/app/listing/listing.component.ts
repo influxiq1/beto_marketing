@@ -181,6 +181,7 @@ export class ListingComponent implements OnInit {
         let link = this._commonservice.nodesslurl + 'datalist?token=' + this.cookeiservice.get('jwttoken');
         this._http.post(link, { source: 'tranningcategory' , condition:{'status':true}}).subscribe((res:any) => {
             this.productval = res.res;
+            // console.log(this.productval)
         });
         if (this.router.url== '/manage-leads' && this.cookeiservice.get('usertype') == 'admin') {
             this._http.post(link, { source: 'for_rep'}).subscribe((res1:any) => {
@@ -862,7 +863,7 @@ this._http.post(link, source)
        if (this.selectedproductid != '') {
         this._http.post(link, data).subscribe((res:any) =>{
             // console.log('ok',res);
-            if (res.stasus =='success') {
+            if (res.status =='success') {
                 const link1 = this._commonservice.nodesslurl + 'addorupdatedata?token=' + this.cookeiservice.get('jwttoken');
                 let data = {
                     source: 'leads',
@@ -919,7 +920,7 @@ this._http.post(link, source)
         // console.log(this.sendLeadEmailForm.value);
         // return;
         var emails = this.sendLeadEmailForm.value.email.split(',');
-        console.log(emails);
+        // console.log(val.product_id);
         // return;
         let x: any;
         for (x in this.sendLeadEmailForm.controls) {
@@ -947,6 +948,7 @@ this._http.post(link, source)
             })
         }else{
             this.leadIsSubmit = 1;
+            this.openFlag = 0;
         }
         console.log(val)
 
