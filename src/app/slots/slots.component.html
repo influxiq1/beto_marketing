@@ -25,10 +25,10 @@
 
 <p class="event_f_time"><b>Time : </b>{{slotvalue}}</p>
 <p class="event_f_zone"><b>Timezone : </b> {{_commonservices.showtimezone(timezoneshow)}}</p>
-<button *ngIf=" isflagval !=1 && (router.url != '/appointmentlist')" class="booknow_button" (click)="booknowmodal(bookevent,slotdata,messagemodal)">book now</button>
-<button  *ngIf="router.url == '/appointmentlist'" class="booknow_button" (click)="booknowmodal_appointmentlist(slotdata, messagemodal1)">book now</button>
+<!-- <button *ngIf=" isflagval !=1 && (router.url != '/appointmentlist')" class="booknow_button" (click)="booknowmodal(bookevent,slotdata,messagemodal)">book now</button>
+<button  *ngIf="router.url == '/appointmentlist'" class="booknow_button" (click)="booknowmodal_appointmentlist(slotdata, messagemodal1)">book now</button> -->
 
-<button  *ngIf="route.snapshot.routeConfig.path == 'marketing-review/:product_id/:rep_id/:lead_id' && isflagval ==1" class="booknow_button" (click)="booknowmodal_appointmentlist1(slotdata, messagemodal2)">book now</button>
+<button class="booknow_button" (click)="booknowmodal_appointmentlist1(slotdata, messagemodal2)">book now</button>
 <!-- <p>{{bookNowStatus}}</p> -->
 
 <!--<ng-template #bookevent1>
@@ -407,8 +407,14 @@
     
                         <div class="form-group">
                             <label> Email Id</label>
-                            <input class="form-control" type="text" [formControl]="dataFormForLead.controls['email']"
-                                readonly >
+                            <input class="form-control"  *ngIf="leaddata != '' && leaddata.email.length > 3" type="text" [formControl]="dataFormForLead.controls['email']"
+                           readonly>
+                           <input *ngIf="leaddata == '' || leaddata.email.length < 3" class="form-control" type="text" [formControl]="dataFormForLead.controls['email']"
+                            >
+
+                            <span class="errortext" style="color:red"
+                                *ngIf="leaddata != '' && leaddata.email.length< 2 && !dataFormForLead.controls['lastname'].valid && dataFormForLead.controls['lastname'].touched"> Last Name
+                                can not be blank</span>
                         </div>
 
                         <div class="form-group">
@@ -423,7 +429,12 @@
                                 [formControl]="dataFormForLead.controls['phoneno']">
                         </div>
                         <div class="form-group">
-                            <select formControlName="product" multiple class="productselect">
+                            <select *ngIf="leaddata == '' || leaddata == null" formControlName="product" multiple class="productselect">
+                                <option value="0" disabled>Select Product</option>
+                                <option *ngFor="let searchval of productval" value="{{searchval._id}}">
+                                    {{searchval.productname}}</option>
+                            </select>
+                            <select *ngIf="leaddata != '' && leaddata != null" formControlName="product" multiple class="productselect">
                                 <option value="0" disabled>Select Product</option>
                                 <option *ngFor="let searchval of leaddata.productname" value="{{searchval.product_id}}">
                                     {{searchval.product_name}}</option>

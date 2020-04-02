@@ -15,5 +15,18 @@
     "skipServer": false,
     "skipUniversal": false,
     "webpack": true
+  },
+  "serverless": {
+    "project": "nexgetest",
+    "provider": "aws",
+    "skipInstall": false,
+    "directory": ".",
+    "lambdaTS": false,
+    "offline": false,
+    "clientProject": "nexgetest",
+    "serverless": {
+      "aws": {},
+      "gcloud": {}
+    }
   }
 }

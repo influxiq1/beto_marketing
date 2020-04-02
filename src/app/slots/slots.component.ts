@@ -46,6 +46,7 @@ export class SlotsComponent implements OnInit {
   public googleeventval:any = '';
   public slotDataStatus: any = '';
   public isflagval: any;
+  public productval: any;
   public doctorspeciality:any = [
     {name:"Family Medicine",value:"Family Medicine"},
     {name:"Neurology",value:"Neurology"},
@@ -75,7 +76,7 @@ export class SlotsComponent implements OnInit {
   @Input()
   set isflag(item: any) {
     this.isflagval = (item) || '<no name set>';
-    console.log(item,'++++')
+    // console.log(item,'++++')
   }
   
   @Input()
@@ -85,16 +86,16 @@ export class SlotsComponent implements OnInit {
   @Input()
   set googleevent(item: any) {
     this.googleeventval = (item) || '<no name set>';
-    console.log(this.googleeventval,item)
+    // console.log(this.googleeventval,item)
   }
 
 public bookNowStatus:boolean = true;
   constructor(@Inject(WINDOW) private window: Window, public _commonservices:Commonservices,public modal:BsModalService,kp: FormBuilder, private cookeiservice: CookieService,public _http:HttpClient, public route: ActivatedRoute, public router: Router) {
-    if (this.route.snapshot.routeConfig.path =='marketing-review/:product_id' || this.route.snapshot.routeConfig.path =='marketing-review/:product_id/:rep_id/:lead_id') {
+    // if (this.route.snapshot.routeConfig.path =='marketing-review/:product_id' || this.route.snapshot.routeConfig.path =='marketing-review/:product_id/:rep_id/:lead_id') {
       this.bookNowStatus = false;
-    } else {
-      this.bookNowStatus = true;
-    }
+    // } else {
+    //   this.bookNowStatus = true;
+    // }
     this.kp = kp;
     this.selectedproduct = this.cookeiservice.get('lead-product');
     this.timezoneval=this.cookeiservice.get('timezone');
@@ -224,19 +225,19 @@ public bookNowStatus:boolean = true;
       };
     this.getUserDetails(slotdata.allslotsuserid);
 
-    console.log('/**/*/*/*/**/*/*/*/*/*/*/*/*/*',this.cookeiservice.get('useremail'));
-    console.log(slotdata);
+    // console.log('/**/*/*/*/**/*/*/*/*/*/*/*/*/*',this.cookeiservice.get('useremail'));
+    // console.log(slotdata);
 
     this.mymodal = template1;
     let leadsId: any = this.cookeiservice.get('leadsId');
     switch(this.route.snapshot.url[0].path) {
       case 'book-a-closer':
-        console.log('BOOK A CLOSER');
+        // console.log('BOOK A CLOSER');
         // if(slotdata.userproducts.indexOf(this._commonservices.productid)>-1)
         // {
         //   this.selectedproduct = this._commonservices.productid;
         // }
-        console.log('result.res[0]---');
+        // console.log('result.res[0]---');
 
         const link = this._commonservices.nodesslurl + 'datalist?token=' + this.cookeiservice.get('jwttoken');
         this._http.post(link, { source:'leads_view', condition: { "_id": leadsId }}).subscribe(res => {
@@ -282,9 +283,9 @@ public bookNowStatus:boolean = true;
               // doctor_name:["",Validators.required],
             });
           }else{
-            console.log('result.res[0]');
-            console.log(result.res[0]);
-            console.log(result.res[0].fullname);
+            // console.log('result.res[0]');
+            // console.log(result.res[0]);
+            // console.log(result.res[0].fullname);
             this.dataForm = this.kp.group({
               meeting_with: [ slotdata.meetingwith ],
               participant: [ result.res[0].email, Validators.required ],
@@ -344,8 +345,8 @@ public bookNowStatus:boolean = true;
 
           // this.dataForm.patchValue({ participantPhNumber: this.participantPhNumber });
           setTimeout(()=>{
-            console.log(this.cookeiservice.get('fullname'));
-            console.log(this.cookeiservice.get('phone'));
+            // console.log(this.cookeiservice.get('fullname'));
+            // console.log(this.cookeiservice.get('phone'));
             this.dataForm.controls['participantPhNumber'].setValue( this.participantPhNumber );
             // console.log('phoneno - '+this.dataForm.controls['participantPhNumber'].value);
           }, 100);
@@ -360,30 +361,45 @@ public bookNowStatus:boolean = true;
           this.slotdata = val;
 
     this.modalRef2 = this.modal.show(template2);
-    console.log('pkoklk',this.leaddata ,'+++++++', val);
-    const link1 = this._commonservices.nodesslurl + 'datalistforleaddata';
-    this._http.post(link1, { source:'leads_view', condition: { _id_object: this.route.snapshot.params['lead_id'] }}).subscribe((res:any) => {
-      this.leaddata = res.res[0];
-    this.dataFormForLead = this.kp.group({
-      firstname: [ '', Validators.required ],
-      lastname: [ '', Validators.required ],
-      company: [ '', Validators.required ],
-      email: [ res.res[0].email, Validators.required ],
-      address: [ '', Validators.required ],
-      phoneno: [ '', Validators.required ],
-      product:[res.res[0].product]
+    // console.log('pkoklk',this.leaddata ,'+++++++', val);
+    if (typeof(this.route.snapshot.params['lead_id']) == 'undefined' || this.route.snapshot.params['lead_id'] == null) {
+      const link1 = this._commonservices.nodesslurl + 'datalistforleaddata';
+      this._http.post(link1, { source:'products_name', condition: { _id_object: this.route.snapshot.params['product_id'] }}).subscribe((res:any) => {
+        this.productval = res.res;
+      this.dataFormForLead = this.kp.group({
+        firstname: [ '', Validators.required ],
+        lastname: [ '', Validators.required ],
+        company: [ '', Validators.required ],
+        email: [ '', Validators.required ],
+        address: [ '', Validators.required ],
+        phoneno: [ '', Validators.required ],
+        product:[res.res[0]._id]
+      });
     });
-
-    });
- 
+    } else {
+      const link1 = this._commonservices.nodesslurl + 'datalistforleaddata';
+      this._http.post(link1, { source:'leads_view', condition: { _id_object: this.route.snapshot.params['lead_id'] }}).subscribe((res:any) => {
+        this.leaddata = res.res[0];
+      this.dataFormForLead = this.kp.group({
+        firstname: [ '', Validators.required ],
+        lastname: [ '', Validators.required ],
+        company: [ '', Validators.required ],
+        email: [ res.res[0].email, Validators.required ],
+        address: [ '', Validators.required ],
+        phoneno: [ '', Validators.required ],
+        product:[res.res[0].product]
+      });
+      });
+    } 
   }
 
   dosubmitForLead(template:TemplateRef<any>,template1:TemplateRef<any>){
-      console.log(this.dataFormForLead.value);
+      // console.log(this.dataFormForLead.value);
       let y: any;
         for (y in this.dataFormForLead.controls) {
             this.dataFormForLead.controls[y].markAsTouched();
         }
+        if(this.dataFormForLead.valid){
         const link = this._commonservices.nodesslurl + 'addorupdatedata';
         this.dataFormForLead.value.id = this.leaddata._id;
             this._http.post(link, { source: 'leads', data: this.dataFormForLead.value, sourceobj: ['created_by']  })
@@ -395,28 +411,29 @@ public bookNowStatus:boolean = true;
                     }, 500);
                   }
                 });
+              }
 
   }
   booknowmodal_appointmentlist(val: any = {}, template2:TemplateRef<any>){
-    console.log(this.googleeventval);
-    console.log(val);
+    // console.log(this.googleeventval);
+    // console.log(val);
     val.prvslot = this.googleeventval.prvslot;
     val.prv_id = this.googleeventval.prv_id;
-    console.log(val,"======+++++")
+    // console.log(val,"======+++++")
     let timeZone = val.timezone;
     timeZone = timeZone.slice(0,6);
-    console.log(timeZone,'+++++');
+    // console.log(timeZone,'+++++');
     let start_time =  (moment(this.slotdata.startdate + 'T' + this.slotdata.slots[this.itemidval].trim() + ':00').format('YYYY-MM-DDTHH:mm:ss')+timeZone);
     let end_time =(moment(this.slotdata.startdate + 'T' + this.slotdata.slots[this.itemidval].trim() + ':00').add(this.slotdata.timespan, 'minutes').format('YYYY-MM-DDTHH:mm:ss')+timeZone);
         
     // let start = val.startdate+'T'+val.starttime+':00'+timeZone;
     // let end = val.startdate+'T'+val.endtime+':00'+timeZone;
-    console.log('=======',start_time,end_time)
+    // console.log('=======',start_time,end_time)
     let link = "https://gapi.betoparedes.com/updateevent.php?event="+this.googleeventval.googleevent+"&start="+start_time+"&end="+end_time+"&refresh_token="+this.googleeventval.refresh_token+"&summary="+val.meetingwith;
 
     this._http.get(link)
     .subscribe((res:any) => {
-      console.log(res.status);
+      // console.log(res.status);
         if (res.status == 'success') {
           this.modalRef2 = this.modal.show(template2);
           setTimeout(() => {
@@ -425,7 +442,7 @@ public bookNowStatus:boolean = true;
           let link1 = this._commonservices.nodesslurl + 'rescheduletocalendar';
           this._http.post(link1, val)
       .subscribe((res1:any) => {
-        console.log(res1);
+        // console.log(res1);
       })
         }
       });
@@ -479,17 +496,17 @@ showformat(stdt){
       this.dataForm.controls[x].markAsTouched();
     }
     if (!this.dataForm.valid) {
-      console.log('error in validation');
-      console.log(this.dataForm.value);
-      console.log(this.dataForm.valid);
+      // console.log('error in validation');
+      // console.log(this.dataForm.value);
+      // console.log(this.dataForm.valid);
       return;
     }
     else {
       this.loader = true;
       this.modaloff();
-      console.log('=============================================================');
-      console.log('valid', this.dataForm.valid);
-      console.log('valid', this.dataForm.value, this.slotdata.timespan);
+      // console.log('=============================================================');
+      // console.log('valid', this.dataForm.valid);
+      // console.log('valid', this.dataForm.value, this.slotdata.timespan);
       //console.log('valid');
       //return;
       let link = this._commonservices.nodesslurl + 'addtocalendar';
@@ -566,22 +583,22 @@ showformat(stdt){
         viewonlyaccess: this.cookeiservice.get('viewonlyaccess'),
         type: this.route.snapshot.url[0].path
       };
-      console.log('data--------');
-      console.log(data.end_time+''+tz[0]);
+      // console.log('data--------');
+      // console.log(data.end_time+''+tz[0]);
       this.loader = true;
       let link1 = 'https://gapi.betoparedes.com/check_ability.php?refresh_token='+this.cookeiservice.get('refreshtoken')+'&start='+data.start_time+''+tz[0] +'&end='+ data.end_time+''+tz[0];
-      console.log(link1)
+      // console.log(link1)
 
       this._http.get(link1)
       .subscribe((res:any) => {
-        console.log(res);
+        // console.log(res);
         this.slotDataStatus = res;
         if (res == 0) {
           this._http.post(link, data)
           .subscribe(res => {
             let result: any = res;
-            console.log('result.... for google calendar');
-            console.log(result);
+            // console.log('result.... for google calendar');
+            // console.log(result);
             this.modalRef.hide();
             this.message = "Your Booking done successfully !!";
             //this.modalRef=this.modal.show(this.mymodal, {class: 'successmodal'});
@@ -610,7 +627,7 @@ showformat(stdt){
                 });
                 break;
               default:
-                console.log(this.route.snapshot.url[0].path,'+++++++',result.gdata)
+                // console.log(this.route.snapshot.url[0].path,'+++++++',result.gdata)
                 this.router.navigate(['/on-boarding-call-booked/' + 'us7ag61k4r9306plvmilbot9jk' + '/' + result.gdata]);
                 break;
             }
@@ -644,20 +661,17 @@ showformat(stdt){
   /* Get user details */
   getUserDetails(id) {
     let link:any;
-    if (this.route.snapshot.routeConfig.path == 'marketing-review/:product_id/:rep_id/:lead_id') {
+    // if (this.route.snapshot.routeConfig.path == 'marketing-review/:product_id/:rep_id/:lead_id') {
      link = this._commonservices.nodesslurl + 'datalistforleaddata';
-    } else {
-      link = this._commonservices.nodesslurl + 'datalist?token=' + this.cookeiservice.get('jwttoken');
-    }
     this._http.post(link, { source:'users', condition: { _id_object: id }})
       .subscribe(res => {
         let result: any = res;
-        console.log('===== Refresh Token =====');
-        console.log(result.res[0].refreshtoken);
-        console.log(result.res[0]);
+        // console.log('===== Refresh Token =====');
+        // console.log(result.res[0].refreshtoken);
+        // console.log(result.res[0]);
         this.cookeiservice.set('refreshtoken', result.res[0].refreshtoken);
         this.cookeiservice.set('organizerid', result.res[0].email);
-        console.log('viewonlyaccess');
+        // console.log('viewonlyaccess');
         if (result.res[0] != null && result.res[0].viewonlyaccess != null && result.res[0].viewonlyaccess == true) {
           this.cookeiservice.set('viewonlyaccess', result.res[0].viewonlyaccess);
         } else {
@@ -666,13 +680,13 @@ showformat(stdt){
 }
         // this.participantName = result.res[0].firstname + ' ' + result.res[0].lastname;
         // this.participantPhNumber = result.res[0].phoneno;
-        console.log(this.participantPhNumber);
+        // console.log(this.participantPhNumber);
       })
   }
   speciality(event:any){
-    console.log('event.target.value');
-    console.log(event.target.value);
-    console.log(event.target.checked);
+    // console.log('event.target.value');
+    // console.log(event.target.value);
+    // console.log(event.target.checked);
     if(event.target.checked == true){
       if(this.specialityarray.length==0){
         this.specialityarray = [];
@@ -690,8 +704,8 @@ showformat(stdt){
       }
     }
 
-    console.log('this.specialityarray');
-    console.log(this.specialityarray);
+    // console.log('this.specialityarray');
+    // console.log(this.specialityarray);
     // console.log(this.dataForm.controls['doctor_details'].value);
     // // console.log(this.dataForm.controls['doctor_details'].['speciality'].value);
     // // console.log(this.dataForm.controls.doctor_details);

@@ -27,11 +27,11 @@ export class ContractReviewVideoComponent implements OnInit {
   public rep_data: any = '';
   public lead_data: any = '';
   public youtube_url: any = [
-    {'product_id':"5dd68c367b583967f3e57312", 'link':"https://www.youtube.com/embed/8qkgcCBOQM4", 'start':0, 'second_start':75},
-    {'product_id':"5dd68c367b583967f3e573r2", 'link':"https://www.youtube.com/embed/8qkgcCBOQM4", 'start':0, 'second_start':75},
-    {'product_id':"5dd68c367b583967f3e573v2", 'link':"https://www.youtube.com/embed/8qkgcCBOQM4", 'start':0, 'second_start':75},
-    {'product_id':"5dd68c367b583967f3e573x2", 'link':"https://www.youtube.com/embed/8qkgcCBOQM4", 'start':0, 'second_start':75},
-    {'product_id':"5dd68c367b583967f3e573h2", 'link':"https://www.youtube.com/embed/8qkgcCBOQM4", 'start':0, 'second_start':75},
+    {'product_id':"5d4d5e8cc9e23d43cc124394", 'link':"https://www.youtube.com/embed/8qkgcCBOQM4", 'start':0, 'second_start':75},
+    {'product_id':"5e4e675185f01a4ee4f0ac22", 'link':"https://www.youtube.com/embed/8qkgcCBOQM4", 'start':0, 'second_start':75},
+    {'product_id':"5d4d5eedc9e23d43cc124395", 'link':"https://www.youtube.com/embed/8qkgcCBOQM4", 'start':0, 'second_start':75},
+    {'product_id':"5d4d5f66c9e23d43cc1243a2", 'link':"https://www.youtube.com/embed/8qkgcCBOQM4", 'start':0, 'second_start':75},
+    {'product_id':"5e4e634052b7254c601f7559", 'link':"https://www.youtube.com/embed/8qkgcCBOQM4", 'start':0, 'second_start':75},
     {'product_id':"5dd68c367b583967f3e573b2", 'link':"https://www.youtube.com/embed/8qkgcCBOQM4", 'start':0, 'second_start':175},
   ]
   public safeSrc:SafeResourceUrl;
@@ -60,14 +60,14 @@ export class ContractReviewVideoComponent implements OnInit {
   }
 
   startTime(item: any, flag: any){
-    console.log(item)
+    // console.log(item)
   //   this.youtube_url[key].safeSrc = this.sanitizer.bypassSecurityTrustResourceUrl(this.youtube_url[key].link);
   if (flag == '1') {
     item.safeSrc = this.sanitizer.bypassSecurityTrustResourceUrl(item.link+'?start='+item.start+'?autoplay=1');
   } else {
     item.safeSrc = this.sanitizer.bypassSecurityTrustResourceUrl(item.link+'?start='+item.second_start+'?autoplay=1');
   }
-   console.log(item.safeSrc)
+  //  console.log(item.safeSrc)
   }
 
   geteventarr() {
@@ -86,7 +86,7 @@ export class ContractReviewVideoComponent implements OnInit {
           $gt: moment().subtract(1, 'days').format('YYYY-MM-DD')
         }
       };
-      console.log('cond', cond);
+      // console.log('cond', cond);
     }
     const link = this._commonservice.nodesslurl + 'datalistforslot';
     this._http.post(link, {rep_id: this.activatedroute.snapshot.params['rep_id'],lead_id: this.activatedroute.snapshot.params['lead_id'], condition: cond }).subscribe((res:any) => {
@@ -94,14 +94,14 @@ export class ContractReviewVideoComponent implements OnInit {
       this.allslotslength = res.data.slots_data.length;
       this.lead_data = res.data.lead_data[0].emailStatus;
       if (this.lead_data.emailStatus == 'send') {
-        console.log('++++++')
-        const link1 = this._commonservice.nodesslurl + 'addorupdatedata?token=' + this.cookeiservice.get('jwttoken');
+        // console.log('++++++')
+        const link1 = this._commonservice.nodesslurl + 'addorupdatedata';
               let data = {
                   source: 'leads',
                   data: { id: this.lead_data._id, emailStatus: 'seen' }
               };
               this._http.post(link1, data).subscribe((res1: any) => {
-                  console.log(res1, '+++res1');
+                  // console.log(res1, '+++res1');
               });
       }
       // console.log('allslots', this.allslots, this.allslots.length);
@@ -114,8 +114,8 @@ export class ContractReviewVideoComponent implements OnInit {
   }
 
   sendToCM(template:TemplateRef<any>){
-    console.log(this.activatedroute.snapshot.params['rep_id'], this.activatedroute.snapshot.params['product_id'], this.activatedroute.snapshot.params['lead_id']);
-    const link1 = this._commonservice.nodesslurl + 'addorupdatedata?token=' + this.cookeiservice.get('jwttoken');
+    // console.log(this.activatedroute.snapshot.params['rep_id'], this.activatedroute.snapshot.params['product_id'], this.activatedroute.snapshot.params['lead_id']);
+    const link1 = this._commonservice.nodesslurl + 'addorupdatedata';
     let data = {
         source: 'contract_repote',
         data: { status: 'request', rep_id: this.activatedroute.snapshot.params['rep_id'], product_id: this.activatedroute.snapshot.params['product_id'], lead_id:this.activatedroute.snapshot.params['lead_id'], created_by: this.activatedroute.snapshot.params['lead_id']}

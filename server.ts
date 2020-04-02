@@ -6,6 +6,13 @@ import {ngExpressEngine} from '@nguniversal/express-engine';
 import {provideModuleMap} from '@nguniversal/module-map-ngfactory-loader';
 
 import * as express from 'express';
+var compression = require('compression');
+// Express server
+export const app = express();
+ 
+// compress responses
+app.use(compression())
+
 import {join} from 'path';
 // const domino = require('domino');
 // const fs = require('fs');
@@ -24,8 +31,6 @@ import {join} from 'path';
 // Faster server renders w/ Prod mode (dev mode never needed)
 enableProdMode();
 
-// Express server
-export const app = express();
 
 const PORT = process.env.PORT || 4000;
 const DIST_FOLDER = join(process.cwd(), 'dist/browser');
